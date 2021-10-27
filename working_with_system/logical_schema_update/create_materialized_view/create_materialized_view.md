@@ -17,7 +17,7 @@ has_children: false
 в хранилище, добавьте в запрос ключевое слово 
 [LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md#logical_only).
 
-В текущей версии возможно создание материализованных представлений в ADG на основе данных ADB.
+Создание материализованных представлений возможно в ADG и ADQM на основе данных ADB.
 {: .note-wrapper}
 
 Наличие материализованного представления можно проверить, как описано в разделе 
@@ -46,7 +46,7 @@ CREATE MATERIALIZED VIEW sales.sales_and_stores (
   PRIMARY KEY (id, region)
 )
 DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adg)
+DATASOURCE_TYPE (adg, adqm)
 AS SELECT
  s.id, s.transaction_date, s.product_code, s.product_units, s.description,
  st.id AS store_id, st.category as store_category, st.region

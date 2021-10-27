@@ -23,8 +23,8 @@ has_toc: false
 Запрос позволяет создать [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
 
-Создание материализованных представлений возможно на основе данных ADB
-с размещением в ADG.
+Материализованные представления можно создавать на основе данных ADB. Данные представлений могут размещаться 
+в ADG и (или) ADQM.
 {: .note-wrapper}
 
 В ответе возвращается:
@@ -68,7 +68,7 @@ DATASOURCE_TYPE = origin_datasource_alias
 *   `column_list_2` — список столбцов, входящих в ключ шардирования представления. 
     Столбцы должны быть из числа столбцов `column_list_1`;
 *   `datasource_aliases` — список псевдонимов СУБД хранилища, в которых нужно разместить данные представления. 
-    Элементы списка перечисляются через запятую. Возможные значения: `adg`.
+    Элементы списка перечисляются через запятую. Возможные значения: `adqm`, `adg`.
     Значения можно указывать без кавычек (например, `adg`) или двойных кавычках (например, `"adg"`);
 *   `query` — [SELECT](../SELECT/SELECT.md)-подзапрос, на основе которого строится представление;
 *   `origin_datasource_alias` — псевдоним СУБД, которая служит источником данных. 
@@ -78,7 +78,7 @@ DATASOURCE_TYPE = origin_datasource_alias
 
 Ключевое слово `DATASOURCE_TYPE` позволяет указать СУБД хранилища, в которых необходимо
 размещать данные материализованного представления. В текущей версии данные представления могут 
-размещаться только в ADG.
+размещаться в ADG и (или) в ADQM.
 
 ### Ключевое слово LOGICAL_ONLY {#logical_only}
 
@@ -108,6 +108,8 @@ DATASOURCE_TYPE = origin_datasource_alias
 
 ### Создание представления на основе одной таблицы с условием {#example_with_condition}
 
+Создание представления с размещением в ADG и ADQM:
+
 ```sql
 CREATE MATERIALIZED VIEW sales.sales_december_2020 (
 id INT NOT NULL,
@@ -119,13 +121,15 @@ description VARCHAR(256),
 PRIMARY KEY (id)
 )
 DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adg)
+DATASOURCE_TYPE (adg, adqm)
 AS SELECT * FROM sales.sales
    WHERE transaction_date BETWEEN '2020-12-01' AND '2020-12-31'
 DATASOURCE_TYPE = 'adb'
 ```
 
 ### Создание представления на основе одной таблицы с условием, агрегацией и группировкой {#example_with_group_by}
+
+Создание представления с размещением в ADQM:
 
 ```sql
 CREATE MATERIALIZED VIEW sales.sales_by_stores (
@@ -135,7 +139,7 @@ product_units INT NOT NULL,
 PRIMARY KEY (store_id, product_code)
 )
 DISTRIBUTED BY (store_id)
-DATASOURCE_TYPE (adg)
+DATASOURCE_TYPE (adqm)
 AS SELECT store_id, product_code, SUM(product_units) as product_units FROM sales.sales
    WHERE product_code <> 'ABC0001'
    GROUP BY store_id, product_code
