@@ -39,7 +39,7 @@ has_toc: false
 Вставка данных возможна, если выполнено любое из условий:
 * данные целевой таблицы размещены только в одной СУБД хранилища, и источником данных служит та же СУБД 
   хранилища;
-* данные целевой таблицы размещены в ADG или в ADG и ADB, и источником данных служит ADB.
+* данные целевой таблицы размещены в ADB, ADQM и (или) ADG, и источником данных служит ADB.
 
 Месторасположение данных логической таблицы можно задавать запросами
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с указанием ключевого слова
@@ -194,7 +194,7 @@ USE sales;
 -- создание логического представления basic_stores с данными о магазинах категории basic
 CREATE VIEW basic_stores AS SELECT * FROM stores WHERE category = 'basic';
 
--- создание таблицы basic_stores_table с данными о магазинах категории basic (с размещением данных в ADB и ADG)
+-- создание таблицы basic_stores_table с данными о магазинах категории basic (с размещением данных в ADB, ADQM и ADG)
 CREATE TABLE basic_stores_table (
 id INT NOT NULL,
 category VARCHAR(256),
@@ -203,7 +203,7 @@ address VARCHAR(256),
 description VARCHAR(256),
 PRIMARY KEY (id)
 ) DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adb, adg);
+DATASOURCE_TYPE (adb, adqm, adg);
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
