@@ -27,7 +27,7 @@ has_toc: false
 Вставка данных в логические и материализованные представления 
 недоступна.
 
-Запрос UPSERT SELECT не поддерживается для ADG.
+Запрос UPSERT SELECT не поддерживает вставку данных из ADG в ADG.
 {: .note-wrapper}
 
 Источником данных служит одна [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)

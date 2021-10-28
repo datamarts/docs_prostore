@@ -19,10 +19,6 @@ has_toc: false
 Для обновления большого объема данных следует использовать [загрузку данных](../data_upload/data_upload.md).
 {: .note-wrapper}
 
-Запрос обновления данных [UPSERT SELECT](../../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md) 
-не поддерживается для ADG.
-{: .note-wrapper}
-
 Чтобы обновить данные в логической таблице:
 2.  [Создайте](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md)
     логическую таблицу, если она еще не создана.
@@ -45,9 +41,13 @@ has_toc: false
 При успешном выполнении действий состояние данных системы обновляется, как описано в разделе 
 [Версионирование данных](../data_upload/data_versioning/data_versioning.md).
 
-Изменения по всем завершенным [операциям записи](../../overview/main_concepts/write_operation/write_operation.md) можно 
-отменить с помощью запроса [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). 
-Изменения по незавершенным операциям обновления данных отменить невозможно.
+Запрос [UPSERT SELECT](../../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md) не поддерживает вставку данных
+из ADG в ADG.
+{: .note-wrapper}
+
+Пока дельта не закрыта, изменения по всем ее завершенным [операциям записи](../../overview/main_concepts/write_operation/write_operation.md) 
+можно отменить с помощью запроса [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). 
+Изменения по незавершенным операциям отменить невозможно.
 {: .note-wrapper}
 
 ## Примеры {#examples}
