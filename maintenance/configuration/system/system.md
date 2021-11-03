@@ -139,7 +139,7 @@ core:
     maxConcurrent: ${MATERIALIZED_VIEWS_CONCURRENT:2}
 # настройки генерации метрики сервиса исполнения запросов
   metrics:
-# признак генерации метрики сервиса исполнения запросов
+# признак генерации метрик сервиса исполнения запросов
     enabled: ${DTM_CORE_METRICS_ENABLED:true}
 # настройки источника данных
   datasource:
