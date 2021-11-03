@@ -350,6 +350,8 @@ adqm:
   ddl:
 # имя кластера ADQM
     cluster: ${ADQM_CLUSTER:test_arenadata}
+# алгоритм шардирования данных; возможные значения: cityHash64, intAdd (значение по умолчанию до версии 5.2 включительно)
+    shardingKeyExpr: ${ADQM_SHARDING_EXPR:cityHash64}
 # настройки механизма выгрузки данных из ADQM
   mppr:
 # сетевой адрес и путь для запросов на выгрузку данных
