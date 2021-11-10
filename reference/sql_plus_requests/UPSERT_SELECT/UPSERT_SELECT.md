@@ -215,3 +215,47 @@ UPSERT INTO basic_stores_table SELECT * FROM basic_stores DATASOURCE_TYPE = 'adb
 COMMIT DELTA;
 ```
 
+### Вставка данных столбца из другой таблицы {#column_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- создание логической таблицы с данными покупок и адресов магазинов, где были совершены покупки 
+CREATE TABLE sales_with_address (
+id INT NOT NULL,
+transaction_date TIMESTAMP NOT NULL,
+product_code VARCHAR(256),
+product_units INT,
+store_id INT,
+description VARCHAR(256),
+store_address VARCHAR(256),
+PRIMARY KEY (id)
+) DISTRIBUTED BY (id)
+DATASOURCE_TYPE (adb, adqm, adg);
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+-- вставка данных из таблицы sales (заполнение всех столбцов, кроме store_address)
+UPSERT INTO sales_with_address (id, transaction_date, product_code, product_units, store_id, description)
+SELECT * FROM sales DATASOURCE_TYPE = 'adb';
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+--- вставка данных адресов из таблицы stores в те строки, где адрес не заполнен
+UPSERT INTO sales_with_address
+SELECT s.id, s.transaction_date, s.product_code, s.product_units, s.store_id, s.description, 
+st.region || ', ' || st.address as store_address
+FROM stores AS st 
+JOIN sales_with_address AS s ON s.store_id = st.id 
+WHERE s.store_address IS NULL OR s.store_address = ''
+DATASOURCE_TYPE = 'adb';
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```
