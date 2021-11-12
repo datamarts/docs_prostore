@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CREATE MATERIALIZED VIEW
-nav_order: 13
+nav_order: 14
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -35,6 +35,11 @@ has_toc: false
 [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
 [хранилища](../../../overview/main_concepts/data_storage/data_storage.md) можно указать
 ключевое слово `DATASOURCE_TYPE` (см. секцию [Ключевое слово DATASOURCE_TYPE](#datasource_type)).
+
+Синхронизация нового представления запускается в первом доступном цикле синхронизации представлений (в порядке 
+очереди, если она есть). Статус синхронизации представления можно узнать с помощью запроса 
+[CHECK_MATVIEW](../CHECK_MATVIEW/CHECK_MATVIEW.md). Подробнее о синхронизации см. в разделе 
+[Синхронизация материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md#synchronization).
 
 Изменение материализованного представления недоступно. Для замены материализованного 
 представления необходимо удалить его и создать новое.

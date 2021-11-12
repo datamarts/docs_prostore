@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CREATE DATABASE
-nav_order: 11
+nav_order: 12
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

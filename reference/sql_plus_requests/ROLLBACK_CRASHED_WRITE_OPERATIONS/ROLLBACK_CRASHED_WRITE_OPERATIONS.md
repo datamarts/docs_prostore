@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: ROLLBACK CRASHED_WRITE_OPERATIONS
-nav_order: 32
+nav_order: 33
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

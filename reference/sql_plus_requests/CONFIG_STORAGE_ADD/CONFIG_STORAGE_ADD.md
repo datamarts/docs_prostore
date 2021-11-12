@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CONFIG_STORAGE_ADD
-nav_order: 10
+nav_order: 11
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

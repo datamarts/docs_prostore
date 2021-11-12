@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: DROP VIEW
-nav_order: 23
+nav_order: 24
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

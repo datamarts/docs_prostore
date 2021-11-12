@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CHECK_SUM
-nav_order: 5
+nav_order: 6
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

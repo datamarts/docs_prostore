@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: COMMIT DELTA
-nav_order: 8
+nav_order: 9
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
