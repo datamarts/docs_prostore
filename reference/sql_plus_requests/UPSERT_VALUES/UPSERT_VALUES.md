@@ -30,7 +30,10 @@ has_toc: false
 и [материализованные представления](../../../overview/main_concepts/materialized_view/materialized_view.md)
 недоступна.
 
-Для обновления большого объема данных следует использовать 
+Запрос не поддерживается для ADG.
+{: .note-wrapper}
+
+Для обновления большого объема данных следует использовать
 [загрузку данных](../../../working_with_system/data_upload/data_upload.md).
 {: .tip-wrapper}
 
