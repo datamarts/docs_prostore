@@ -1,6 +1,6 @@
 ﻿---
 layout: default
-title: CHECK_MATVIEW
+title: CHECK_MATERIALIZED_VIEW
 nav_order: 5
 parent: Запросы SQL+
 grand_parent: Справочная информация
@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-# CHECK_MATVIEW
+# CHECK_MATERIALIZED_VIEW
 
 Запрос позволяет получить информацию по одному или всем 
 [материализованным представлениям](../../../overview/main_concepts/materialized_view/materialized_view.md) 
@@ -35,7 +35,7 @@ has_toc: false
 ## Синтаксис {#syntax}
 
 ```sql
-CHECK_MATVIEW([[db_name].materialized_view_name])
+CHECK_MATERIALIZED_VIEW([[db_name].materialized_view_name])
 ```
 
 Параметры:
@@ -49,7 +49,7 @@ CHECK_MATVIEW([[db_name].materialized_view_name])
 ### Запрос информации по всем представлениям логической БД, выбранной по умолчанию {#all_views}
 
 ```sql
-CHECK_MATVIEW()
+CHECK_MATERIALIZED_VIEW()
 ```
 
 ### Запрос информации по одному представлению {#one_view}
@@ -57,28 +57,13 @@ CHECK_MATVIEW()
 Запрос в логической БД, выбранной по умолчанию:
 
 ```sql
-CHECK_MATVIEW(sales_december_2020)
+CHECK_MATERIALIZED_VIEW(sales_december_2020)
 ```
 
 Запрос в указанной логической БД:
 
 ```sql
-CHECK_MATVIEW(sales.sales_december_2020)
+CHECK_MATERIALIZED_VIEW(sales.sales_december_2020)
 ```
-
-
-<!--
-### Запрос информации по одному представлению логической БД, выбранной по умолчанию {#one_in_current_db}
-
-```sql
-CHECK_MATVIEW(sales_december_2020)
-```
-
-### Запрос информации по одному представлению указанной логической БД {#one_in_specified_db}
-
-```sql
-CHECK_MATVIEW(sales.sales_december_2020)
-```
--->
 
 <скриншот>

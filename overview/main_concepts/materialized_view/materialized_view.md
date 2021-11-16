@@ -108,7 +108,7 @@ _Материализованное представление_ — структ
 остались несинхронизированными, система возобновляет попытки их синхронизировать.
 
 Статусы синхронизации материализованных представлений можно посмотреть с помощью запроса 
-[CHECK_MATVIEW](../../../reference/sql_plus_requests/CHECK_MATVIEW/CHECK_MATVIEW.md).
+[CHECK_MATERIALIZED_VIEW](../../../reference/sql_plus_requests/CHECK_MATERIALIZED_VIEW/CHECK_MATERIALIZED_VIEW.md).
 
 ### Пример синхронизации материализованного представления {#synchronization_example}
 
