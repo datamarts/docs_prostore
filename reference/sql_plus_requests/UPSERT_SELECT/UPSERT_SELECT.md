@@ -49,7 +49,7 @@ has_toc: false
 Для вставки большого объема данных следует использовать 
 [загрузку данных](../../../working_with_system/data_upload/data_upload.md) или сочетание 
 [выгрузки](../../../working_with_system/data_download/data_download.md) и загрузки данных.
-{: .note-wrapper}
+{: .tip-wrapper}
 
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
@@ -60,6 +60,13 @@ has_toc: false
 все записи таблицы с одинаковым первичным ключом рассматриваются системой как различные исторические состояния одного 
 объекта. Подробнее о версионировании
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
+
+Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
+`UPSERT SELECT`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
+[закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md). В этом случае нужно 
+повторить запрос. Действие перезапустит обработку операции, и после ее завершения можно будет закрыть или откатить дельту.
+Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 
 ## Синтаксис {#syntax}
 
