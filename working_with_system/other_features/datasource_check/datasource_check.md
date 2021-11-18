@@ -19,24 +19,22 @@ has_toc: false
 таблицы или представления в верхнем регистре):
 * запрос для логической таблицы:
 ```sql
-SELECT * FROM INFORMATION_SCHEMA.tables
+SELECT * FROM information_schema.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_type = 'BASE TABLE')
 ```
 * запрос для материализованного представления:
 ```sql
-SELECT * FROM INFORMATION_SCHEMA.tables
+SELECT * FROM information_schema.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_type = 'MATERIALIZED VIEW')
 ```
 
 В ответе система возвращает информацию о запрошенной логической сущности, где столбец `table_datasource_type` 
 содержит список СУБД, в которых размещены данные логической сущности.
 
-На рисунке ниже показан пример запроса по **всем** логическим сущностям логической БД `sales`:
+На рисунке ниже показан пример запроса по **всем** логическим сущностям логической БД `sales`.
 
 <a id="img_datasource_check"></a>
 ![](datasource_check.png)
 {: .figure-center}
 *Системное представление tables*
 {: .figure-caption-center}
-
-<><обновить скриншот>
