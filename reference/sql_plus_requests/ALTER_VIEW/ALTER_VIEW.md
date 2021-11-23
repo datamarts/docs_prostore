@@ -21,6 +21,14 @@ has_toc: false
 (см. [CREATE VIEW](../CREATE_VIEW/CREATE_VIEW.md)).
 {: .note-wrapper}
 
+Если при обработке запроса произошел сбой системы, работа с логической базой данной блокируется. В этом случае нужно 
+повторить запрос. Действие перезапустит обработку запроса, и после ее завершения можно будет продолжить работу 
+с логической БД.
+
+Каждое изменение представления записывается в 
+[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
+
 ## Синтаксис {#syntax}
 
 ```sql
@@ -36,12 +44,14 @@ ALTER VIEW [db_name.]view_name AS SELECT query
 
 ## Ограничения {#restrictions}
 
+*   Выполнение запроса недоступно при наличии горячей [дельты](../../../overview/main_concepts/delta/delta.md) или  
+незавершенного запроса на создание, удаление или изменение таблицы или представления.
 *   Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
-*   В подзапросе `query` не допускается использование:
-    *   логических представлений,
-    *   [системных представлений](../../system_views/system_views.md) INFORMATION_SCHEMA,
-    *   ключевого слова [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
-    *   ключевого слова [DATASOURCE_TYPE](../SELECT/SELECT.md#param_datasource_type).
+*   Подзапрос `query` не может содержать:
+    *   логические представления,
+    *   [системные представления](../../system_views/system_views.md) INFORMATION_SCHEMA,
+    *   ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
+    *   ключевое слово [DATASOURCE_TYPE](../SELECT/SELECT.md#param_datasource_type).
 
 ## Пример {#examples}
 

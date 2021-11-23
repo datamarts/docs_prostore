@@ -16,10 +16,14 @@ has_children: false
 из [хранилища](../../../overview/main_concepts/data_storage/data_storage.md), добавьте в запрос ключевое слово
 [LOGICAL_ONLY](../../../reference/sql_plus_requests/DROP_MATERIALIZED_VIEW/DROP_MATERIALIZED_VIEW.md#logical_only).
 
-Наличие материализованного представления можно проверить, как описано в разделе
+Наличие представления можно проверить, как описано в разделе
 [Проверка наличия материализованного представления](../entity_presence_check/entity_presence_check.md#mat_view_check).
 Наличие физических таблиц, связанных с материализованным представлением, можно проверить, как описано в разделе 
 [Проверка месторасположения логической сущности](../../../working_with_system/other_features/datasource_check/datasource_check.md).
+
+Каждое удаление представления записывается в 
+[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
 
 ## Примеры {#examples}
 

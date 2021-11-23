@@ -15,7 +15,12 @@ has_children: false
 При успешном выполнении запроса логическое представление появляется в 
 [логической схеме данных](../../../overview/main_concepts/logical_schema/logical_schema.md).
 
-Наличие логического представления можно проверить, как описано в разделе [Проверка наличия логического представления](../entity_presence_check/entity_presence_check.md#view_check).
+Наличие представления можно проверить, как описано в разделе 
+[Проверка наличия логического представления](../entity_presence_check/entity_presence_check.md#view_check).
+
+Каждое создание представления записывается в 
+[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
 
 ## Пример {#examples}
 

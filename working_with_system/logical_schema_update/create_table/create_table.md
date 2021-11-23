@@ -26,6 +26,10 @@ has_children: false
 физических таблиц, связанных с логической, можно проверить, как описано в разделе
 [Проверка месторасположения логической сущности](../../../working_with_system/other_features/datasource_check/datasource_check.md).
 
+Каждое создание таблицы записывается в 
+[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
+
 ## Примеры {#examples}
 
 ### Создание логической таблицы {#non-logical_example}

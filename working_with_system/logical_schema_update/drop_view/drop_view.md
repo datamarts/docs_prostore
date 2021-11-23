@@ -12,10 +12,16 @@ has_children: false
 Чтобы удалить [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) 
 из [логической БД](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [DROP VIEW](../../../reference/sql_plus_requests/DROP_VIEW/DROP_VIEW.md).
-При успешном выполнении запроса логическое представление удаляется из [логической схемы данных](../../../overview/main_concepts/logical_schema/logical_schema.md). 
+При успешном выполнении запроса логическое представление удаляется из 
+[логической схемы данных](../../../overview/main_concepts/logical_schema/logical_schema.md). 
 Удаление логического представления никак не отражается в [хранилище](../../../overview/main_concepts/data_storage/data_storage.md).
 
-Наличие логического представления можно проверить, как описано в разделе [Проверка наличия логического представления](../entity_presence_check/entity_presence_check.md#view_check).
+Наличие представления можно проверить, как описано в разделе 
+[Проверка наличия логического представления](../entity_presence_check/entity_presence_check.md#view_check).
+
+Каждое удаление представления записывается в 
+[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
 
 ## Пример {#examples}
 
