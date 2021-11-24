@@ -20,7 +20,7 @@ has_children: false
 [Проверка наличия логического представления](../entity_presence_check/entity_presence_check.md#view_check).
 
 Каждое удаление представления записывается в 
-[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+[журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
 можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
 
 ## Пример {#examples}

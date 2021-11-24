@@ -26,7 +26,7 @@ has_children: false
 [Проверка месторасположения логической сущности](../../../working_with_system/other_features/datasource_check/datasource_check.md).
 
 Каждое создание представления записывается в 
-[лог изменений логических сущностей](../../../overview/main_concepts/changelog/changelog.md). Лог изменений 
+[журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
 можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
 
 ## Примеры {#examples}
