@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CHECK_DATA
-nav_order: 3
+nav_order: 4
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

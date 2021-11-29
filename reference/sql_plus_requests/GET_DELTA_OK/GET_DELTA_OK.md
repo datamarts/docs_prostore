@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: GET_DELTA_OK
-nav_order: 28
+nav_order: 30
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

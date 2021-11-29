@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: GET_DELTA_BY_DATETIME
-nav_order: 25
+nav_order: 27
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

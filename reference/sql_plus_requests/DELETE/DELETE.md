@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: DELETE
-nav_order: 18
+nav_order: 19
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

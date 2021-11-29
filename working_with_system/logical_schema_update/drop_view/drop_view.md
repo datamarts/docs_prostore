@@ -16,11 +16,16 @@ has_children: false
 [логической схемы данных](../../../overview/main_concepts/logical_schema/logical_schema.md). 
 Удаление логического представления никак не отражается в [хранилище](../../../overview/main_concepts/data_storage/data_storage.md).
 
+Удаление представления недоступно при наличии любого из факторов:
+* горячей [дельты](../../../overview/main_concepts/delta/delta.md),
+* незавершенного запроса на создание, удаление или изменение таблицы или представления,
+* запрета на изменение сущностей (см. раздел [DENY_CHANGES](../../../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
+
 Наличие представления можно проверить, как описано в разделе 
 [Проверка наличия логического представления](../entity_presence_check/entity_presence_check.md#view_check).
+{: .note-wrapper}
 
-Каждое удаление представления записывается в 
-[журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
+Каждое удаление представления записывается в [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
 можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
 
 ## Пример {#examples}

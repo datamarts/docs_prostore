@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CREATE DOWNLOAD EXTERNAL TABLE
-nav_order: 13
+nav_order: 14
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

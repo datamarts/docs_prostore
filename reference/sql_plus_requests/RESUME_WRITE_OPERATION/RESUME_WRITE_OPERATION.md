@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: RESUME_WRITE_OPERATION
-nav_order: 32
+nav_order: 34
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

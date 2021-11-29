@@ -12,13 +12,21 @@ has_children: false
 Чтобы создать [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [CREATE MATERIALIZED VIEW](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md).
-Если материализованное представление нужно создать только на логическом уровне, без 
-пересоздания связанных [физических таблиц](../../../overview/main_concepts/physical_table/physical_table.md) 
-в хранилище, добавьте в запрос ключевое слово 
-[LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md#logical_only).
+При необходимости добавьте в запрос ключевое слово:
+* [DATASOURCE_TYPE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#datasource_type) со списком
+  [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
+  [хранилища](../../../overview/main_concepts/data_storage/data_storage.md) — чтобы указать, в каких СУБД нужно разместить 
+  данные представления;
+* [LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only) — чтобы создать 
+  представление только на логическом уровне.
 
 Создание материализованных представлений возможно в ADG и ADQM на основе данных ADB.
 {: .note-wrapper}
+
+Создание представления недоступно при наличии любого из факторов:
+* горячей [дельты](../../../overview/main_concepts/delta/delta.md),
+* незавершенного запроса на создание, удаление или изменение таблицы или представления,
+* запрета на изменение сущностей (см. раздел [DENY_CHANGES](../../../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
 
 Наличие представления можно проверить, как описано в разделе 
 [Проверка наличия материализованного представления](../entity_presence_check/entity_presence_check.md#mat_view_check).
