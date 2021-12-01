@@ -35,7 +35,7 @@ has_children: false
 
 Каждое создание представления записывается в 
 [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
-можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
+можно посмотреть с помощью запроса [GET_CHANGES](../../../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md).
 
 ## Примеры {#examples}
 

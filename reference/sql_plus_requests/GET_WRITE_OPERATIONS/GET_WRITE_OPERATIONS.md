@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: GET_WRITE_OPERATIONS
-nav_order: 31
+nav_order: 32
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

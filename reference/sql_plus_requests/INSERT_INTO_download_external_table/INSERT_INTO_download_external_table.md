@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: INSERT INTO download_external_table
-nav_order: 32
+nav_order: 33
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

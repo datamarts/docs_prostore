@@ -32,7 +32,7 @@ has_children: false
 {: .note-wrapper}
 
 Каждое создание таблицы записывается в [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
-доступен с помощью запроса `GET_CHANGES`. <ссылка>
+доступен с помощью запроса [GET_CHANGES](../../../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md).
 
 ## Примеры {#examples}
 

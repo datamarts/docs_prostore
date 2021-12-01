@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: SELECT FROM INFORMATION_SCHEMA
-nav_order: 38
+nav_order: 39
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

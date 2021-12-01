@@ -24,7 +24,7 @@ has_toc: false
 работу с логической БД.
 
 Каждое удаление представления записывается в [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал
-можно посмотреть с помощью запроса `GET_CHANGES`. <ссылка>
+можно посмотреть с помощью запроса [GET_CHANGES](../GET_CHANGES/GET_CHANGES.md).
 
 ## Синтаксис {#syntax}
 
