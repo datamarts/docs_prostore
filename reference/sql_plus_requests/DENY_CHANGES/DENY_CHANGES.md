@@ -17,8 +17,7 @@ has_toc: false
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md). 
 
 В запросе можно указать произвольный код, без которого снятие запрета будет невозможно. 
-Запрет влияет только на структуру логических сущностей и не влияет на их данные. При установленном запрете доступны 
-все действия с данными:
+При установленном запрете остаются доступны все действия с данными:
 [загрузка](../../../working_with_system/data_upload/data_upload.md), 
 [обновление](../../../working_with_system/data_update/data_update.md), 
 [чтение](../../../working_with_system/data_reading/data_reading.md) и 
