@@ -115,7 +115,6 @@ core:
 
   datasource:
     edml:
-      sourceType: ${EDML_DATASOURCE:ADP}
       defaultChunkSize: ${EDML_DEFAULT_CHUNK_SIZE:1000}
       pluginStatusCheckPeriodMs: ${EDML_STATUS_CHECK_PERIOD_MS:1000}
       firstOffsetTimeoutMs: ${EDML_FIRST_OFFSET_TIMEOUT_MS:15000}

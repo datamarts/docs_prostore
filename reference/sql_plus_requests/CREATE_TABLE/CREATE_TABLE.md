@@ -31,12 +31,6 @@ has_toc: false
 [хранилища](../../../overview/main_concepts/data_storage/data_storage.md) можно указать 
 ключевое слово `DATASOURCE_TYPE` (см. секцию [Ключевое слово DATASOURCE_TYPE](#datasource_type)).
 
-Рекомендуется размещать данные логической таблицы, как минимум, в той СУБД хранилища, из которой 
-планируется выгружать данные во внешнюю систему. Иначе выгрузка данных из таблицы будет недоступна. 
-Подробнее о СУБД, из которых можно выгружать данные, см. в разделе 
-[INSERT INTO download_external_table](../INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md).
-{: .tip-wrapper}
-
 Изменение логической таблицы недоступно. Для замены таблицы необходимо удалить ее и 
 создать новую.
 {: .note-wrapper}

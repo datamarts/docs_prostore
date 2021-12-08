@@ -89,8 +89,7 @@ UPSERT INTO [db_name.]table_name (column_list) SELECT query
   в логической таблице;
 * `query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора данных. Если в подзапросе указано ключевое слово 
   `DATASOURCE_TYPE` с псевдонимом СУБД хранилища, данные выбираются из указанной СУБД, иначе — из СУБД, 
-  которая является [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) 
-  для исполнения запроса.
+  [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) для исполнения запроса.
 
 ## Ограничения {#restrictions}
 

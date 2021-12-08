@@ -20,8 +20,8 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md) 
-выгрузки в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
+Запрос позволяет создать [внешнюю таблицу выгрузки](../../../overview/main_concepts/external_table/external_table.md) 
+в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
 
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
