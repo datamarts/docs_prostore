@@ -41,7 +41,7 @@ has_toc: false
 
 ```shell
 # клонирование репозитория Prostore
-git clone https://github.com/arenadata/prostore ~/
+git clone https://github.com/arenadata/prostore ~/prostore
 # запуск сборки Prostore средствами Apache Maven
 cd ~/prostore
 mvn clean install -DskipTests=true
@@ -89,12 +89,6 @@ management:
 core:
   plugins:
     active: ${CORE_PLUGINS_ACTIVE:ADP}
-    category:
-      mapping:
-        RELATIONAL: ${DTM_CORE_PLUGINS_RELATIONAL:ADP}
-        ANALYTICAL: ${DTM_CORE_PLUGINS_ANALYTICAL:ADP}
-        DICTIONARY: ${DTM_CORE_PLUGINS_DICTIONARY:ADP}
-        UNDEFINED: ${DTM_CORE_PLUGINS_UNDEFINED:ADP}
 
   http:
     port: ${DTM_CORE_HTTP_PORT:9090}
@@ -104,6 +98,9 @@ core:
 
   env:
     name: ${DTM_NAME:test}
+
+  restoration:
+    autoRestoreState: ${AUTO_RESTORE_STATE:true}
 
   matviewsync:
     periodMs: ${MATERIALIZED_VIEWS_SYNC_PERIOD_MS:5000}
@@ -207,7 +204,7 @@ sudo systemctl reload postgresql-13
 
 ```shell
 # клонирование репозитория kafka-postgres-connector
-git clone https://github.com/arenadata/kafka-postgres-connector ~/
+git clone https://github.com/arenadata/kafka-postgres-connector ~/kafka-postgres-connector
 # запуск сборки коннектора kafka-postgres средствами Apache Maven
 cd ~/kafka-postgres-connector
 mvn clean install -DskipTests=true

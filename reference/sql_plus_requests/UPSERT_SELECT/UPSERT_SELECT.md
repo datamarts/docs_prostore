@@ -63,7 +63,7 @@ has_toc: false
 [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 
 Месторасположение данных логической таблицы можно задавать запросами
-[CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с указанием ключевого слова
+[CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
 `DATASOURCE_TYPE`.
 {: .note-wrapper}
 

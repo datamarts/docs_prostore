@@ -116,20 +116,20 @@ FROM [db_name.]entity_name
 *   `AS OF DELTA_NUM delta_num` — запрос данных, актуальных на дату и время закрытия дельты
     с номером `delta_num`;
 *   `AS OF LATEST_UNCOMMITTED_DELTA` — запрос данных на текущий момент, включая данные, загруженные
-    в рамках открытой (горячей) дельты. По горячей дельте возвращаются записи, загруженные в рамках
+    в рамках горячей дельты. По горячей дельте возвращаются записи, загруженные в рамках
     непрерывного диапазона завершенных операций записи (см. параметры `cn_from` и `cn_to`
     в разделе [GET_DELTA_HOT](../GET_DELTA_HOT/GET_DELTA_HOT.md));
 *   `STARTED IN (delta_num1, delta_num2)` — запрос данных, добавленных или измененных в период
-    между дельтой `delta_num1` и дельтой `delta_num2` (включительно);
+    между дельтой `delta_num1` и дельтой `delta_num2` (включая граничные дельты);
 *   `FINISHED IN (delta_num1, delta_num2)` — запрос данных, удаленных в период между дельтой
-    `delta_num1` и дельтой `delta_num2` (включительно).
+    `delta_num1` и дельтой `delta_num2` (включая граничные дельты).
 
 <a id="for_system_time_matview"></a>Следующие значения ключевого слова не поддерживаются в запросах 
 к материализованным представлениям:
 * `FOR SYSTEM_TIME AS OF LATEST_UNCOMMITTED_DELTA`;
-* `FOR SYSTEM_TIME AS OF STARTED IN (delta_num1, delta_num2)`, если хотя бы одна дельта из диапазона
+* `FOR SYSTEM_TIME STARTED IN (delta_num1, delta_num2)`, если хотя бы одна дельта из диапазона
   отсутствует в материализованном представлении;
-* `FOR SYSTEM_TIME AS OF FINISHED IN (delta_num1, delta_num2)`, если хотя бы одна дельта из диапазона
+* `FOR SYSTEM_TIME FINISHED IN (delta_num1, delta_num2)`, если хотя бы одна дельта из диапазона
   отсутствует в материализованном представлении.
   
 ### Поддерживаемые типы соединений (префиксы JOIN) {#join_prefixes}
@@ -158,7 +158,8 @@ FROM [db_name.]entity_name
 
 ### Ключевое слово OFFSET {#offset}
 
-Ключевое слово `OFFSET` позволяет пропустить первые несколько строк результата и выбрать только последующие строки. 
+Ключевое слово `OFFSET` позволяет пропустить первые несколько строк результата и выбрать только последующие строки (см. 
+примеры [ниже](#offset_example)). 
 В качестве значения ключевого слова можно указать любое неотрицательное целое число, начиная с нуля, или 
 переменную. Если для `OFFSET` указано значение 0, то пропускается 0 строк, что равносильно запросу 
 без `OFFSET`. 
@@ -169,7 +170,7 @@ FROM [db_name.]entity_name
 
 Рекомендуется сочетать `OFFSET` с ключевым словом `ORDER BY` для получения упорядоченного набора строк. Ключевое слово 
 `ORDER BY` необязательно, однако без него запрос с `OFFSET` возвращает неупорядоченный и потому 
-непредсказуемый набор строк. Примеры запросов см. [ниже](#offset_example).
+непредсказуемый набор строк.
 
 Таким образом, для ключевого слова `OFFSET` поддерживается следующий синтаксис:
 ```sql
@@ -180,8 +181,11 @@ OFFSET <value_2> [ ROW | ROWS ]
 
 ### Ключевое слово ESTIMATE_ONLY {#estimate}
 
-Ключевое слово `ESTIMATE_ONLY` позволяет запросить информацию о выполнении запроса к данным, а не сами данные. 
-То есть вместо выборки данных из таблицы или представления запрос возвращает следующую информацию: 
+Ключевое слово `ESTIMATE_ONLY` позволяет запросить информацию о выполнении запроса к данным, а не сами данные (см. 
+пример [ниже](#estimate_example)). 
+
+Если запрос содержит `ESTIMATE_ONLY`, вместо выборки данных из таблицы или представления в ответе возвращается следующая 
+информация: 
 * имя СУБД хранилища, в которой предполагается выполнение запроса;
 * план выполнения запроса (только для ADB и ADP) — результат выполнения команды EXPLAIN в СУБД хранилища. 
   Подробнее о команде EXPLAIN в ADB см. в [документации Greenplum](https://gpdb.docs.pivotal.io/6-17/ref_guide/sql_commands/EXPLAIN.html),
@@ -317,14 +321,18 @@ ORDER BY product_amount DESC
 ESTIMATE_ONLY
 ```
 
+Описание ключевого слова см. в секции [Ключевое слово ESTIMATE_ONLY](#estimate).
+
 ### COLLATE {#collate_example}
 
 Запрос строк с указанными значениями без учета регистра:
 ```sql
 SELECT * from sales.sales 
-WHERE product_code = 'ABC1234' AND product_code <> 'abc4567' COLLATE "unicode_ci"
+WHERE product_code = 'ABC1234' AND product_code <> 'abc4567' COLLATE 'unicode_ci'
 DATASOURCE_TYPE = 'adg'
 ```
+
+Описание ключевого слова см. в секции [Ключевое слово COLLATE](#collate).
 
 ### OFFSET {#offset_example}
 
@@ -332,6 +340,8 @@ DATASOURCE_TYPE = 'adg'
 ```sql
 SELECT * from sales.sales FETCH NEXT 20 ROWS ONLY OFFSET 9
 ```
+
+Описание ключевого слова см. в секции [Ключевое слово OFFSET](#offset).
 
 ### ORDER BY, LIMIT и OFFSET {#offset_and_order_by_example}
 
@@ -350,6 +360,8 @@ SELECT * from sales.sales ORDER BY id LIMIT 20 OFFSET 9
 SELECT * FROM sales.sales_and_stores FOR SYSTEM_TIME AS OF DELTA_NUM 9
 ```
 
+Описание ключевого слова см. в секции [Ключевое слово FOR SYSTEM_TIME](#for_system_time).
+
 ### Соединение таблиц из разных логических БД {#join_example}
 
 Запрос с соединением данных двух логических таблиц из двух различных логических БД:
@@ -362,6 +374,8 @@ FROM sales.stores FOR SYSTEM_TIME AS OF LATEST_UNCOMMITTED_DELTA AS st
 INNER JOIN sales2.sales FOR SYSTEM_TIME AS OF LATEST_UNCOMMITTED_DELTA AS s
   ON st.id = s.store_id
 ```
+
+О возможных типах соединений см. в секции [Поддерживаемые типы соединений (префиксы JOIN)](#join_prefixes).
 
 ### Соединение изменений из разных дельт {#deltas_example}
 
@@ -390,3 +404,5 @@ ORDER BY diff DESC
 LIMIT 50
 DATASOURCE_TYPE = 'adb';
 ```
+
+О возможных типах соединений см. в секции [Поддерживаемые типы соединений (префиксы JOIN)](#join_prefixes).
