@@ -38,8 +38,8 @@ has_toc: false
 {: .note-wrapper}
 
 В запросе можно указать [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
-[хранилища](../../../overview/main_concepts/main_concepts.md), из которой необходимо выгрузить данные. Если СУБД не 
-указана, система определяет СУБД, [оптимальную для выгрузки](../../../working_with_system/data_reading/routing/routing.md), 
+[хранилища](../../../overview/main_concepts/main_concepts.md) для выгрузки данных. Если СУБД не указана, система 
+определяет СУБД, [оптимальную для выгрузки](../../../working_with_system/data_reading/routing/routing.md), 
 в зависимости от параметров запроса, месторасположения данных и конфигурации системы.
 
 В ответе возвращается:
