@@ -22,7 +22,7 @@ has_toc: false
 ## Синтаксис {#syntax}
 
 ```sql
-GET_ENTITY_DDL([db_name], entity_name)
+GET_ENTITY_DDL([db_name.]entity_name)
 ```
 
 Параметры:
@@ -35,7 +35,7 @@ GET_ENTITY_DDL([db_name], entity_name)
 ### Запрос по сущности указанной логической БД {#example_for_defined_db}
 
 ```sql
-GET_ENTITY_DDL(sales, stores)
+GET_ENTITY_DDL(sales.stores)
 ```
 
 ### Запрос по сущности логической БД, выбранной по умолчанию {#example_for_default_db}
@@ -45,7 +45,7 @@ GET_ENTITY_DDL(sales, stores)
 USE sales;
 
 -- запрос информации по представлению sales_and_stores
-GET_ENTITY_DDL(sales, sales_and_stores);
+GET_ENTITY_DDL(sales_and_stores);
 ```
 
 На рисунке ниже показан пример ответа на запрос `GET_ENTITY_DDL` по материализованному представлению `sales_and_stores`.
