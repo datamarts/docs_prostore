@@ -259,6 +259,8 @@ adb:
     reconnectionInterval: ${ADB_RECONNECTION_INTERVAL:5000}
 # настройки механизма загрузки данных в ADB
   mppw:
+# признак использования улучшенного PXF-коннектора; при значении false данные загружаются с помощью FDW-коннектора
+    usePxfConnector: ${ADB_MPPW_USE_ADVANCED_CONNECTOR:false}
 # имя консьюмер-группы ADB для взаимодействия с брокером сообщений Kafka
     consumerGroup: ${ADB_LOAD_GROUP:adb-emulator-load-adb}
 # максимальный размер пула подключений к ADB для операций загрузки данных
@@ -270,7 +272,7 @@ adb:
 # время ожидания (в миллисекундах) для FDW-коннектора ADB
     fdwTimeoutMs: ${ADB_MPPW_FDW_TIMEOUT_MS:1000}
 # признак использования исторических таблиц
-    with-history-table: ${ADB_WITH_HISTORY_TABLE:false}
+  with-history-table: ${ADB_WITH_HISTORY_TABLE:false}
 ```
 
 ### Настройки СУБД ADG {#adg_parameters}
@@ -301,11 +303,10 @@ adg:
   mppw:
 # имя консьюмер-группы ADG для взаимодействия с брокером сообщений Kafka
     consumerGroup: ${ADG_CONSUMER_GROUP:tarantool-group-csv}
-    kafka:
 # максимальное количество сообщений в топике Kafka на раздел ADG
-      maxNumberOfMessagesPerPartition: ${ADG_MAX_MSG_PER_PARTITION:200}
+    maxNumberOfMessagesPerPartition: ${ADG_MAX_MSG_PER_PARTITION:200}
 # время простоя (в секундах) callback-функции
-      callbackFunctionSecIdle: ${ADG_CB_FUNC_IDLE:100}
+    callbackFunctionSecIdle: ${ADG_CB_FUNC_IDLE:100}
 # настройки отката операции
   rollback:
 # размер пакета операций при откате

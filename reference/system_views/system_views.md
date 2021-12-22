@@ -48,7 +48,7 @@ has_children: false
     Значение по умолчанию — public;
 *   `table_schema` — наименование логической базы данных, к которой относится таблица или представление;
 *   `table_name` — наименование таблицы или представления;
-*   `table_type` — тип объекта. Возможные значения: BASE TABLE — логическая таблица, MATERIALIZED VIEW — материализованное 
+*   `table_type` — тип сущности. Возможные значения: BASE TABLE — логическая таблица, MATERIALIZED VIEW — материализованное 
     представление, VIEW — логическое представление;
 *   `table_datasource_type` — список [СУБД](../../introduction/supported_DBMS/supported_DBMS.md) 
     [хранилища](../../overview/main_concepts/data_storage/data_storage.md), в которых размещены данные таблицы или 
