@@ -17,49 +17,75 @@ has_children: false
 {:toc}
 </details>
 
-## Текущая версия документации (5.2) {#current}
+## Текущая версия документации (5.3) {#current}
 
 Изменения:
-* добавлена функция обновления данных — альтернатива загрузке в случае небольших объемов данных; описание доступно 
-в следующие разделах:
-  * [Обновление данных](../working_with_system/data_update/data_update.md);
-  * [Порядок обработки запросов на обновление данных](../overview/interactions/llw_processing/llw_processing.md);
-  * [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md);
-  * [UPSERT SELECT](../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md);
-  * [DELETE](../reference/sql_plus_requests/DELETE/DELETE.md);
+* добавлено создание [материализованных представлений](../overview/main_concepts/materialized_view/materialized_view.md) 
+  в ADQM на основе данных ADB;
+* добавлена вставка данных из ADB в ADQM с помощью [UPSERT SELECT](../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md);
+* удалено требование на целочисленные ключи шардирования в логических таблицах: теперь ключ может содержать столбцы 
+  с любыми типами данных;
 * добавлены новые запросы:
-  * [CONFIG_SHOW](../reference/sql_plus_requests/CONFIG_SHOW/CONFIG_SHOW.md);
-  * [GET_WRITE_OPERATIONS](../reference/sql_plus_requests/GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md);
-  * [RESUME_WRITE_OPERATION](../reference/sql_plus_requests/RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md);
-* добавлено ключевое слово [COLLATE](../reference/sql_plus_requests/SELECT/SELECT.md#collate), 
-  доступное в [SELECT](../reference/sql_plus_requests/SELECT/SELECT.md)-запросах к ADG;
-* добавлена возможность [выгрузки данных](../working_with_system/data_download/data_download.md) 
-  из материализованных представлений;
-* изменена [маршрутизация SELECT-запросов](../working_with_system/data_reading/routing/routing.md): теперь учитывается 
-  не только категория запроса, но и для скольки узлов кластера предназначен запрос;
-* добавлен раздел [Разбор ошибок загрузки и обновления данных](../working_with_system/other_features/troubleshooting/troubleshooting.md);
-* ограничено исполнение [запросов по управлению схемой данных](../working_with_system/logical_schema_update/logical_schema_update.md) 
-  в сервисной базе данных `INFORMATION_SCHEMA`;
-* изменен перечень операций, отменяемых запросом [ROLLBACK DELTA](../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md): 
-  отменяются все завершенные операции (как операции загрузки данных, так и обновления данных), а также 
-  незавершенные операции загрузки данных; незавершенные операции обновления данных не отменяются;
+  * [CHECK_MATERIALIZED_VIEW](../reference/sql_plus_requests/CHECK_MATERIALIZED_VIEW/CHECK_MATERIALIZED_VIEW.md);
+  * [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md);
+  * [ALLOW_CHANGES](../reference/sql_plus_requests/ALLOW_CHANGES/ALLOW_CHANGES.md);
+  * [GET_CHANGES](../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md);
+  * [GET_ENTITY_DDL](../reference/sql_plus_requests/GET_ENTITY_DDL/GET_ENTITY_DDL.md);
+* в системное представление [tables](../reference/system_views/system_views.md#tables) добавлен новый тип сущности — 
+  `MATERIALIZED VIEW`;
+* добавлено возможность возобновления зависшей операции [обновления данных](../working_with_system/data_update/data_update.md);
+* добавлено ведение [журнала](../overview/main_concepts/changelog/changelog.md) — списка операций по изменению 
+  логических сущностей;
+* для выгрузки данных добавлен [выбор оптимальной СУБД хранилища](../working_with_system/data_reading/routing/routing.md), 
+  аналогичный выбору СУБД для SELECT-запросов;
 * обновлена [конфигурация системы](../maintenance/configuration/system/system.md):
-  * добавлены параметры `AUTO_RESTORE_STATE`, `ADB_MAX_RECONNECTIONS`, `ADB_QUERIES_BY_CONNECT_LIMIT` и 
+  * добавлен параметр `ADQM_SHARDING_EXPR`;
+  * добавлен параметр `ADB_MPPW_USE_ADVANCED_CONNECTOR`;
+  * удален параметр `EDML_DATASOURCE`;
+  * исправлен путь до параметра `ADB_WITH_HISTORY_TABLE` с `adb:mppw:with-history-table` на `adb:with-history-table`;
+  * исправлен путь до параметров `ADG_MAX_MSG_PER_PARTITION` и `ADG_CB_FUNC_IDLE`: из пути удален параметр `kafka`.
+  
+## Архивные версии документации {#archive}
+
+### Версия 5.2
+
+Версия 5.2 доступна в архиве <>.
+
+Изменения:
+* добавлена функция обновления данных — альтернатива загрузке в случае небольших объемов данных; описание доступно
+  в следующие разделах:
+  * «Обновление данных»;
+  * «Порядок обработки запросов на обновление данных»;
+  * UPSERT VALUES;
+  * UPSERT SELECT;
+  * DELETE;
+* добавлены новые запросы:
+  * `CONFIG_SHOW`;
+  * `GET_WRITE_OPERATIONS`;
+  * `RESUME_WRITE_OPERATION`;
+* добавлено ключевое слово `COLLATE`, доступное в SELECT-запросах к ADG;
+* добавлена возможность выгрузки данных из материализованных представлений;
+* изменена маршрутизация SELECT-запросов: теперь учитывается не только категория запроса, но и набор узлов кластера, 
+  для которых предназначен запрос;
+* добавлен раздел «Разбор ошибок загрузки и обновления данных»;
+* ограничено исполнение запросов по управлению схемой данных в сервисной базе данных `INFORMATION_SCHEMA`;
+* изменен перечень операций, отменяемых запросом `ROLLBACK DELTA`: отменяются все завершенные операции (как операции 
+  загрузки данных, так и обновления данных), а также незавершенные операции загрузки данных; незавершенные операции 
+  обновления данных не отменяются;
+* обновлена конфигурация системы:
+  * добавлены параметры `AUTO_RESTORE_STATE`, `ADB_MAX_RECONNECTIONS`, `ADB_QUERIES_BY_CONNECT_LIMIT` и
     `ADB_RECONNECTION_INTERVAL`;
   * добавлена секция параметров `autoSelect` для настройки порядка выбора СУБД в зависимости от категории и
     подкатегории запросов;
   * удален параметр `CORE_TIME_ZONE` (больше не используется);
   * путь к параметру `DTM_METRICS_PORT` изменен с `management.server.port` на `server.port`;
   * путь к параметру `DTM_CORE_METRICS_ENABLED` изменен c `core.metrics.isEnabled` на `core.metrics.еnabled`;
-* добавлен раздел [Конфигурация коннекторов](../maintenance/configuration/connectors/connectors.md);
-* описание конфигурационных параметров системы перенесено из раздела 
-  [Конфигурация](../maintenance/configuration/configuration.md) в раздел 
-  [Конфигурация системы](../maintenance/configuration/system/system.md);
-* имя системы заменено на Prostore (имя проекта с открытым исходным кодом);
-* скорректировано описание служебного поля `sys_op`: поле должно отсутствовать во внешней таблице загрузки и логической 
+* добавлен раздел «Конфигурация коннекторов»;
+* описание конфигурационных параметров системы перенесено из раздела «Конфигурация» в раздел
+  «Конфигурация системы»;
+* имя системы заменено на `Prostore` (в соответствии с именем проекта с открытым исходным кодом);
+* скорректировано описание служебного поля `sys_op`: поле должно отсутствовать во внешней таблице загрузки и логической
   таблице и должно присутствовать в загружаемых сообщениях топика Kafka.
-  
-## Архивные версии документации {#archive}
 
 ### Версия 5.1
 
