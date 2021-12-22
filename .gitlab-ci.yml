@@ -1,0 +1,5 @@
+---
+include:
+  - project: 'datamart-deploy/common-deploy'
+    file: 
+      - 'docs_prostore_ci.yml'
