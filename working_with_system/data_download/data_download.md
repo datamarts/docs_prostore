@@ -45,7 +45,7 @@ has_children: false
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
 USE sales;
 
--- создание внешней таблицы выгрузки sales_ext_download
+-- создание внешней таблицы для выгрузки из логической таблицы sales
 CREATE DOWNLOAD EXTERNAL TABLE sales_ext_download (
   id INT,
   transaction_date TIMESTAMP,
@@ -62,19 +62,17 @@ CHUNK_SIZE 1000;
 INSERT INTO sales_ext_download 
 SELECT * FROM sales WHERE product_units > 2 FOR SYSTEM_TIME AS OF DELTA_NUM 10;
 
--- создание внешней таблицы выгрузки stores_ext_download
-CREATE DOWNLOAD EXTERNAL TABLE sales.stores_ext_download (
-id INT NOT NULL,
-category VARCHAR(256) NOT NULL,
-region VARCHAR(256) NOT NULL,
-address VARCHAR(256) NOT NULL,
-description VARCHAR(256)
-) 
-LOCATION  'kafka://$kafka/stores_out'
+-- создание внешней таблицы для выгрузки из материализованного представления sales_by_stores
+CREATE DOWNLOAD EXTERNAL TABLE testdb_doc.sales_by_stores_ext_download (
+store_id INT,
+product_code VARCHAR(256),
+product_units INT
+)
+LOCATION 'kafka://$kafka/sales_by_stores_out'
 FORMAT 'AVRO'
 CHUNK_SIZE 1000;
 
--- запуск выгрузки данных из логической таблицы stores
-INSERT INTO stores_ext_download 
-SELECT * FROM stores WHERE region = 'Москва' DATASOURCE_TYPE = 'adqm';
+-- запуск выгрузки данных из материализованного представления sales_by_stores
+INSERT INTO sales.sales_by_stores_ext_download
+SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm';
 ```

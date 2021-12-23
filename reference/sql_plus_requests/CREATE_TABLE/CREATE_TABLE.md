@@ -47,7 +47,7 @@ has_toc: false
 ```sql
 CREATE TABLE [db_name.]table_name (
   column_name_1 datatype_1 NOT NULL,
-  column_name_2 datatype_2 DEFAULT default_value_2,
+  column_name_2 datatype_2,
   column_name_3 datatype_3,
   PRIMARY KEY (column_list_1)
 ) DISTRIBUTED BY (column_list_2)
@@ -62,7 +62,6 @@ CREATE TABLE [db_name.]table_name (
 * `column_name_N` — имя столбца таблицы;
 * `datatype_N` — тип данных столбца `column_name_N`. Возможные значения см. 
   в разделе [Логические типы данных](../../supported_data_types/logical_data_types/logical_data_types.md);
-* `default_value_N` — значение столбца `column_name_N` по умолчанию;
 * `column_list_1` — список столбцов, входящих в первичный ключ таблицы;
 * `column_list_2` — список столбцов, входящих в ключ шардирования таблицы. Столбцы 
   должны быть из числа столбцов `column_list_1`;

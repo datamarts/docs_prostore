@@ -364,14 +364,14 @@ SELECT * FROM sales.sales_and_stores FOR SYSTEM_TIME AS OF DELTA_NUM 9
 
 ### Соединение таблиц из разных логических БД {#join_example}
 
-Запрос с соединением данных двух логических таблиц из двух различных логических БД:
+Запрос с соединением данных логических таблиц из двух разных логических БД:
 ```sql
 SELECT
   st.id,
   st.category,
   s.product_code
-FROM sales.stores FOR SYSTEM_TIME AS OF LATEST_UNCOMMITTED_DELTA AS st
-INNER JOIN sales2.sales FOR SYSTEM_TIME AS OF LATEST_UNCOMMITTED_DELTA AS s
+FROM sales.stores AS st
+INNER JOIN sales_new.sales AS s
   ON st.id = s.store_id
 ```
 
@@ -382,27 +382,10 @@ INNER JOIN sales2.sales FOR SYSTEM_TIME AS OF LATEST_UNCOMMITTED_DELTA AS s
 Запрос с соединением записей логической таблицы, добавленных и измененных в двух различных диапазонах 
 дельт:
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-use sales;
-
--- запрос данных из логической таблицы prices
-SELECT
-  p1.product_code,
-  p1.price as feb_price,
-  p2.price as march_price,
-  (p2.price - p1.price) as diff
-FROM
-  (SELECT product_code,
-  price from sales.prices
-  FOR SYSTEM_TIME STARTED IN(3,6)) AS p1
-FULL JOIN (select product_code,
-  price from sales.prices
-  FOR SYSTEM_TIME STARTED IN(7,10)) AS p2
-  ON p1.product_code = p2.product_code
-WHERE p1.product_code is NOT NULL
-ORDER BY diff DESC
-LIMIT 50
-DATASOURCE_TYPE = 'adb';
+  SELECT st.id, st.category, s.product_code 
+  FROM sales.stores FOR SYSTEM_TIME STARTED IN(0,7) AS st 
+  INNER JOIN sales.sales FOR SYSTEM_TIME STARTED IN(0,1) AS s 
+  ON st.id = s.store_id
 ```
 
 О возможных типах соединений см. в секции [Поддерживаемые типы соединений (префиксы JOIN)](#join_prefixes).

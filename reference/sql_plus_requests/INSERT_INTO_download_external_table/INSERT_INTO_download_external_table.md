@@ -80,13 +80,13 @@ SELECT * FROM sales.sales WHERE sales.product_units > 2
 ### Выгрузка из указанной СУБД {#defined_db_example}
 
 ```sql
-INSERT INTO sales.stores_ext_download 
-SELECT * FROM sales.stores WHERE region = 'Москва' DATASOURCE_TYPE = 'adqm'
+INSERT INTO sales.sales_ext_download 
+SELECT * FROM sales.sales WHERE description = 'Покупка по акции 1+1' DATASOURCE_TYPE = 'adqm'
 ```
 
 ### Выгрузка из материализованного представления {#matview_example}
 
 ```sql
 INSERT INTO sales.sales_by_stores_ext_download
-SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004')
+SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm'
 ```
