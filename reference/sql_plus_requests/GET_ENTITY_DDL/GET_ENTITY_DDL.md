@@ -48,5 +48,9 @@ USE sales;
 GET_ENTITY_DDL(sales_and_stores);
 ```
 
-На рисунке ниже показан пример ответа на запрос `GET_ENTITY_DDL` по материализованному представлению `sales_and_stores`.
-<скриншот>
+На рисунке ниже показан фрагмент ответа на запрос `GET_ENTITY_DDL` по материализованному представлению `sales_and_stores`.
+
+![](get_entity_ddl.png)
+{: .figure-center}
+*Фрагмент ответа на запрос GET_ENTITY_DDL*
+{: .figure-caption-center}
