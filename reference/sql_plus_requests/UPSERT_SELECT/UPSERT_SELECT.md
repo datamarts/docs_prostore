@@ -237,7 +237,7 @@ description VARCHAR(256),
 store_address VARCHAR(256),
 PRIMARY KEY (id)
 ) DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adb, adqm, adg);
+DATASOURCE_TYPE (adb, adqm);
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
