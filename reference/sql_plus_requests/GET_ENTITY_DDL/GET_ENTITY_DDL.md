@@ -10,8 +10,8 @@ has_toc: false
 
 # GET_ENTITY_DDL
 
-Запрос позволяет получить содержимое запроса, создавшего логическую сущность. 
-Информацию можно получить по следующим сущностям [логической базы данных](../../../overview/main_concepts/logical_db/logical_db.md): 
+Запрос позволяет получить содержимое запроса на создание логической сущности в текущем состоянии. 
+Информацию можно получить по следующим логическим сущностям: 
 * [логической таблице](../../../overview/main_concepts/logical_table/logical_table.md),
 * [логическому представлению](../../../overview/main_concepts/logical_view/logical_view.md),
 * [материализованному представлению](../../../overview/main_concepts/materialized_view/materialized_view.md).
