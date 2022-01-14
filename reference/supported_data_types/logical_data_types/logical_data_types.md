@@ -21,9 +21,9 @@ has_toc: false
 | Логический тип | Описание | Тип данных ADB | Тип данных ADG  | Тип данных ADQM | Тип данных ADP
 |:-|:-|:-|:-|:-|:-
 | BOOLEAN | Логический (булевый) тип | boolean | boolean | UInt8 | boolean
-| VARCHAR (n) | Строка ограниченной длины (n символов) | varchar (n) | string | String | varchar (n)
+| VARCHAR \[(n)\] | Строка ограниченной длины (n символов); размерность строки опциональна | varchar \[(n)\] | string | String | varchar (n)
 | LINK | Строка неограниченной длины. Предназначена для ссылочных полей | varchar | string | String | varchar
-| CHAR (n) | Строка ограниченной длины (n символов) | varchar (n) | string | String | varchar (n)
+| CHAR (n) | Строка ограниченной длины (n символов); размерность строки обязательна | varchar (n) | string | String | varchar (n)
 | UUID | Строка ограниченной длины (36 символов) | varchar (36) | string | String | varchar (36)
 | BIGINT | Целое число фиксированной длины со знаком, находящееся в диапазоне от -9223372036854775808 до 9223372036854775807 | bigint (int8) | integer | Int64 | bigint (int8)
 | INT | Целое число фиксированной длины со знаком, находящееся в диапазоне от -9223372036854775808 до 9223372036854775807 | bigint (int8) | integer | Int64 | bigint (int8)
