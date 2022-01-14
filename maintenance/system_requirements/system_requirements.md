@@ -18,18 +18,18 @@ has_toc: false
 ## Программные требования системы {#software}
 Система предъявляет следующие минимальные программные требования:
 * компоненты Prostore:
-  * сервис исполнения запросов (query-execution-core) версии 5.2.2,
-  * сервис мониторинга статусов Kafka (status-monitor) версии 5.2.2,
-  * JDBC-драйвер версии 5.2.2, 
-* ADB версии 6.15.0,
+  * сервис исполнения запросов (query-execution-core) версии 5.3.0,
+  * сервис мониторинга статусов Kafka (status-monitor) версии 5.3.0,
+  * JDBC-драйвер версии 5.3.0, 
+* ADB версии 6.17.5,
   * коннектор Kafka-Greenplum reader (PXF) версии 1.0,
   * коннектор Kafka-Greenplum writer (FDW) версии 0.10.2,
 * ADQM версии 20.4.4.18,
   * коннектор Kafka-Clickhouse reader версии 3.5.6,
   * коннектор Kafka-Clickhouse writer версии 3.5.6,
-* ADG версии 2.7.2,
+* ADG версии 2.7.3,
   * коннектор Kafka-Tarantool версии 0.8.5-1,
-* PostgreSQL версии 13.3,
+* PostgreSQL версии 13.5,
   * коннектор Kafka-Postgres reader версии 0.1.7,
   * коннектор Kafka-Postgres writer версии 0.1.7,
 * ADS:
