@@ -43,7 +43,10 @@ has_children: false
   * добавлен параметр `ADB_MPPW_USE_ADVANCED_CONNECTOR`;
   * удален параметр `EDML_DATASOURCE`;
   * исправлен путь до параметра `ADB_WITH_HISTORY_TABLE` с `adb:mppw:with-history-table` на `adb:with-history-table`;
-  * исправлен путь до параметров `ADG_MAX_MSG_PER_PARTITION` и `ADG_CB_FUNC_IDLE`: из пути удален параметр `kafka`.
+  * исправлен путь до параметров `ADG_MAX_MSG_PER_PARTITION` и `ADG_CB_FUNC_IDLE`: из пути удален параметр `kafka`;
+* изменена терминология в документации: архивация актуальных записей теперь называется удалением, а удаление записей 
+  с помощью запроса [TRUNCATE HISTORY](../reference/sql_plus_requests/TRUNCATE_HISTORY/TRUNCATE_HISTORY.md) — очисткой 
+  окончательным удалением.
   
 ## Архивные версии документации {#archive}
 
