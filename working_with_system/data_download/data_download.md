@@ -9,9 +9,9 @@ has_children: false
 # Выгрузка данных {#data_download}
 
 Система позволяет выгружать большие объемы данных, а также изменений, выполненных 
-в указанных дельтах. Данные можно выгружать из [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md)
-и [логических представлений](../../overview/main_concepts/logical_view/logical_view.md). Выгрузка данных из
-[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md) недоступна.
+в указанных дельтах. Данные можно выгружать из [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md), 
+[логических](../../overview/main_concepts/logical_view/logical_view.md) и 
+[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md).
 
 Под большим объемом данных подразумевается количество записей от нескольких сотен до нескольких миллионов.
 Для получения небольшого объема данных можно использовать функцию [запроса данных](../data_reading/data_reading.md).

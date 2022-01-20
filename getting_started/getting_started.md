@@ -32,7 +32,6 @@ has_toc: false
 *   СУБД PostgreSQL 13;
 *   Apache Zookeeper;
 *   Apache Kafka (например, в каталоге /opt/kafka);
-*   Apache Avro (например, в каталоге /opt/avro);
 *   SQL-клиент, например DBeaver;
 *   docker;
 *   Браузер топиков Kafka с возможностью загрузки бинарных данных, например kafkacat.
