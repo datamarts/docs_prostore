@@ -56,7 +56,7 @@ has_children: false
 
 ### Версия 5.2
 
-Версия 5.2 доступна в архиве <>.
+Версия 5.2 доступна в архиве [архиве](https://datamarts.github.io/docs_prostore_archive/v5-2/).
 
 Изменения:
 * добавлена функция обновления данных — альтернатива загрузке в случае небольших объемов данных; описание доступно
@@ -96,7 +96,7 @@ has_children: false
 
 ### Версия 5.1
 
-Версия 5.1 доступна в [архиве](https://arenadata.github.io/docs_prostore_archive/v5-1-0/).
+Версия 5.1 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v5-1-0/).
 
 Изменения:
 * добавлено ключевое слово `ESTIMATE_ONLY`, доступное в SELECT-запросах;
@@ -137,7 +137,7 @@ has_children: false
 
 ### Версия 4.1
 
-Версия 4.1 доступна в [архиве](https://arenadata.github.io/docs_prostore_archive/v4-1-0/).
+Версия 4.1 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v4-1-0/).
 
 Изменения:
 * добавлено ключевое слово `OFFSET`, доступное в SELECT-запросах;
@@ -163,7 +163,7 @@ has_children: false
 
 ### Версия 3.7.3
 
-Версия 3.7.3 доступна в [архиве](https://arenadata.github.io/docs_prostore_archive/v3-7-3/).
+Версия 3.7.3 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v3-7-3/).
 
 Изменения:
 * обновлена конфигурация:

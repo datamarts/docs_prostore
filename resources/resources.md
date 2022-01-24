@@ -7,7 +7,7 @@ has_children: false
 
 # Ресурсы {#resources}
 
-[github-репозиторий Prostore](https://github.com/arenadata/prostore)
+[github-репозиторий Prostore](https://github.com/datamarts/prostore)
 
 Коннекторы
 - [github-репозиторий Kafka PXF connector](https://github.com/arenadata/kafka-pxf-connector)
