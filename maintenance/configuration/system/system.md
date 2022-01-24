@@ -65,7 +65,7 @@ core:
   plugins:
 # список используемых СУБД
     active: ${CORE_PLUGINS_ACTIVE:ADG, ADB, ADP, ADQM}
-# порядок выбора СУБД хранилища для исполнения SELECT-запросов
+# порядок выбора СУБД хранилища для исполнения запросов на чтение и выгрузку данных
     category:
 # порядок выбора СУБД в зависимости от категории запроса; настройки используются, если отсутствует секция plugins.category.autoSelect      
       mapping:
@@ -139,14 +139,12 @@ core:
     maxConcurrent: ${MATERIALIZED_VIEWS_CONCURRENT:2}
 # настройки генерации метрики сервиса исполнения запросов
   metrics:
-# признак генерации метрики сервиса исполнения запросов
+# признак генерации метрик сервиса исполнения запросов
     enabled: ${DTM_CORE_METRICS_ENABLED:true}
 # настройки источника данных
   datasource:
 # настройки для EDML-операторов
     edml:
-# тип СУБД-источника (ADB, ADQM, ADG)
-      sourceType: ${EDML_DATASOURCE:ADB}
 # количество записей, по умолчанию выгружаемых в одном сообщении топика Каfka
       defaultChunkSize: ${EDML_DEFAULT_CHUNK_SIZE:1000}
 # период проверки статуса плагина в миллисекундах
@@ -261,6 +259,8 @@ adb:
     reconnectionInterval: ${ADB_RECONNECTION_INTERVAL:5000}
 # настройки механизма загрузки данных в ADB
   mppw:
+# признак использования улучшенного PXF-коннектора; при значении false данные загружаются с помощью FDW-коннектора
+    usePxfConnector: ${ADB_MPPW_USE_ADVANCED_CONNECTOR:false}
 # имя консьюмер-группы ADB для взаимодействия с брокером сообщений Kafka
     consumerGroup: ${ADB_LOAD_GROUP:adb-emulator-load-adb}
 # максимальный размер пула подключений к ADB для операций загрузки данных
@@ -272,7 +272,7 @@ adb:
 # время ожидания (в миллисекундах) для FDW-коннектора ADB
     fdwTimeoutMs: ${ADB_MPPW_FDW_TIMEOUT_MS:1000}
 # признак использования исторических таблиц
-    with-history-table: ${ADB_WITH_HISTORY_TABLE:false}
+  with-history-table: ${ADB_WITH_HISTORY_TABLE:false}
 ```
 
 ### Настройки СУБД ADG {#adg_parameters}
@@ -303,11 +303,10 @@ adg:
   mppw:
 # имя консьюмер-группы ADG для взаимодействия с брокером сообщений Kafka
     consumerGroup: ${ADG_CONSUMER_GROUP:tarantool-group-csv}
-    kafka:
 # максимальное количество сообщений в топике Kafka на раздел ADG
-      maxNumberOfMessagesPerPartition: ${ADG_MAX_MSG_PER_PARTITION:200}
+    maxNumberOfMessagesPerPartition: ${ADG_MAX_MSG_PER_PARTITION:200}
 # время простоя (в секундах) callback-функции
-      callbackFunctionSecIdle: ${ADG_CB_FUNC_IDLE:100}
+    callbackFunctionSecIdle: ${ADG_CB_FUNC_IDLE:100}
 # настройки отката операции
   rollback:
 # размер пакета операций при откате
@@ -350,6 +349,9 @@ adqm:
   ddl:
 # имя кластера ADQM
     cluster: ${ADQM_CLUSTER:test_arenadata}
+# алгоритм шардирования данных; 
+# возможные значения: cityHash64 (значение по умолчанию в версии 5.3 и выше), intAdd (значение по умолчанию в версии 5.2 и ниже)
+    shardingKeyExpr: ${ADQM_SHARDING_EXPR:cityHash64}
 # настройки механизма выгрузки данных из ADQM
   mppr:
 # сетевой адрес и путь для запросов на выгрузку данных

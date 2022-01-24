@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: GET_WRITE_OPERATIONS
-nav_order: 28
+nav_order: 33
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -30,6 +30,10 @@ has_toc: false
 
 Успешный ответ содержит объект ResultSet, где каждая строка соответствует одной операции, неуспешный ответ содержит 
 исключение.
+
+Если среди операций в ответе есть долго выполняемые (зависшие) или неуспешные операции, следует 
+перезапустить их обработку с помощью запроса [RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md).
+{: .tip-wrapper}
 
 ## Синтаксис {#syntax}
 

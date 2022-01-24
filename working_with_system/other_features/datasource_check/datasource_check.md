@@ -17,15 +17,21 @@ has_toc: false
 выполните запрос к системному представлению [tables](../../../reference/system_views/system_views.md#tables) 
 (вместо `DB_NAME` и `ENTITY_NAME` подставьте имя логической базы данных и имя
 таблицы или представления в верхнем регистре):
+* запрос для логической таблицы:
 ```sql
-SELECT * FROM INFORMATION_SCHEMA.tables
+SELECT * FROM information_schema.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_type = 'BASE TABLE')
 ```
+* запрос для материализованного представления:
+```sql
+SELECT * FROM information_schema.tables
+WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_type = 'MATERIALIZED VIEW')
+```
 
-В ответе система возвращает информацию о запрошенной логической сущности, где в столбце `table_datasource_type` 
-перечислены СУБД, которые содержат данные этой сущности.
+В ответе система возвращает информацию о запрошенной логической сущности, где столбец `table_datasource_type` 
+содержит список СУБД хранилища, в которых размещены данные логической сущности.
 
-На рисунке ниже показан пример запроса по **всем** логическим сущностям логической БД `sales`:
+На рисунке ниже показан пример запроса по **всем** логическим сущностям логической БД `sales`.
 
 <a id="img_datasource_check"></a>
 ![](datasource_check.png)

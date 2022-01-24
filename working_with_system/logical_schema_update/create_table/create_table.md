@@ -12,19 +12,27 @@ has_children: false
 Чтобы создать [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [CREATE TABLE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md).
+При необходимости добавьте в запрос ключевое слово:
+* [DATASOURCE_TYPE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#datasource_type) со списком
+  [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
+  [хранилища](../../../overview/main_concepts/data_storage/data_storage.md) — чтобы разместить данные таблицы только в 
+  некоторых СУБД хранилища;
+* [LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only) — чтобы создать таблицу
+  только на логическом уровне.
 
-* Если данные логической таблицы нужно размещать только в некоторых [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
-  [хранилища](../../../overview/main_concepts/data_storage/data_storage.md), добавьте в запрос ключевое слово 
-  [DATASOURCE_TYPE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#datasource_type) с псевдонимами 
-  требуемых СУБД.
-* Если логическую таблицу нужно создать только на логическом уровне, без 
-  пересоздания связанных [физических таблиц](../../../overview/main_concepts/physical_table/physical_table.md) 
-  в хранилище, добавьте в запрос ключевое слово [LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only).
-  
+Создание таблицы недоступно при наличии любого из факторов:
+* горячей [дельты](../../../overview/main_concepts/delta/delta.md),
+* незавершенного запроса на создание, удаление или изменение таблицы или представления,
+* запрета на изменение сущностей (см. раздел [DENY_CHANGES](../../../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
+
 Наличие логической таблицы можно проверить, как описано в разделе 
 [Проверка наличия логической таблицы](../entity_presence_check/entity_presence_check.md#table_check). Наличие 
 физических таблиц, связанных с логической, можно проверить, как описано в разделе
 [Проверка месторасположения логической сущности](../../../working_with_system/other_features/datasource_check/datasource_check.md).
+{: .note-wrapper}
+
+Каждое создание таблицы записывается в [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
+доступен с помощью запроса [GET_CHANGES](../../../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md).
 
 ## Примеры {#examples}
 

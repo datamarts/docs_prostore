@@ -13,8 +13,15 @@ has_children: false
 в [логической БД](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [ALTER VIEW](../../../reference/sql_plus_requests/ALTER_VIEW/ALTER_VIEW.md) 
 или `CREATE OR REPLACE VIEW` (см. [CREATE VIEW](../../../reference/sql_plus_requests/CREATE_VIEW/CREATE_VIEW.md)).
-
 При успешном выполнении запроса логическое представление изменит свой вид.
+
+Изменение представления недоступно при наличии любого из факторов:
+* горячей [дельты](../../../overview/main_concepts/delta/delta.md),
+* незавершенного запроса на создание, удаление или изменение таблицы или представления,
+* запрета на изменение сущностей (см. раздел [DENY_CHANGES](../../../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
+
+Каждое изменение представления записывается в [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
+можно посмотреть с помощью запроса [GET_CHANGES](../../../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md).
 
 ## Примеры {#examples}
 

@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: INSERT INTO download_external_table
-nav_order: 29
+nav_order: 34
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -25,25 +25,23 @@ has_toc: false
 во внешний приемник данных. Данные можно выгружать из [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
 [логических](../../../overview/main_concepts/logical_view/logical_view.md) и 
 [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md).
+Запрос обрабатывается в порядке, описанном в разделе
+[Порядок обработки запросов на выгрузку данных](../../../overview/interactions/download_processing/download_processing.md).
 
 Для получения небольшого объема данных можно использовать 
 [запрос данных](../../../working_with_system/data_reading/data_reading.md).
 {: .note-wrapper}
 
 Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md)
-с указанием [пути](../../path_to_kafka_topic/path_to_kafka_topic.md)
-к топику Kafka. Подробнее о порядке выполнения действий для выгрузки данных см. в разделе
-[Выгрузка данных](../../../working_with_system/data_download/data_download.md).
+с указанием [пути к внешнему приемнику данных](../../path_to_kafka_topic/path_to_kafka_topic.md). Подробнее о порядке 
+выполнения действий для выгрузки данных см. в разделе [Выгрузка данных](../../../working_with_system/data_download/data_download.md).
 {: .note-wrapper}
 
-Данные можно выгрузить из [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) [хранилища](../../../overview/main_concepts/main_concepts.md), 
-выбранной для выгрузки данных в [конфигурации системы](../../../maintenance/configuration/system/system.md) (см. параметр 
-`EDML_DATASOURCE`), или любой указанной СУБД хранилища. Если в запросе не указана СУБД для выгрузки, 
-данные выгружаются из СУБД, заданной в конфигурации системы. Чтобы выгрузить данные из другой СУБД, нужно добавить 
-в запрос ключевое слово `DATASOURCE_TYPE` с псевдонимом СУБД.
+В запросе можно указать [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
+[хранилища](../../../overview/main_concepts/main_concepts.md) для выгрузки данных. Если СУБД не указана, система 
+определяет СУБД, [оптимальную для выгрузки](../../../working_with_system/data_reading/routing/routing.md), 
+в зависимости от параметров запроса, месторасположения данных и конфигурации системы.
 
-Запрос обрабатывается в порядке, описанном в разделе 
-[Порядок обработки запросов на выгрузку данных](../../../overview/interactions/download_processing/download_processing.md).
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
@@ -64,11 +62,10 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 *   `ext_table_name` — имя внешней таблицы выгрузки;
 *   <a id="param_datasource_type"></a>`query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора выгружаемых данных. 
     Если в подзапросе указано ключевое слово `DATASOURCE_TYPE` с псевдонимом СУБД хранилища, данные выгружаются из этой 
-    СУБД, иначе — из СУБД, выбранной для выгрузки в конфигурации системы.
+    СУБД, иначе — из СУБД, [наиболее оптимальной для исполнения запроса](../../../working_with_system/data_reading/routing/routing.md).
 
 ## Ограничения {#restrictions}
 
-* Выгружаемые данные должны быть доступны в СУБД хранилища, выбранной для выгрузки.
 * Имена и порядок следования столбцов должны совпадать в SELECT-подзапросе на выгрузку данных и внешней таблице выгрузки.
 * Выгрузка данных, выбранных с использованием агрегатных функций, из ADQM дает некорректные результаты. Ограничение 
   связано с тем, что данные из сегментов кластера ADQM выгружаются параллельно и не объединяются.

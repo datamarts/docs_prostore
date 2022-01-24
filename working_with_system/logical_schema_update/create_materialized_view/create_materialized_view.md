@@ -12,18 +12,25 @@ has_children: false
 Чтобы создать [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [CREATE MATERIALIZED VIEW](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md).
-Если материализованное представление нужно создать только на логическом уровне, без 
-пересоздания связанных [физических таблиц](../../../overview/main_concepts/physical_table/physical_table.md) 
-в хранилище, добавьте в запрос ключевое слово 
-[LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md#logical_only).
+Если нужно создать представление только на логическом уровне, добавьте в запрос ключевое слово
+[LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only).
 
-В текущей версии возможно создание материализованных представлений в ADG на основе данных ADB.
+Создание материализованных представлений возможно в ADG и ADQM на основе данных ADB.
 {: .note-wrapper}
 
-Наличие материализованного представления можно проверить, как описано в разделе 
+Создание представления недоступно при наличии любого из факторов:
+* горячей [дельты](../../../overview/main_concepts/delta/delta.md),
+* незавершенного запроса на создание, удаление или изменение таблицы или представления,
+* запрета на изменение сущностей (см. раздел [DENY_CHANGES](../../../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
+
+Наличие представления можно проверить, как описано в разделе 
 [Проверка наличия материализованного представления](../entity_presence_check/entity_presence_check.md#mat_view_check).
 Наличие физических таблиц, связанных с материализованным представлением, можно проверить, как описано в разделе 
 [Проверка месторасположения логической сущности](../../../working_with_system/other_features/datasource_check/datasource_check.md).
+
+Каждое создание представления записывается в 
+[журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал 
+можно посмотреть с помощью запроса [GET_CHANGES](../../../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md).
 
 ## Примеры {#examples}
 
@@ -46,7 +53,7 @@ CREATE MATERIALIZED VIEW sales.sales_and_stores (
   PRIMARY KEY (id, region)
 )
 DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adg)
+DATASOURCE_TYPE (adg, adqm)
 AS SELECT
  s.id, s.transaction_date, s.product_code, s.product_units, s.description,
  st.id AS store_id, st.category as store_category, st.region

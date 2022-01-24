@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: UPSERT SELECT
-nav_order: 38
+nav_order: 42
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -24,9 +24,8 @@ has_toc: false
 (далее — целевая таблица) из другой логической сущности: логической таблицы, 
 [логического](../../../overview/main_concepts/logical_view/logical_view.md) 
 или [материализованного представления](../../../overview/main_concepts/materialized_view/materialized_view.md).
-Вставка возможна, если данные целевой таблицы размещены только в одной [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
-[хранилища](../../../overview/main_concepts/data_storage/data_storage.md), и источником
-данных служит та же СУБД хранилища.
+Вставка данных в логические и материализованные представления 
+недоступна.
 
 Запрос не поддерживается для ADG.
 {: .note-wrapper}
@@ -36,9 +35,14 @@ has_toc: false
 [выгрузки](../../../working_with_system/data_download/data_download.md) и загрузки данных.
 {: .tip-wrapper}
 
+Вставка данных возможна, если выполнено любое из условий:
+* данные целевой таблицы размещены только в одной СУБД хранилища, и источником данных служит та же СУБД
+  хранилища;
+* данные целевой таблицы размещены в ADB и ADQM, и источником данных служит ADB.
+
 Источником данных всегда служит одна СУБД хранилища: указанная в запросе или, если такая не указана, наиболее 
 оптимальная СУБД для исполнения [SELECT](../SELECT/SELECT.md)-подзапроса. Подробнее о выборе СУБД для 
-исполнения запроса см. в разделе
+исполнения запроса см. в разделе 
 [Маршрутизация запросов к данным](../../../working_with_system/data_reading/routing/routing.md).
 
 В ответе возвращается:
@@ -46,10 +50,17 @@ has_toc: false
 *   исключение при неуспешном выполнении запроса.
 
 При успешном выполнении запроса вставленные записи сохраняются как актуальные записи, а предыдущие актуальные записи, 
-если такие найдены, перемещаются в архив. Наличие предыдущей актуальной записи определяется по первичному ключу: 
+если такие найдены, становятся архивными. Наличие предыдущей актуальной записи определяется по первичному ключу: 
 все записи таблицы с одинаковым первичным ключом рассматриваются системой как различные исторические состояния одного 
 объекта. Подробнее о версионировании
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
+
+Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
+`UPSERT SELECT`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
+[закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md). В этом случае нужно 
+повторить запрос. Действие перезапустит обработку операции, и после ее завершения можно будет закрыть или откатить дельту.
+Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 
 Месторасположение данных логической таблицы можно задавать запросами
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
@@ -78,8 +89,7 @@ UPSERT INTO [db_name.]table_name (column_list) SELECT query
   в логической таблице;
 * `query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора данных. Если в подзапросе указано ключевое слово 
   `DATASOURCE_TYPE` с псевдонимом СУБД хранилища, данные выбираются из указанной СУБД, иначе — из СУБД, 
-  которая является [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) 
-  для исполнения запроса.
+  [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) для исполнения запроса.
 
 ## Ограничения {#restrictions}
 
@@ -189,7 +199,7 @@ USE sales;
 -- создание логического представления basic_stores с данными о магазинах категории basic
 CREATE VIEW basic_stores AS SELECT * FROM stores WHERE category = 'basic';
 
--- создание таблицы basic_stores_table с данными о магазинах категории basic (с размещением данных в ADB)
+-- создание таблицы basic_stores_table с данными о магазинах категории basic (с размещением данных в ADB и ADQM)
 CREATE TABLE basic_stores_table (
 id INT NOT NULL,
 category VARCHAR(256),
@@ -198,7 +208,7 @@ address VARCHAR(256),
 description VARCHAR(256),
 PRIMARY KEY (id)
 ) DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adb);
+DATASOURCE_TYPE (adb, adqm);
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
@@ -210,3 +220,47 @@ UPSERT INTO basic_stores_table SELECT * FROM basic_stores DATASOURCE_TYPE = 'adb
 COMMIT DELTA;
 ```
 
+### Вставка данных столбца из другой таблицы {#column_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- создание логической таблицы с данными покупок и адресов магазинов, где были совершены покупки 
+CREATE TABLE sales_with_address (
+id INT NOT NULL,
+transaction_date TIMESTAMP NOT NULL,
+product_code VARCHAR(256),
+product_units INT,
+store_id INT,
+description VARCHAR(256),
+store_address VARCHAR(256),
+PRIMARY KEY (id)
+) DISTRIBUTED BY (id)
+DATASOURCE_TYPE (adb, adqm);
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+-- вставка данных из таблицы sales (заполнение всех столбцов, кроме store_address)
+UPSERT INTO sales_with_address (id, transaction_date, product_code, product_units, store_id, description)
+SELECT * FROM sales DATASOURCE_TYPE = 'adb';
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+--- вставка данных адресов из таблицы stores в те строки, где адрес не заполнен
+UPSERT INTO sales_with_address
+SELECT s.id, s.transaction_date, s.product_code, s.product_units, s.store_id, s.description, 
+st.region || ', ' || st.address as store_address
+FROM stores AS st 
+JOIN sales_with_address AS s ON s.store_id = st.id 
+WHERE s.store_address IS NULL OR s.store_address = ''
+DATASOURCE_TYPE = 'adb';
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```

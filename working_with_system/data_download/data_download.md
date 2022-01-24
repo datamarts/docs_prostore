@@ -17,11 +17,9 @@ has_children: false
 Для получения небольшого объема данных можно использовать функцию [запроса данных](../data_reading/data_reading.md).
 {: .note-wrapper}
 
-Данные можно выгрузить из [СУБД](../../introduction/supported_DBMS/supported_DBMS.md) [хранилища](../../overview/main_concepts/main_concepts.md),
-выбранной для выгрузки данных в [конфигурации системы](../../maintenance/configuration/system/system.md) (см. параметр
-`EDML_DATASOURCE`), или любой 
-[указанной СУБД хранилища](../../reference/sql_plus_requests/INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md#param_datasource_type).
-Возможные способы выбора выгружаемых данных см. в секции [FOR SYSTEM_TIME](../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time)
+Система определяет СУБД хранилища, [оптимальную для выгрузки данных](../data_reading/routing/routing.md), 
+в зависимости от параметров запроса, месторасположения данных и конфигурации системы. Возможные способы выбора данных к выгрузке см. в секции 
+[FOR SYSTEM_TIME](../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time)
 раздела [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md).
 
 Данные выгружаются [в виде сообщений Kafka](../../reference/download_format/download_format.md), поэтому для их загрузки

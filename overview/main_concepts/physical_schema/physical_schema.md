@@ -10,15 +10,26 @@ has_toc: false
 
 # Физическая схема данных {#physical_schema}
 
-_Физическая схема данных_ — структура хранения данных в 
-[хранилище](../data_storage/data_storage.md), создаваемая и поддерживаемая системой.
+_Физическая схема данных_ — структура хранения данных логических сущностей в 
+[физических таблицах](../physical_table/physical_table.md) [хранилища](../data_storage/data_storage.md).
 
 Для каждой [логической таблицы](../logical_table/logical_table.md) и каждого 
 [материализованного представления](../materialized_view/materialized_view.md) система 
-создает и поддерживает набор [физических таблиц](../physical_table/physical_table.md), перечисленных 
-в таблице ниже. 
-Состав набора физических таблиц зависит от типа [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
-хранилища.
+**автоматически** создает и поддерживает набор связанных [физических таблиц](../physical_table/physical_table.md) 
+в некоторых или всех [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) хранилища. 
+
+Состав СУБД, в которых создаются физические таблицы и, соответственно, хранятся данные логических сущностей, 
+можно регулировать с помощью ключевого слова `DATASOURCE_TYPE` в запросах на создание и удаление логических таблиц и 
+материализованных представлений. Подробнее см. в разделах 
+[CREATE TABLE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md),
+[DROP TABLE](../../../reference/sql_plus_requests/DROP_TABLE/DROP_TABLE.md),
+[CREATE MATERIALIZED VIEW](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md) и 
+[DROP MATERIALIZED VIEW](../../../reference/sql_plus_requests/DROP_MATERIALIZED_VIEW/DROP_MATERIALIZED_VIEW.md).
+{: .note-wrapper}
+
+Состав и содержимое физических таблиц зависят от типа СУБД и описаны в таблице ниже. Например, в ADP все горячие 
+записи хранятся в физической таблице с суффиксом `_staging`, а все актуальные 
+и архивные записи — в таблице с суффиксом `_actual`.
 
 | Физическая таблица | ADB | ADG | ADQM | ADP
 |:-|:-:|:-:|:-:|:-:

@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: DROP DATABASE
-nav_order: 18
+nav_order: 21
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

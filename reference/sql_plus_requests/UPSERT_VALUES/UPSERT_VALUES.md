@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: UPSERT VALUES
-nav_order: 37
+nav_order: 43
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -44,7 +44,7 @@ has_toc: false
 При успешном выполнении запроса данные вставляются в [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
 [хранилища](../../../overview/main_concepts/data_storage/data_storage.md), 
 в которых размещены данные указанной логической таблицы. Каждая из вставленных записей сохраняется как актуальная 
-запись таблицы, а предыдущая актуальная запись, если такая найдена, перемещается в архив. Наличие предыдущей актуальной 
+запись таблицы, а предыдущая актуальная запись, если такая найдена, становится архивной. Наличие предыдущей актуальной 
 записи определяется по первичному ключу: все записи таблицы с одинаковым первичным ключом рассматриваются системой как 
 различные исторические состояния одного объекта. Подробнее о версионировании 
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
@@ -53,6 +53,13 @@ has_toc: false
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с указанием ключевого слова 
 `DATASOURCE_TYPE`.
 {: .note-wrapper}
+
+Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом 
+`UPSERT VALUES`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
+[закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md). В этом случае нужно 
+повторить запрос. Действие перезапустит обработку операции, и после ее завершения можно будет закрыть или откатить дельту.
+Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса 
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 
 ## Синтаксис {#syntax}
 
