@@ -40,7 +40,7 @@ has_toc: false
 
 ```shell
 # клонирование репозитория Prostore
-git clone https://github.com/arenadata/prostore ~/prostore
+git clone https://github.com/datamarts/prostore ~/prostore
 # запуск сборки Prostore средствами Apache Maven
 cd ~/prostore
 mvn clean install -DskipTests=true
