@@ -38,6 +38,10 @@ has_children: false
   логических сущностей;
 * для выгрузки данных добавлен [выбор оптимальной СУБД хранилища](../working_with_system/data_reading/routing/routing.md), 
   аналогичный выбору СУБД для SELECT-запросов;
+* из запроса [CREATE TABLE](../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) удалено неподдерживаемое 
+  ключевое слово `DEFAULT`;
+* добавлен раздел «Зарезервированные слова» со словами, которые не могут использоваться как имена сущностей 
+  и имена полей;
 * обновлена [конфигурация системы](../maintenance/configuration/system/system.md):
   * добавлен параметр `ADQM_SHARDING_EXPR`;
   * добавлен параметр `ADB_MPPW_USE_ADVANCED_CONNECTOR`;

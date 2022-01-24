@@ -12,13 +12,8 @@ has_children: false
 Чтобы создать [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [CREATE MATERIALIZED VIEW](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md).
-При необходимости добавьте в запрос ключевое слово:
-* [DATASOURCE_TYPE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#datasource_type) со списком
-  [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
-  [хранилища](../../../overview/main_concepts/data_storage/data_storage.md) — чтобы указать, в каких СУБД нужно разместить 
-  данные представления;
-* [LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only) — чтобы создать 
-  представление только на логическом уровне.
+Если нужно создать представление только на логическом уровне, добавьте в запрос ключевое слово
+[LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only).
 
 Создание материализованных представлений возможно в ADG и ADQM на основе данных ADB.
 {: .note-wrapper}

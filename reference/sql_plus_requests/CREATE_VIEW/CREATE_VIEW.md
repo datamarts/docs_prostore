@@ -55,8 +55,8 @@ CREATE OR REPLACE VIEW [db_name.]view_name AS SELECT query
 * В подзапросе `query` не допускается использование:
   * логических представлений,
   * [системных представлений](../../system_views/system_views.md) `INFORMATION_SCHEMA`,
-  * ключевого слова [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
-  * ключевого слова `DATASOURCE_TYPE`.
+  * ключевого слова [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time).
+* Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе `query`, игнорируется.
 
 ## Пример {#examples}
 
