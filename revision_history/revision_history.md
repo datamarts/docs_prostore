@@ -56,7 +56,7 @@ has_children: false
 
 ### Версия 5.2
 
-Версия 5.2 доступна в архиве [архиве](https://datamarts.github.io/docs_prostore_archive/v5-2/).
+Версия 5.2 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v5-2/).
 
 Изменения:
 * добавлена функция обновления данных — альтернатива загрузке в случае небольших объемов данных; описание доступно
