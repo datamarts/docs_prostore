@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: История изменений
 nav_order: 7
@@ -38,6 +38,10 @@ has_children: false
   логических сущностей;
 * для выгрузки данных добавлен [выбор оптимальной СУБД хранилища](../working_with_system/data_reading/routing/routing.md), 
   аналогичный выбору СУБД для SELECT-запросов;
+* из запроса [CREATE TABLE](../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) удалено неподдерживаемое 
+  ключевое слово `DEFAULT`;
+* добавлен раздел «Зарезервированные слова» со словами, которые не могут использоваться как имена сущностей 
+  и имена полей;
 * обновлена [конфигурация системы](../maintenance/configuration/system/system.md):
   * добавлен параметр `ADQM_SHARDING_EXPR`;
   * добавлен параметр `ADB_MPPW_USE_ADVANCED_CONNECTOR`;
@@ -52,7 +56,7 @@ has_children: false
 
 ### Версия 5.2
 
-Версия 5.2 доступна в архиве <>.
+Версия 5.2 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v5-2/).
 
 Изменения:
 * добавлена функция обновления данных — альтернатива загрузке в случае небольших объемов данных; описание доступно
@@ -92,7 +96,7 @@ has_children: false
 
 ### Версия 5.1
 
-Версия 5.1 доступна в [архиве](https://arenadata.github.io/docs_prostore_archive/v5-1-0/).
+Версия 5.1 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v5-1-0/).
 
 Изменения:
 * добавлено ключевое слово `ESTIMATE_ONLY`, доступное в SELECT-запросах;
@@ -133,7 +137,7 @@ has_children: false
 
 ### Версия 4.1
 
-Версия 4.1 доступна в [архиве](https://arenadata.github.io/docs_prostore_archive/v4-1-0/).
+Версия 4.1 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v4-1-0/).
 
 Изменения:
 * добавлено ключевое слово `OFFSET`, доступное в SELECT-запросах;
@@ -159,7 +163,7 @@ has_children: false
 
 ### Версия 3.7.3
 
-Версия 3.7.3 доступна в [архиве](https://arenadata.github.io/docs_prostore_archive/v3-7-3/).
+Версия 3.7.3 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v3-7-3/).
 
 Изменения:
 * обновлена конфигурация:
