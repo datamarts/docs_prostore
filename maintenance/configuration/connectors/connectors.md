@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Конфигурация коннекторов
 nav_order: 2
@@ -44,7 +44,7 @@ vertx:
 logging:
   level:
     # уровень важности сообщений, записываемых в лог-файл
-    io.arenadata.kafka.clickhouse.reader: ${LOG_LEVEL:DEBUG}
+    ru.datamart.kafka.clickhouse.reader: ${LOG_LEVEL:DEBUG}
 
 # настройки вертиклов Vertx
 verticle:
@@ -205,7 +205,7 @@ verticle:
 logging:
   level:
     # уровень важности сообщений, записываемых в лог-файл   
-    io.arenadata.dtm: DEBUG
+    ru.datamart.prostore: DEBUG
     # уровень важности сообщений, записываемых в лог-файл по событиям Kafka     
     org.apache.kafka: INFO
 ```
@@ -217,7 +217,7 @@ logging:
 logging:
   level:
     # уровень важности сообщений, записываемых в лог-файл
-    io.arenadata.kafka: ${LOG_LEVEL:DEBUG}
+    ru.datamart.kafka: ${LOG_LEVEL:DEBUG}
     # уровень важности сообщений, записываемых в лог-файл по событиям Kafka 
     org.apache.kafka: ${KAFKA_LOG_LEVEL:INFO}
 
@@ -277,7 +277,7 @@ kafka:
 logging:
   level:
     # уровень важности сообщений, записываемых в лог-файл
-    io.arenadata.kafka: ${LOG_LEVEL:DEBUG}
+    ru.datamart.kafka: ${LOG_LEVEL:DEBUG}
     # уровень важности сообщений, записываемых в лог-файл по событиям Kafka   
     org.apache.kafka: ${KAFKA_LOG_LEVEL:INFO}
 
