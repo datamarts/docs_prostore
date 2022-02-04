@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: SELECT
 nav_order: 39
