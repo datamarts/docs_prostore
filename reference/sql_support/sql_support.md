@@ -86,9 +86,13 @@ has_toc: false
 |:---
 | `SELECT * FROM table1`<br>`    LEFT JOIN (SELECT * FROM table3 t3 WHERE t3.id > 5) t2 ON table1.id = t2.id`<br>`WHERE table3.id > 10`<br>`ORDER BY table3.id;` |
 
-| RIGHT JOIN: ADB, ADQM, ADP
+| RIGHT JOIN: ADB, ADP
 |:---
-| `SELECT * FROM table1 t1`<br>`RIGHT JOIN table3 t3 on t1.id = t3.id`<br>`ORDER BY t1.id limit 5 datasource_type = {'ADB' | 'ADP' | 'ADQM'};` |
+| `SELECT * FROM table1 t1`<br>`RIGHT JOIN table3 t3 on t1.id = t3.id`<br>`ORDER BY t1.id limit 5 datasource_type = {'ADB' | 'ADP'};` |
+
+Вышеуказанный SELECT-запрос с `RIGHT JOIN` для ADQM считается неподдерживаемым, так как может возвращать некорректный результат, несмотря на формальное отсутствие ошибки исполнения.
+{: .note-wrapper}
+
 
 | RIGHT JOIN: Не поддерживается
 |:---
