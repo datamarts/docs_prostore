@@ -16,7 +16,7 @@ has_children: false
 - [github-репозиторий: Greenplum-Tarantool PXF-connector](https://github.com/datamarts/tarantool-pxf-connector)
 - [github-репозиторий: Kafka-Postgres connector](https://github.com/datamarts/kafka-postgres-connector)
 
-## Публичные репозитории зависимостей
+## Репозитории зависимостей
 - [github-репозиторий: Авро библиотека для kafka-adb-os](https://github.com/arenadata/avro)
 - [github-репозиторий: Луа-авро библиотека для kafka-tarantool](https://github.com/Asmoday/lua-avro)
 
