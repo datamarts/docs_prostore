@@ -117,12 +117,32 @@ has_toc: false
 
 ## Функции и операторы даты и времени {#Datetimefunctions}
 
+### CAST AS DATE {#CastasdateSQL}
+
+| CAST AS DATE: ADB, ADQM, ADG, ADP
+|:---
+| `SELECT * FROM table1 WHERE date_col = '2021-01-02' datasource_type = {'ADB' | 'ADQM' | 'ADG' | 'ADP'};` |
+
+| CAST AS DATE: ADB, ADP
+|:---
+| `SELECT * FROM table1 WHERE date_col = CAST('2021-01-02' AS DATE) datasource_type = {'ADB' | 'ADP'};` |
+
 ### CURRENT_DATE {#CurrentdateSQL}
 
 | CURRENT_DATE: ADB, ADP
 |:---
 | `SELECT CAST(CURRENT_DATE AS DATE) FROM table1 datasource_type = {'ADB' | 'ADP'};` |
 | `SELECT CURRENT_DATE FROM table1 datasource_type = {'ADB' | 'ADP'};` |
+
+### CAST AS TIME {#CastastimeSQL}
+
+| CAST AS TIME: ADB, ADQM, ADG, ADP
+|:---
+| `SELECT * FROM table1 WHERE time_col = '12:12:12' datasource_type = {'ADB' | 'ADQM' | 'ADG' | 'ADP'};` |
+
+| CAST AS TIME: ADB, ADP
+|:---
+| `SELECT * FROM table1 WHERE time_col = CAST('12:12:12' AS TIME) datasource_type = {'ADB' | 'ADP'};` |
 
 ### CURRENT_TIME {#CurrenttimeSQL}
 
@@ -133,6 +153,16 @@ has_toc: false
 | CURRENT_TIME: Не поддерживается
 |:---
 | `SELECT CURRENT_TIME FROM table1;`|
+
+### CAST AS TIMESTAMP {#CastastimestampSQL}
+
+| CAST AS TIMESTAMP: ADB, ADQM, ADG, ADP
+|:---
+| `SELECT * FROM table1 WHERE timestamp_col = '2021-01-02 12:12:12' datasource_type = {'ADB' | 'ADQM' | 'ADG' | 'ADP'};` |
+
+| CAST AS TIMESTAMP: ADB, ADP
+|:---
+| `SELECT * FROM table1 WHERE time_col = CAST('2021-01-02 12:12:12' AS TIMESTAMP) datasource_type = {'ADB' | 'ADP'};` |
 
 ### CURRENT_TIMESTAMP {#CurrenttimestampSQL}
 
