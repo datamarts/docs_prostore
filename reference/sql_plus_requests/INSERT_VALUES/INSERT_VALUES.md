@@ -1,14 +1,14 @@
 ﻿---
 layout: default
-title: UPSERT VALUES
-nav_order: 43
+title: INSERT VALUES
+nav_order: 37
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
 has_toc: false
 ---
 
-# UPSERT VALUES
+# INSERT VALUES
 {: .no_toc }
 
 <details markdown="block">
@@ -55,7 +55,7 @@ has_toc: false
 {: .note-wrapper}
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом 
-`UPSERT VALUES`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
+`INSERT VALUES`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
 [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md). В этом случае нужно 
 повторить запрос. Действие перезапустит обработку операции, и после ее завершения можно будет закрыть или откатить дельту.
 Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса 
@@ -65,13 +65,13 @@ has_toc: false
 
 Вставка данных во все столбцы логической таблицы:
 ```sql
-UPSERT INTO [db_name.]table_name VALUES (value_list_1), (value_list_2), ...
+INSERT INTO [db_name.]table_name VALUES (value_list_1), (value_list_2), ...
 ```
 
 Вставка данных только в некоторые столбцы логической таблицы
 (с заполнением остальных столбцов значениями, которые определены в СУБД хранилища как значения по умолчанию):
 ```sql
-UPSERT INTO [db_name.]table_name (column_list) VALUES (value_list_1), (value_list_2), ...
+INSERT INTO [db_name.]table_name (column_list) VALUES (value_list_1), (value_list_2), ...
 ```
 
 Параметры:
@@ -102,7 +102,7 @@ USE sales;
 BEGIN DELTA;
 
 -- вставка трех записей в логическую таблицу sales
-UPSERT INTO sales 
+INSERT INTO sales 
 VALUES (100011, '2021-08-21 23:34:10', 'ABC0001', 2, 123, 'Покупка по акции "1+1"'), 
        (100012, '2021-08-22 10:05:56', 'ABC0001', 1, 234, 'Покупка без акций'), 
        (1000113, '2021-08-22 13:17:47', 'ABC0002', 4, 123, 'Покупка по акции "Лето"');
@@ -118,7 +118,7 @@ COMMIT DELTA;
 BEGIN DELTA;
 
 -- вставка двух записей в логическую таблицу sales (без указания значения столбца description)
-UPSERT INTO sales.sales 
+INSERT INTO sales.sales 
        (id, transaction_date, product_code, product_units, store_id)
 VALUES (100014, '2021-08-23 09:34:10', 'ABC0003', 3, 123), 
        (100012, '2021-08-23 20:05:56', 'ABC0001', 6, 234);

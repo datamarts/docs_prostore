@@ -195,14 +195,14 @@ has_toc: false
 
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
-## [UPSERT SELECT](../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md#restrictions)
+## [INSERT SELECT](../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md#restrictions)
 
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
 * Типы вставляемых данных должны соответствовать типам данных столбцов целевой логической таблицы.
 
-## [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md#restrictions)
+## [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md#restrictions)
 
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,

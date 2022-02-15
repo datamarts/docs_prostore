@@ -29,8 +29,8 @@ has_toc: false
     на открытие [дельты](../../overview/main_concepts/delta/delta.md),
     если она еще не открыта.
 5.  Выполните запрос на обновление данных:
-      * [UPSERT VALUES](../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) или 
-        [UPSERT SELECT](../../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md) — 
+      * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md) или 
+        [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) — 
         для добавления новых или изменения актуальных данных;
       * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления актуальных данных.
 6.  Если необходимо, обновите или загрузите другие данные. 
@@ -59,7 +59,7 @@ USE sales;
 BEGIN DELTA;
 
 -- вставка трех записей в логическую таблицу sales
-UPSERT INTO sales 
+INSERT INTO sales 
 VALUES (100011, '2021-08-21 23:34:10', 'ABC0001', 2, 123, 'Покупка по акции "1+1"'), 
        (100012, '2021-08-22 10:05:56', 'ABC0001', 1, 234, 'Покупка без акций'), 
        (1000113, '2021-08-22 13:17:47', 'ABC0002', 4, 123, 'Покупка по акции "Лето"');
@@ -80,7 +80,7 @@ PRIMARY KEY (id)
 DATASOURCE_TYPE (adb);
 
 -- вставка данных из таблицы sales в новую таблицу sales_july_2021 
-UPSERT INTO sales_july_2021 
+INSERT INTO sales_july_2021 
 SELECT * FROM sales WHERE CAST(EXTRACT(MONTH FROM transaction_date) AS INT) = 7 AND 
   CAST(EXTRACT(YEAR FROM transaction_date) AS INT) = 2021 DATASOURCE_TYPE = 'adb';
 

@@ -553,7 +553,7 @@ COMMIT DELTA;
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 -- запуск вставки данных в логическую таблицу sales
-UPSERT INTO sales.sales
+INSERT INTO sales.sales
 (id, transaction_date, product_code, product_units, store_id, description)
 VALUES
 (2000111, '2020-05-01 13:14:16', 'ABC202010', 7, 1000000123, 'Покупка без акций'),

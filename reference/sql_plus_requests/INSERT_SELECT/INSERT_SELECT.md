@@ -1,14 +1,14 @@
 ﻿---
 layout: default
-title: UPSERT SELECT
-nav_order: 42
+title: INSERT SELECT
+nav_order: 36
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
 has_toc: false
 ---
 
-# UPSERT SELECT
+# INSERT SELECT
 {: .no_toc }
 
 <details markdown="block">
@@ -56,7 +56,7 @@ has_toc: false
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
-`UPSERT SELECT`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
+`INSERT SELECT`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
 [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md). В этом случае нужно 
 повторить запрос. Действие перезапустит обработку операции, и после ее завершения можно будет закрыть или откатить дельту.
 Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
@@ -71,13 +71,13 @@ has_toc: false
 
 Вставка данных во все столбцы логической таблицы:
 ```sql
-UPSERT INTO [db_name.]table_name SELECT query
+INSERT INTO [db_name.]table_name SELECT query
 ```
 
 Вставка данных только в некоторые столбцы логической таблицы 
 (с заполнением остальных столбцов значениями, которые определены в СУБД хранилища как значения по умолчанию):
 ```sql
-UPSERT INTO [db_name.]table_name (column_list) SELECT query
+INSERT INTO [db_name.]table_name (column_list) SELECT query
 ```
 
 Параметры:
@@ -122,7 +122,7 @@ DATASOURCE_TYPE (adb);
 BEGIN DELTA;
 
 -- вставка данных из таблицы sales в таблицу sales_july_2021 
-UPSERT INTO sales_july_2021 
+INSERT INTO sales_july_2021 
 SELECT * FROM sales WHERE CAST(EXTRACT(MONTH FROM transaction_date) AS INT) = 7 AND 
   CAST(EXTRACT(YEAR FROM transaction_date) AS INT) = 2021 DATASOURCE_TYPE = 'adb';
 
@@ -152,7 +152,7 @@ DATASOURCE_TYPE (adqm);
 BEGIN DELTA;
 
 -- вставка данных в таблицу current_stores без указания значения столбца description
-UPSERT INTO current_stores (id, category, region, address)
+INSERT INTO current_stores (id, category, region, address)
 SELECT id, category, region, address FROM stores FOR SYSTEM_TIME AS OF DELTA_NUM 10 DATASOURCE_TYPE = 'adqm';
 
 -- закрытие дельты (фиксация изменений)
@@ -184,7 +184,7 @@ DATASOURCE_TYPE (adp);
 BEGIN DELTA;
 
 -- вставка данных в таблицу sales из аналогичной таблицы другой логической БД
-UPSERT INTO sales SELECT * FROM sales.sales WHERE store_id BETWEEN 1234 AND 4567 DATASOURCE_TYPE = 'adp';
+INSERT INTO sales SELECT * FROM sales.sales WHERE store_id BETWEEN 1234 AND 4567 DATASOURCE_TYPE = 'adp';
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
@@ -214,7 +214,7 @@ DATASOURCE_TYPE (adb, adqm);
 BEGIN DELTA;
 
 -- вставка данных в таблицу basic_stores_table
-UPSERT INTO basic_stores_table SELECT * FROM basic_stores DATASOURCE_TYPE = 'adb';
+INSERT INTO basic_stores_table SELECT * FROM basic_stores DATASOURCE_TYPE = 'adb';
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
@@ -243,7 +243,7 @@ DATASOURCE_TYPE (adb, adqm);
 BEGIN DELTA;
 
 -- вставка данных из таблицы sales (заполнение всех столбцов, кроме store_address)
-UPSERT INTO sales_with_address (id, transaction_date, product_code, product_units, store_id, description)
+INSERT INTO sales_with_address (id, transaction_date, product_code, product_units, store_id, description)
 SELECT * FROM sales DATASOURCE_TYPE = 'adb';
 
 -- закрытие дельты (фиксация изменений)
@@ -253,7 +253,7 @@ COMMIT DELTA;
 BEGIN DELTA;
 
 --- вставка данных адресов из таблицы stores в те строки, где адрес не заполнен
-UPSERT INTO sales_with_address
+INSERT INTO sales_with_address
 SELECT s.id, s.transaction_date, s.product_code, s.product_units, s.store_id, s.description, 
 st.region || ', ' || st.address as store_address
 FROM stores AS st 
