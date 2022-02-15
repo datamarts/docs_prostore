@@ -88,7 +88,8 @@ has_toc: false
   и только той логической базы данных, в которой находится материализованное представление.
 * Подзапрос не может содержать: 
   * ключевое слово [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time),
-  * ключевое слово `ORDER BY`.
+  * ключевое слово `ORDER BY`,
+  * ключевое слово `LIMIT`.
 
 ## [CREATE TABLE](../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#restrictions)
 
