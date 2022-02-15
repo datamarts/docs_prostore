@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: ALTER VIEW
 nav_order: 2

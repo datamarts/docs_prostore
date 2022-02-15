@@ -1,18 +1,22 @@
-﻿---
+---
 layout: default
 title: Ресурсы
 nav_order: 6
 has_children: false
 ---
 
-# Ресурсы {#resources}
+# Публичные ресурсы {#resources}
 
-[github-репозиторий Prostore](https://github.com/datamarts/prostore)
+## Основные репозитории
+- [Prostore: Data Lake Engine](https://github.com/datamarts/prostore)
+- [Greenplum-Kafka PXF-connector](https://github.com/datamarts/kafka-pxf-connector)
+- [Kafka-Greenplum connector](https://github.com/arenadata/kafka-adb-os)
+- [Kafka-Clickhouse connector (reader+writer)](https://github.com/datamarts/kafka-clickhouse-connector)
+- [Kafka-Tarantool loader (reader+writer+api)](https://github.com/arenadata/kafka-tarantool-loader)
+- [Greenplum-Tarantool PXF-connector](https://github.com/datamarts/tarantool-pxf-connector)
+- [Kafka-Postgres connector](https://github.com/datamarts/kafka-postgres-connector)
 
-Коннекторы
-- [github-репозиторий Kafka PXF connector](https://github.com/arenadata/kafka-pxf-connector)
-- [github-репозиторий Kafka Clickhouse connector](https://github.com/arenadata/kafka-clickhouse-connector)
-- [github-репозиторий Kafka Tarantool loader](https://github.com/arenadata/kafka-tarantool-loader)
-- [github-репозиторий Kafka ADB connector](https://github.com/arenadata/kafka-adb-os)
-   - [github-репозиторий Apache Avro fork](https://github.com/arenadata/avro/tree/1.10.2_arenadata1/lang/c)
-- [github-репозиторий Kafka Postgres connector](https://github.com/arenadata/kafka-postgres-connector)
+## Репозитории зависимостей
+- [Авро библиотека для kafka-adb-os](https://github.com/arenadata/avro)
+- [Луа-авро библиотека для kafka-tarantool](https://github.com/Asmoday/lua-avro)
+
