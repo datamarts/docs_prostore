@@ -52,8 +52,9 @@ has_toc: false
 Основные причины ошибок обновления данных:
 * несоответствие порядка, количества или типов столбцов между логической таблицей-приемником данных и запросом на 
 обновление данных;
-* отсутствие в запросе [INSERT VALUES](../../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md) или 
-  [INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) значений обязательных столбцов 
+* отсутствие в запросе [INSERT VALUES](../../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
+  [INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или 
+  [UPSERT VALUES](../../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) значений обязательных столбцов 
   логической таблицы;
 * указание в запросе [INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) тех 
   [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 

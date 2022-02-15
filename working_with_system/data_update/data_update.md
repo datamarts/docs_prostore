@@ -29,8 +29,9 @@ has_toc: false
     на открытие [дельты](../../overview/main_concepts/delta/delta.md),
     если она еще не открыта.
 5.  Выполните запрос на обновление данных:
-      * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md) или 
-        [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) — 
+      * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
+        [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или 
+        [UPSERT VALUES](../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) — 
         для добавления новых или изменения актуальных данных;
       * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления актуальных данных.
 6.  Если необходимо, обновите или загрузите другие данные. 

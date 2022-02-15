@@ -178,6 +178,19 @@ has_toc: false
 
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 
+## [INSERT SELECT](../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md#restrictions)
+
+* Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
+* Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
+  `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
+* Типы вставляемых данных должны соответствовать типам данных столбцов целевой логической таблицы.
+
+## [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md#restrictions)
+
+* Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
+* Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
+  `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
+
 ## [SELECT](../reference/sql_plus_requests/SELECT/SELECT.md#restrictions)
 
 *   Запрос может обращаться либо к логической БД, либо к сервисной БД (см. [SELECT FROM INFORMATION_SCHEMA](../reference/sql_plus_requests/SELECT_FROM_INFORMATION_SCHEMA/SELECT_FROM_INFORMATION_SCHEMA.md)), 
@@ -195,14 +208,7 @@ has_toc: false
 
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
-## [INSERT SELECT](../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md#restrictions)
-
-* Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
-* Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
-  `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
-* Типы вставляемых данных должны соответствовать типам данных столбцов целевой логической таблицы.
-
-## [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md#restrictions)
+## [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md#restrictions)
 
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
