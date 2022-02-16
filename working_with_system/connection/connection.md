@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Подключение
 nav_order: 1
