@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Программное подключение
 nav_order: 2
@@ -31,13 +31,13 @@ JDBC-драйвер системы позволяет подключаться �
 
     2.  если используется Java версии менее 1.6, загрузите драйвер в память:
         ```java        
-        Class.forName("io.arenadata.dtm.jdbc.DtmDriver");
+        Class.forName("ru.datamart.prostore.jdbc.Driver");
         ```
 
     3.  установите соединение с системой с помощью метода `DriverManager.getConnection()` в следующем 
         формате:
         ```java  
-        String url = "jdbc:adtm://DtmHost:portNumber/logicalDatabaseName";
+        String url = "jdbc:prostore://DtmHost:portNumber/logicalDatabaseName";
         Connection conn = DriverManager.getConnection(url, null, null);
         ```
     
@@ -48,7 +48,7 @@ JDBC-драйвер системы позволяет подключаться �
 
 Пример `url`:
 ```java  
-String url = "jdbc:adtm://10.92.3.3:9092/demo";
+String url = "jdbc:prostore://10.92.3.3:9092/demo";
 Connection conn = DriverManager.getConnection(url, null, null);
 ```
 
@@ -63,7 +63,7 @@ import java.sql.*;
 public class SimpleDtmJDBCExample {
     public static void main(String[] args) {
         Connection conn;
-        String url = "jdbc:adtm://10.92.3.3:9092/demo";
+        String url = "jdbc:prostore://10.92.3.3:9092/demo";
         try {
             conn = DriverManager.getConnection(url);
             System.out.println("Connected");

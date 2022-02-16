@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Конфигурация системы
 nav_order: 1
@@ -35,7 +35,7 @@ has_children: false
 logging:
 # уровень важности сообщений, записываемых в лог-файл
   level:
-    io.arenadata.dtm.query.execution: ${DTM_LOGGING_LEVEL:TRACE}
+    ru.datamart.prostore.query.execution: ${DTM_LOGGING_LEVEL:TRACE}
 ```
 
 ### Настройки управления Prostore {#prostore_parameters}
