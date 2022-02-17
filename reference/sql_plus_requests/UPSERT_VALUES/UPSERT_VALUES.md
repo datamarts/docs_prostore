@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: UPSERT VALUES
 nav_order: 43
@@ -89,6 +89,7 @@ UPSERT INTO [db_name.]table_name (column_list) VALUES (value_list_1), (value_lis
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
+* Не допускается выполнение параллельных [запросов обновления данных](../../../working_with_system/data_update/data_update.html) к одной таблице.
 
 ## Пример {#examples}
 
