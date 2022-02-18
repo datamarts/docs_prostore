@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Ограничения Prostore
+title: Ограничения системы
 nav_order: 5.5
 has_children: false
 has_toc: false
