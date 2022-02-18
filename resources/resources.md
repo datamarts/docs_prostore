@@ -1,13 +1,14 @@
----
+﻿---
 layout: default
 title: Ресурсы
 nav_order: 6
 has_children: false
 ---
 
-# Публичные ресурсы {#resources}
+# Ресурсы {#resources}
 
 ## Основные репозитории
+
 - [Prostore: Data Lake Engine](https://github.com/datamarts/prostore)
 - [Greenplum-Kafka PXF-connector](https://github.com/datamarts/kafka-pxf-connector)
 - [Kafka-Greenplum connector](https://github.com/arenadata/kafka-adb-os)
@@ -17,6 +18,6 @@ has_children: false
 - [Kafka-Postgres connector](https://github.com/datamarts/kafka-postgres-connector)
 
 ## Репозитории зависимостей
-- [Авро библиотека для kafka-adb-os](https://github.com/arenadata/avro)
-- [Луа-авро библиотека для kafka-tarantool](https://github.com/Asmoday/lua-avro)
 
+- [Avro-библиотека для kafka-adb-os](https://github.com/arenadata/avro)
+- [Lua-Avro-библиотека для kafka-tarantool](https://github.com/Asmoday/lua-avro)
