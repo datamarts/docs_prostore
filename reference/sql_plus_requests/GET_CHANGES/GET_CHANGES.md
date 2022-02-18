@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: GET_CHANGES
-nav_order: 27
+nav_order: 28
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

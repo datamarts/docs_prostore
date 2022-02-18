@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CREATE UPLOAD EXTERNAL TABLE
-nav_order: 17
+nav_order: 18
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

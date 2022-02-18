@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: DROP UPLOAD EXTERNAL TABLE
-nav_order: 25
+nav_order: 26
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

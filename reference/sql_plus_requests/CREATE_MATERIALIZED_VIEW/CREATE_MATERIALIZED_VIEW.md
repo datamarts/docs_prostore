@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CREATE MATERIALIZED VIEW
-nav_order: 15
+nav_order: 16
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
