@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: CREATE MATERIALIZED VIEW
 nav_order: 16
@@ -127,7 +127,8 @@ DATASOURCE_TYPE = origin_datasource_alias
   и только той логической базы данных, в которой находится материализованное представление.
 * Подзапрос не может содержать: 
   * ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
-  * ключевое слово `ORDER BY`.
+  * ключевое слово `ORDER BY`,
+  * ключевое слово `LIMIT`.
 
 ## Примеры {#examples}
 

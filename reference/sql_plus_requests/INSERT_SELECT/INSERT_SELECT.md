@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: INSERT SELECT
 nav_order: 37
@@ -97,6 +97,7 @@ INSERT INTO [db_name.]table_name (column_list) SELECT query
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
 * Типы вставляемых данных должны соответствовать типам данных столбцов целевой логической таблицы.
+* Не допускается выполнение идентичных параллельных запросов.
 
 ## Пример {#examples}
 

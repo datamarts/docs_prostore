@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: INSERT INTO download_external_table
 nav_order: 35

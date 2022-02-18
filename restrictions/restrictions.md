@@ -95,7 +95,8 @@ has_toc: false
   и только той логической базы данных, в которой находится материализованное представление.
 * Подзапрос не может содержать: 
   * ключевое слово [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time),
-  * ключевое слово `ORDER BY`.
+  * ключевое слово `ORDER BY`,
+  * ключевое слово `LIMIT`.
 
 ## [CREATE TABLE](../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#restrictions)
 
@@ -133,7 +134,8 @@ has_toc: false
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`. 
 * В условии `WHERE` не допускается использование функций, результаты которых различаются в разных СУБД хранилища. Примерами 
   таких функций служат операции с вещественными числами (числами с плавающей запятой): сравнение с вещественным числом, 
-  округление и т.д. 
+  округление и т.д.
+* Не допускается выполнение идентичных параллельных запросов.
 
 ## [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md#restrictions)
 
@@ -191,12 +193,14 @@ has_toc: false
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
 * Типы вставляемых данных должны соответствовать типам данных столбцов целевой логической таблицы.
+* Не допускается выполнение идентичных параллельных запросов.
 
 ## [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md#restrictions)
 
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
+* Не допускается выполнение идентичных параллельных запросов.
 
 ## [SELECT](../reference/sql_plus_requests/SELECT/SELECT.md#restrictions)
 
@@ -220,3 +224,4 @@ has_toc: false
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
+* Не допускается выполнение идентичных параллельных запросов.
