@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Ограничения Prostore
+title: Ограничения системы
 nav_order: 5.5
 has_children: false
 has_toc: false
 ---
 
-# Ограничения Prostore {#prostore_limitations}
+# Ограничения системы {#system_limitations}
 {: .no_toc }
 
 <details markdown="block">
