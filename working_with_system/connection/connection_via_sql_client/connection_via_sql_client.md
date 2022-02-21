@@ -25,21 +25,27 @@ has_toc: false
    в вашей файловой системе.
 4. Сохраните настройки драйвера.
 5. Настройте новое подключение к системе с использованием добавленного JDBC-драйвера и укажите 
-   URL для подключения (например, `jdbc:prostore://10.92.3.3:9092`).
+   URL для подключения (например, `jdbc:prostore://10.129.0.18:9092`).
 
 После завершения настройки подключитесь к системе с помощью SQL-клиента.
 
-На рисунке ниже показаны параметры JDBC-драйвера Prostore в SQL-клиенте DBeaver.
+На рисунках ниже показаны параметры JDBC-драйвера Prostore в SQL-клиенте DBeaver.
 
 <a id="img_driver_settings"></a>
-![](driver_parameters.png){:height="50%" width="50%"}
+![](driver_parameters.png){:height="60%" width="60%"}
 {: .figure-center}
 *Параметры JDBC-драйвера*
 {: .figure-caption-center}
 
+<a id="img_driver_settings"></a>
+![](driver_parameters_2.png){:height="60%" width="60%"}
+{: .figure-center}
+*Подключенная библиотека JDBC-драйвера*
+{: .figure-caption-center}
+
 На рисунке ниже показаны параметры подключения к системе с использованием драйвера Prostore.
 
-![](connection_parameters.png){:height="50%" width="50%"}
+![](connection_parameters.png){:height="90%" width="90%"}
 {: .figure-center}
 *Параметры подключения к системе*
 {: .figure-caption-center}
