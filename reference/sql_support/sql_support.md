@@ -324,24 +324,29 @@ has_toc: false
 | `SELECT COALESCE(varchar_col,'1.0') FROM table1 datasource_type = {'ADB' | 'ADP' | 'ADG'};` |
 | `SELECT COALESCE(CAST(varchar_col AS VARCHAR),'1.0') FROM table1 datasource_type = 'ADQM';` |
 
-
-| COALESCE: ADB, ADQM*, ADP
+| COALESCE: Не поддерживается
 |:---
-| `SELECT COALESCE(date_col,'2001-01-01') FROM table1 datasource_type = {'ADB' | 'ADP' | 'ADQM'};` |
-| * возвращает дату как число
+| `SELECT COALESCE(date_col,'2001-01-01') FROM table1;` |
 
-| COALESCE: ADB, ADQM, ADP
+| COALESCE: ADB, ADP
 |:---
-| `SELECT COALESCE(date_col,CAST('2001-01-01' AS DATE)) FROM table1 datasource_type = {'ADB' | 'ADP' | 'ADQM'};` |
+| `SELECT COALESCE(date_col,CAST('2001-01-01' AS DATE)) FROM table1 datasource_type = {'ADB' | 'ADP'};` |
 
-| COALESCE: ADB, ADQM, ADP
+| COALESCE: Не поддерживается
 |:---
-| `SELECT COALESCE(time_col,'11:12:13') FROM table1 datasource_type = {'ADB' | 'ADP' | 'ADQM'};` |
+| `SELECT COALESCE(time_col,'11:12:13') FROM table1;` |
 
-| COALESCE: ADB, ADQM*, ADG, ADP
+| COALESCE: ADB, ADP
 |:---
-| `SELECT COALESCE(timestamp_col,'2001-01-01 11:12:13') FROM table1 datasource_type = {'ADB' | 'ADP' | 'ADQM' | 'ADG'};` |
-| * возвращает дату как число
+| `SELECT COALESCE(time_col,CAST('11:12:13' AS TIME)) FROM table1 datasource_type = {'ADB' | 'ADP'};` |
+
+| COALESCE: Не поддерживается
+|:---
+| `SELECT COALESCE(timestamp_col,'2001-01-01 11:12:13') FROM table1;` |
+
+| COALESCE: ADB, ADP
+|:---
+| `SELECT COALESCE(timestamp_col,CAST('2001-01-01 11:12:13' AS TIMESTAMP)) FROM table1 datasource_type = {'ADB' | 'ADP'};` |
 
 | COALESCE: ADB, ADQM, ADP
 |:---
