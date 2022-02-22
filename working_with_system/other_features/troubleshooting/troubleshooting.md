@@ -52,9 +52,10 @@ has_toc: false
 Основные причины ошибок обновления данных:
 * несоответствие порядка, количества или типов столбцов между логической таблицей-приемником данных и запросом на 
 обновление данных;
-* отсутствие в запросе [UPSERT VALUES](../../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) или 
-  [UPSERT SELECT](../../../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md) значений обязательных столбцов 
+* отсутствие в запросе [INSERT VALUES](../../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
+  [INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или 
+  [UPSERT VALUES](../../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) значений обязательных столбцов 
   логической таблицы;
-* указание в запросе [UPSERT SELECT](../../../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md) тех 
+* указание в запросе [INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) тех 
   [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
   [хранилища](../../../overview/main_concepts/data_storage/data_storage.md), для которых недоступна вставка данных. 

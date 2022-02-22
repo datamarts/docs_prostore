@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CHECK_VERSIONS
-nav_order: 9
+nav_order: 10
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false

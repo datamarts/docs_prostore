@@ -17,42 +17,61 @@ has_children: false
 {:toc}
 </details>
 
-## Текущая версия документации (5.3) {#current}
+## Текущая версия документации (5.4) {#current}
 
 Изменения:
-* добавлено создание [материализованных представлений](../overview/main_concepts/materialized_view/materialized_view.md) 
-  в ADQM на основе данных ADB;
-* добавлена вставка данных из ADB в ADQM с помощью [UPSERT SELECT](../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md);
-* удалено требование на целочисленные ключи шардирования в логических таблицах: теперь ключ может содержать столбцы 
+* начало строки подключения изменено с `jdbc:adtm` на `jdbc:prostore`;
+* запрос `UPSERT VALUES` переименован в [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
+  запрос `UPSERT SELECT` — в [INSERT SELECT](../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md);
+* добавлены новые запросы:
+  * [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md);
+  * [CHECK_SUM_SNAPSHOT](../reference/sql_plus_requests/CHECK_SUM_SNAPSHOT/CHECK_SUM_SNAPSHOT.md);
+* обновлена [конфигурация системы](../maintenance/configuration/system/system.md):
+  * добавлен параметр `KAFKA_STATUS_EVENT_TOPIC`;
+  * изменены значения по умолчанию:
+  * параметр `ADQM_DB_NAME` теперь имеет значение по умолчанию `default`;
+  * параметр `ADQM_CLUSTER` теперь имеет значение по умолчанию `default_cluster`;
+  * значения параметра `ADQM_SHARDING_EXPR` изменены с `cityHash64` и `intAdd` на `CITY_HASH_64` и `INT_ADD` соответственно;
+  * начало путей `io.arenadata` во всех вхождениях заменено на `ru.datamart`;
+* добавлено ограничение на имена логических сущностей и их столбцов: имя должно начинаться с латинской буквы, 
+  после первого символа могут следовать латинские буквы, цифры и символы подчеркивания в любом порядке;
+* изменен ответ [GET_CHANGES](../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md) в случае отсутствия журнала: 
+  теперь возвращается пустой объект ResultSet, а не ошибка.
+  
+## Архивные версии документации {#archive}
+
+### Версия 5.3
+
+Версия 5.3 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v5-3/).
+
+Изменения:
+* добавлено создание материализованных представлений в ADQM на основе данных ADB;
+* добавлена вставка данных из ADB в ADQM с помощью UPSERT SELECT;
+* удалено требование на целочисленные ключи шардирования в логических таблицах: теперь ключ может содержать столбцы
   с любыми типами данных;
 * добавлены новые запросы:
-  * [CHECK_MATERIALIZED_VIEW](../reference/sql_plus_requests/CHECK_MATERIALIZED_VIEW/CHECK_MATERIALIZED_VIEW.md);
-  * [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md);
-  * [ALLOW_CHANGES](../reference/sql_plus_requests/ALLOW_CHANGES/ALLOW_CHANGES.md);
-  * [GET_CHANGES](../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md);
-  * [GET_ENTITY_DDL](../reference/sql_plus_requests/GET_ENTITY_DDL/GET_ENTITY_DDL.md);
-* в системное представление [tables](../reference/system_views/system_views.md#tables) добавлен новый тип сущности — 
-  `MATERIALIZED VIEW`;
-* добавлено возможность возобновления зависшей операции [обновления данных](../working_with_system/data_update/data_update.md);
-* добавлено ведение [журнала](../overview/main_concepts/changelog/changelog.md) — списка операций по изменению 
-  логических сущностей;
-* для выгрузки данных добавлен [выбор оптимальной СУБД хранилища](../working_with_system/data_reading/routing/routing.md), 
+  * CHECK_MATERIALIZED_VIEW;
+  * DENY_CHANGES;
+  * ALLOW_CHANGES;
+  * GET_CHANGES;
+  * GET_ENTITY_DDL;
+* в системное представление `tables` добавлен новый тип сущности — `MATERIALIZED VIEW`;
+* добавлено возможность возобновления зависшей операции обновления данных;
+* добавлено автоматическое ведение журнала — списка операций по изменению логических сущностей;
+* для выгрузки данных добавлен выбор оптимальной СУБД хранилища,
   аналогичный выбору СУБД для SELECT-запросов;
-* из запроса [CREATE TABLE](../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) удалено неподдерживаемое 
-  ключевое слово `DEFAULT`;
-* добавлен раздел «Зарезервированные слова» со словами, которые не могут использоваться как имена сущностей 
+* из описания запроса `CREATE TABLE` удалено неподдерживаемое ключевое слово `DEFAULT`;
+* добавлен раздел «Зарезервированные слова» со словами, которые не могут использоваться как имена сущностей
   и имена полей;
-* обновлена [конфигурация системы](../maintenance/configuration/system/system.md):
+* добавлен раздел «Ограничения системы» со списком всех ограничений, имеющихся в запросах системы;
+* обновлена конфигурация системы:
   * добавлен параметр `ADQM_SHARDING_EXPR`;
   * добавлен параметр `ADB_MPPW_USE_ADVANCED_CONNECTOR`;
   * удален параметр `EDML_DATASOURCE`;
   * исправлен путь до параметра `ADB_WITH_HISTORY_TABLE` с `adb:mppw:with-history-table` на `adb:with-history-table`;
   * исправлен путь до параметров `ADG_MAX_MSG_PER_PARTITION` и `ADG_CB_FUNC_IDLE`: из пути удален параметр `kafka`;
-* изменена терминология: архивация актуальных записей теперь называется удалением, а удаление записей 
-  с помощью запроса [TRUNCATE HISTORY](../reference/sql_plus_requests/TRUNCATE_HISTORY/TRUNCATE_HISTORY.md) — удалением 
-  записей с историей.
-  
-## Архивные версии документации {#archive}
+* изменена терминология: архивация актуальных записей теперь называется удалением, а удаление записей
+  с помощью запроса TRUNCATE HISTORY — удалением записей с историей.
 
 ### Версия 5.2
 

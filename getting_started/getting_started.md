@@ -73,7 +73,7 @@ sudo nano ~/prostore/dtm-query-execution-core/config/application.yml
 
 logging:
   level:
-    io.arenadata.dtm.query.execution: ${DTM_LOGGING_LEVEL:TRACE}
+    ru.datamart.prostore.query.execution: ${DTM_LOGGING_LEVEL:TRACE}
 
 server:
   port: ${DTM_METRICS_PORT:8080}
@@ -203,7 +203,7 @@ sudo systemctl reload postgresql-13
 
 ```shell
 # клонирование репозитория kafka-postgres-connector
-git clone https://github.com/arenadata/kafka-postgres-connector ~/kafka-postgres-connector
+git clone https://github.com/datamarts/kafka-postgres-connector ~/kafka-postgres-connector
 # запуск сборки коннектора kafka-postgres средствами Apache Maven
 cd ~/kafka-postgres-connector
 mvn clean install -DskipTests=true
@@ -227,7 +227,7 @@ sudo ln -s ~/kafka-postgres-connector/kafka-postrges-reader/src/main/resources/a
 ```yml
 logging:
   level:
-    io.arenadata.kafka: ${LOG_LEVEL:DEBUG}
+    ru.datamart.kafka: ${LOG_LEVEL:DEBUG}
     org.apache.kafka: ${KAFKA_LOG_LEVEL:INFO}
 
 http:
@@ -286,7 +286,7 @@ datasource:
 ```yml
 logging:
   level:
-    io.arenadata.kafka: ${LOG_LEVEL:DEBUG}
+    ru.datamart.kafka: ${LOG_LEVEL:DEBUG}
     org.apache.kafka: ${KAFKA_LOG_LEVEL:INFO}
 
 http:
@@ -553,7 +553,7 @@ COMMIT DELTA;
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 -- запуск вставки данных в логическую таблицу sales
-UPSERT INTO sales.sales
+INSERT INTO sales.sales
 (id, transaction_date, product_code, product_units, store_id, description)
 VALUES
 (2000111, '2020-05-01 13:14:16', 'ABC202010', 7, 1000000123, 'Покупка без акций'),

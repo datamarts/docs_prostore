@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: CREATE DATABASE
-nav_order: 13
+nav_order: 14
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -48,7 +48,10 @@ CREATE DATABASE db_name LOGICAL_ONLY
 
 ## Ограничения {#restrictions}
 
-Недоступно создание логической базы данных с именем `INFORMATION_SCHEMA`, зарезервированным для сервисной БД.
+* Имя логической базы данных должно начинаться с латинской буквы, после первого символа могут следовать
+  латинские буквы, цифры и символы подчеркивания в любом порядке.
+* Логическая БД не может иметь имя `INFORMATION_SCHEMA`, а также имена, перечисленные в разделе 
+[Зарезервированные слова](../../reserved_words/reserved_words.md). 
 
 ## Примеры {#examples}
 

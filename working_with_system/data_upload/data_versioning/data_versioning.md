@@ -31,8 +31,9 @@ has_toc: false
 
 Под признаком добавления или удаления записи понимается значение `sys_op`
 (0 — добавление, 1 — удаление), если запись была [загружена](../data_upload.md), и тип запроса
-([UPSERT VALUES](../../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) и 
-[UPSERT SELECT](../../../reference/sql_plus_requests/UPSERT_SELECT/UPSERT_SELECT.md) — добавление,
+([INSERT VALUES](../../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
+[INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) и 
+[UPSERT VALUES](../../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) — добавление,
 [DELETE](../../../reference/sql_plus_requests/DELETE/DELETE.md) — удаление), если запись была 
 [обновлена](../../data_update/data_update.md).
 {: .note-wrapper}

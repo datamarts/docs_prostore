@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Конфигурация системы
 nav_order: 1
@@ -35,7 +35,7 @@ has_children: false
 logging:
 # уровень важности сообщений, записываемых в лог-файл
   level:
-    io.arenadata.dtm.query.execution: ${DTM_LOGGING_LEVEL:TRACE}
+    ru.datamart.prostore.query.execution: ${DTM_LOGGING_LEVEL:TRACE}
 ```
 
 ### Настройки управления Prostore {#prostore_parameters}
@@ -188,10 +188,10 @@ core:
       inputStreamTimeoutMs: ${KAFKA_INPUT_STREAM_TIMEOUT_MS:2000}
 # настройки статусов публикации событий брокером сообщений Kafka
     status.event.publish:
+# имя топика Kafka, в который публикуются события
+      topic: ${KAFKA_STATUS_EVENT_TOPIC:status.event.topic}    
 # разрешение на публикацию событий
       enabled: ${KAFKA_STATUS_EVENT_ENABLED:false}
-# имя топика Kafka, в который публикуются события
-      topic: ${KAFKA_STATUS_EVENT_TOPIC:status.event}
 # настройки подключения к сервису мониторинга статусов Kafka 
     statusMonitor:
 # сетевой адрес и путь для получения информации о статусе сервиса
@@ -334,7 +334,7 @@ adqm:
 # настройки источника данных ADQM
   datasource:
 # имя ADQM
-    database: ${ADQM_DB_NAME:upload}
+    database: ${ADQM_DB_NAME:default}
 # имя пользователя/логин для авторизации в ADQM
     user: ${ADQM_USERNAME:}
 # пароль для авторизации в ADQM
@@ -348,10 +348,10 @@ adqm:
 # настройки DDL-операторов
   ddl:
 # имя кластера ADQM
-    cluster: ${ADQM_CLUSTER:test_arenadata}
+    cluster: ${ADQM_CLUSTER:default_cluster}
 # алгоритм шардирования данных; 
-# возможные значения: cityHash64 (значение по умолчанию в версии 5.3 и выше), intAdd (значение по умолчанию в версии 5.2 и ниже)
-    shardingKeyExpr: ${ADQM_SHARDING_EXPR:cityHash64}
+# возможные значения: CITY_HASH_64 (значение по умолчанию в версии 5.3 и выше), INT_ADD (значение по умолчанию в версии 5.2 и ниже)
+    shardingKeyExpr: ${ADQM_SHARDING_EXPR:CITY_HASH_64}
 # настройки механизма выгрузки данных из ADQM
   mppr:
 # сетевой адрес и путь для запросов на выгрузку данных

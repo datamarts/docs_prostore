@@ -1,7 +1,7 @@
 ---
 layout: default
 title: INSERT INTO download_external_table
-nav_order: 34
+nav_order: 35
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -66,7 +66,7 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 
 ## Ограничения {#restrictions}
 
-* Имена и порядок следования столбцов должны совпадать в SELECT-подзапросе на выгрузку данных и внешней таблице выгрузки.
+Имена и порядок следования столбцов должны совпадать в SELECT-подзапросе на выгрузку данных и внешней таблице выгрузки.
 
 ## Пример {#examples}
 

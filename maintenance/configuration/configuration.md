@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Конфигурация
 nav_order: 3

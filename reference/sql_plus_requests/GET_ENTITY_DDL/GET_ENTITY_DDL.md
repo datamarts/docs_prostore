@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: GET_ENTITY_DDL
-nav_order: 32
+nav_order: 33
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
