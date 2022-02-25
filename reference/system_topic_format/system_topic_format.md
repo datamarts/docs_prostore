@@ -65,7 +65,7 @@ has_toc: false
 | Откат дельты | `{"deltaNum":<delta_number>}`
 
 Где:
-* `change_datetime` — дата и время изменения в формате `YYYY,MM,DD,hh,mm,ss,<>`;
+* `change_datetime` — дата и время изменения в формате `YYYY-MM-DD hh:mm:ss`;
 * `logical_db_name` — имя логической базы данных, к которой относится изменение;
 * `delta_number` — номер дельты;
 * `delta_commit_datetime` — дата и время закрытия дельты в формате `YYYY-MM-DD hh:mm:ss`.
@@ -73,7 +73,7 @@ has_toc: false
 Пример тела сообщения об изменении логической схемы:
 
 ```json
-{"changeDateTime":[2022,2,24,15,25,47,607000000],"datamart":"sales"}
+{"changeDateTime":"2022-02-24 15:25:47","datamart":"sales"}
 ```
 
 Пример тела сообщения о закрытии дельты:
