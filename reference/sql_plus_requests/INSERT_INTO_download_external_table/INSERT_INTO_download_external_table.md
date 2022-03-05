@@ -22,11 +22,12 @@ has_toc: false
 
 Запрос позволяет выгрузить данные, выбранные [SELECT](../SELECT/SELECT.md)-подзапросом 
 к [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
-во внешний приемник данных. Данные можно выгружать из [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
-[логических](../../../overview/main_concepts/logical_view/logical_view.md) и 
-[материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md).
-Запрос обрабатывается в порядке, описанном в разделе
-[Порядок обработки запросов на выгрузку данных](../../../overview/interactions/download_processing/download_processing.md).
+во внешний приемник данных. Данные можно выгружать следующих сущностей:
+* [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
+* [логических представлений](../../../overview/main_concepts/logical_view/logical_view.md) и 
+* [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
+* внешних readable-таблиц,
+* соединения перечисленных сущностей.
 
 Для получения небольшого объема данных можно использовать 
 [запрос данных](../../../working_with_system/data_reading/data_reading.md).
@@ -37,18 +38,23 @@ has_toc: false
 выполнения действий для выгрузки данных см. в разделе [Выгрузка данных](../../../working_with_system/data_download/data_download.md).
 {: .note-wrapper}
 
-В запросе можно указать [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
-[хранилища](../../../overview/main_concepts/main_concepts.md) для выгрузки данных. Если СУБД не указана, система 
-определяет СУБД, [оптимальную для выгрузки](../../../working_with_system/data_reading/routing/routing.md), 
-в зависимости от параметров запроса, месторасположения данных и конфигурации системы.
+Запрос обрабатывается в порядке, описанном в разделе
+[Порядок обработки запросов на выгрузку данных](../../../overview/interactions/download_processing/download_processing.md).
 
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-При успешном выполнении запроса данные выгружаются в том формате и в тот приемник данных, которые были указаны 
-[при создании внешней таблицы выгрузки](../CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md). Формат 
-данных соответствует описанному в разделе [Формат выгрузки данных](../../download_format/download_format.md).
+При успешном выполнении запроса данные выгружаются в тот приемник данных, который был указан 
+[при создании внешней таблицы выгрузки](../CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md). Описание 
+формата данных см. в разделе [Формат выгрузки данных](../../download_format/download_format.md).
+
+Данные выгружаются из следующей СУБД хранилища:
+* из [указанной](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или 
+  [наиболее оптимальной СУБД](../../../working_with_system/data_reading/routing/routing.md) —
+  если данные выгружаются из логических таблиц, логических и материализованных представлений;
+* из той СУБД хранилища, в которой размещаются связанные standalone-таблицы — если данные выгружаются из внешних
+  readable-таблиц.
 
 ## Синтаксис {#syntax}
 
@@ -60,9 +66,7 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 *   `db_name` — имя логической базы данных, из которой выгружаются данные. Параметр опционален, если выбрана 
     логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
 *   `ext_table_name` — имя внешней таблицы выгрузки;
-*   <a id="param_datasource_type"></a>`query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора выгружаемых данных. 
-    Если в подзапросе указано ключевое слово `DATASOURCE_TYPE` с псевдонимом СУБД хранилища, данные выгружаются из этой 
-    СУБД, иначе — из СУБД, [наиболее оптимальной для исполнения запроса](../../../working_with_system/data_reading/routing/routing.md).
+*   `query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора выгружаемых данных.
 
 ## Ограничения {#restrictions}
 
@@ -70,7 +74,7 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 
 ## Пример {#examples}
 
-### Выгрузка из СУБД, заданной в конфигурации {#default_db_example}
+### Выгрузка из наиболее оптимальной СУБД {#default_db_example}
 
 ```sql
 INSERT INTO sales.sales_ext_download
@@ -89,4 +93,11 @@ SELECT * FROM sales.sales WHERE description = 'Покупка по акции 1+
 ```sql
 INSERT INTO sales.sales_by_stores_ext_download
 SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm'
+```
+
+### Выгрузка из внешней readable-таблицы {#readable_table_example}
+
+```sql
+INSERT INTO sales.payments_ext_download
+SELECT * FROM sales.payments_ext_read WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150
 ```

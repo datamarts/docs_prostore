@@ -42,7 +42,7 @@ GET_WRITE_OPERATIONS()
 ```
 
 На рисунке ниже показан пример ответа с одной операцией в статусе «Выполняется». 
-Операция запущена запросом [INSERT INTO logical_table](../INSERT_INTO_logical_table/INSERT_INTO_logical_table.md), который 
+Операция запущена запросом [INSERT INTO logical_table](../INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md), который 
 загружает данные в логическую таблицу `sales` с использованием внешней таблицы загрузки `sales_ext_upload`.
 
 ![](get_write_operations.png)

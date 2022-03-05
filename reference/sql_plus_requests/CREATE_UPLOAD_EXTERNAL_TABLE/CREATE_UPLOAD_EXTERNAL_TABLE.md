@@ -28,7 +28,7 @@ has_toc: false
 *   исключение при неуспешном выполнении запроса.
 
 После успешного выполнения запроса можно выполнять запросы 
-[INSERT INTO logical_table](../INSERT_INTO_logical_table/INSERT_INTO_logical_table.md) на загрузку данных. Подробнее о порядке 
+[INSERT INTO logical_table](../INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) на загрузку данных. Подробнее о порядке 
 выполнения действий для загрузки данных см. в разделе 
 [Загрузка данных](../../../working_with_system/data_upload/data_upload.md).
 
