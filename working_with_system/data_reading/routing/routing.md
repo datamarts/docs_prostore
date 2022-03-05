@@ -20,7 +20,14 @@ has_toc: false
 {:toc}
 </details>
 
-Запросы на [чтение](../../data_reading/data_reading.md) и [выгрузку данных](../../data_download/data_download.md) 
+Раздел описывает маршрутизацию к данным [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
+[логических](../../../overview/main_concepts/logical_view/logical_view.md) и 
+[материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md). 
+<br> Запросы к внешним readable-таблицам всегда исполняются в той СУБД, где расположены standalone-таблицы, связанные с этими 
+внешними таблицами.
+{: .note-wrapper}
+
+Запросы на [чтение](../../data_reading/data_reading.md) и [выгрузку данных](../../data_download/data_download.md)
 маршрутизируются следующим образом:
 1.  Если в запросе указано ключевое слово [DATASOURCE_TYPE](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) 
     с [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
@@ -29,7 +36,7 @@ has_toc: false
 2.  Иначе:
     1. Определяются те СУБД хранилища, в которых можно выполнить запрос, — выбираются СУБД, содержащие 
        данные всех запрашиваемых логических сущностей.
-    2. Определяется категория и подкатегория запроса (или только категория — в зависимости от
+    2. Определяется категория или категория и подкатегория запроса (в зависимости от
        [конфигурации системы](../../../maintenance/configuration/system/system.md)).   
     3. Запрос направляется в ту из выбранных СУБД, которая имеет в конфигурации системы 
        самый высокий приоритет для исполнения таких запросов (см. [ниже](#standard_priorities)).

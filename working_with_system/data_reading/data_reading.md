@@ -9,23 +9,20 @@ has_toc: false
 
 # Запрос данных {#data_reading}
 
-Система позволяет запрашивать небольшие объемы данных. Возможные способы выбора данных см. в секции 
-[FOR SYSTEM_TIME](../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time) раздела [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md).
+Система позволяет запрашивать небольшие объемы данных. Данные можно запрашивать из 
+[логических таблиц](../../overview/main_concepts/logical_table/logical_table.md),
+[логических](../../overview/main_concepts/logical_view/logical_view.md) и
+[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), а также
+внешних readable-таблиц.
 
 Под небольшим объемом данных подразумевается результат, содержащий десятки строк.
 Для получения большого объема данных следует использовать [выгрузку данных](../data_download/data_download.md).
 {: .note-wrapper}
 
-Чтобы запросить данные из [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md), 
-[логических представлений](../../overview/main_concepts/logical_view/logical_view.md) 
-или [материализованного представления](../../overview/main_concepts/materialized_view/materialized_view.md), 
-выполните запрос [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md). В запросе можно указать СУБД хранилища 
-для исполнения запроса, иначе, если СУБД не указана, система определяет 
-[наиболее оптимальную СУБД для запроса](../data_reading/routing/routing.md).
-
-Запрос обрабатывается в порядке, описанном в разделе 
-[Порядок обработки запросов на чтение данных](../../overview/interactions/llr_processing/llr_processing.md). 
-Успешный ответ содержит запрошенные данные, неуспешный — исключение.
+Чтобы запросить данные, выполните запрос [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md). 
+В запросах к логическим таблицам, логическим и материализованным представлениям можно указать СУБД хранилища 
+для исполнения запроса, иначе, если СУБД не указана, система выбирает данные из 
+[наиболее оптимальной СУБД](../data_reading/routing/routing.md).
 
 На рисунке ниже показан пример запроса из логической таблицы `sales` с одной строкой в ответе.
 

@@ -11,34 +11,37 @@ has_children: false
 Система позволяет выгружать большие объемы данных, а также изменений, выполненных 
 в указанных дельтах. Данные можно выгружать из [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md), 
 [логических](../../overview/main_concepts/logical_view/logical_view.md) и 
-[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md).
+[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), а также 
+внешних readable-таблиц.
 
 Под большим объемом данных подразумевается количество записей от нескольких сотен до нескольких миллионов.
 Для получения небольшого объема данных можно использовать функцию [запроса данных](../data_reading/data_reading.md).
 {: .note-wrapper}
 
-Система определяет СУБД хранилища, [оптимальную для выгрузки данных](../data_reading/routing/routing.md), 
-в зависимости от параметров запроса, месторасположения данных и конфигурации системы. Возможные способы выбора данных к выгрузке см. в секции 
-[FOR SYSTEM_TIME](../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time)
-раздела [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md).
+Данные выгружаются из системы в виде [сообщений Kafka](../../reference/upload_format/upload_format.md).
+Поэтому, если в брокере сообщений Kafka не настроено автоматическое создание топиков, нужно создать топики вручную.
+Чтобы создать топик, следуйте любой из инструкций, доступных в документации Kafka:
+* [Quick Start](https://kafka.apache.org/documentation/#quickstart),
+* [Adding and removing topics](https://kafka.apache.org/documentation/#basic_ops_add_topic).
 
-Данные выгружаются [в виде сообщений Kafka](../../reference/download_format/download_format.md), поэтому для их загрузки
-нужен топик Kafka. Если в брокере сообщений Kafka настроено автоматическое создание топиков, 
-то дополнительные действия не требуются. Иначе топик необходимо создать, если он отсутствует. Подробнее о создании 
-топиков см. в документации Kafka:
-*   раздел [Quick Start](https://kafka.apache.org/documentation/#quickstart),
-*   раздел [Adding and removing topics](https://kafka.apache.org/documentation/#basic_ops_add_topic).
+Рекомендации о разделении данных по топикам см. в разделе [Внешняя таблица](../../overview/main_concepts/external_table/external_table.md).
+{: .tip-wrapper}
 
-Чтобы выгрузить данные из таблицы или представления во внешнюю информационную систему:
-1.  [Создайте](../../reference/sql_plus_requests/CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md) 
+Чтобы выгрузить данные из системы:
+1. [Создайте](../../reference/sql_plus_requests/CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md) 
     [внешнюю таблицу](../../overview/main_concepts/external_table/external_table.md) 
     выгрузки, если она еще не создана.
-2.  Выполните запрос [INSERT INTO download_external_table](../../reference/sql_plus_requests/INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md) 
-    на выгрузку данных в топик. В запросе нужно указать внешнюю таблицу выгрузки, определяющую параметры 
-    выгрузки.
-3.  Выгрузите данные из топика во внешнюю информационную систему.
+2. Выполните запрос [INSERT INTO download_external_table](../../reference/sql_plus_requests/INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md). 
+   В запросе укажите внешнюю таблицу выгрузки, определяющую параметры выгрузки.
 
 Созданные внешние таблицы выгрузки можно использовать повторно или удалить.
+
+Данные выгружаются из следующей СУБД хранилища:
+* из указанной или [наиболее оптимальной СУБД](../../../working_with_system/data_reading/routing/routing.md) —
+  если данные выгружаются из логических таблиц, логических и
+  материализованных представлений;
+* из той СУБД хранилища, в которой размещаются связанные standalone-таблицы — если данные выгружаются из внешних
+  readable-таблиц.
 
 ## Пример {#example}
 ```sql
