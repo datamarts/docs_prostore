@@ -12,8 +12,9 @@ has_toc: false
 
 _Физическое хранилище данных (далее — хранилище)_ — совокупность 
 [СУБД различных типов](../../../introduction/supported_DBMS/supported_DBMS.md), 
-в которых хранятся данные [логических таблиц](../logical_table/logical_table.md) и 
-[материализованных представлений](../materialized_view/materialized_view.md). 
-Данные в хранилище хранятся в соответствии с [физической схемой данных](../physical_schema/physical_schema.md).
+в которых хранятся данные [логических таблиц](../logical_table/logical_table.md), 
+[материализованных представлений](../materialized_view/materialized_view.md) и standalone-таблиц. 
+Данные логических таблиц и материализованных представлений хранятся в соответствии с 
+[физической схемой данных](../physical_schema/physical_schema.md).
 
-Система предоставляет единый интерфейс взаимодействия с хранилищем в виде [логической базы данных](../logical_db/logical_db.md).
+Внешняя система работает с данными через [логическую схему данных](../logical_schema/logical_schema.md) системы.
