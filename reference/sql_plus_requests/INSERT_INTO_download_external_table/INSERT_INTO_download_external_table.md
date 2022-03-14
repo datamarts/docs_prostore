@@ -22,7 +22,7 @@ has_toc: false
 
 Запрос позволяет выгрузить данные, выбранные [SELECT](../SELECT/SELECT.md)-подзапросом 
 к [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
-во внешний приемник данных. Данные можно выгружать следующих сущностей:
+во внешний приемник данных. Данные можно выгружать из следующих сущностей:
 * [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
 * [логических представлений](../../../overview/main_concepts/logical_view/logical_view.md) и 
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
@@ -98,6 +98,21 @@ SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003',
 ### Выгрузка из внешней readable-таблицы {#readable_table_example}
 
 ```sql
+-- создание внешней таблицы выгрузки
+CREATE DOWNLOAD EXTERNAL TABLE sales.payments_ext_download (
+  id INT NOT NULL,
+  agreement_id INT,
+  code VARCHAR(16),
+  amount DOUBLE,
+  currency_code VARCHAR(3),
+  description VARCHAR,
+  bucket_id INT NOT NULL,
+)
+LOCATION 'kafka://zk1:2181,zk2:2181,zk3:2181/agreements_out'
+FORMAT 'AVRO'
+CHUNK_SIZE 1000;
+
+-- запуск выгрузки данных из внешней readable-таблицы
 INSERT INTO sales.payments_ext_download
-SELECT * FROM sales.payments_ext_read WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150
+SELECT * FROM sales.payments_ext_read_adg WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
 ```

@@ -22,10 +22,11 @@ has_toc: false
 
 Запрос позволяет загрузить данные из внешнего источника данных в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
 или внешнюю writable-таблицу.
-Загружаемые данные должны соответствовать [формату загрузки данных](../../upload_format/upload_format.md).
+Загружаемые данные должны соответствовать [формату загрузки данных](../../upload_format/upload_format.md). 
+При загрузке данных в writable-таблицу нужно учитывать ограничения связанной standalone-таблицы.
 
-Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md)
-и загрузить данные в топик Kafka.
+Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md), 
+если она отсутствует, и загрузить данные в топик Kafka.
 Подробнее о порядке выполнения действий для загрузки данных см. в разделе
 [Загрузка данных](../../../working_with_system/data_upload/data_upload.md).
 
@@ -52,6 +53,10 @@ has_toc: false
 Месторасположение данных логической таблицы можно задавать запросами
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
 `DATASOURCE_TYPE`.
+
+При загрузке данных во внешнюю writable-таблицу, которая связана со standalone-таблицей ADG, нужно указать в запросе 
+поле `bucket_id` со значением `NULL` (см. пример <>). В этом случае значение `bucket_id` будет вычислено в ADG.
+{: .note-wrapper}
 
 ## Синтаксис {#syntax}
 
@@ -84,9 +89,10 @@ INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]ext_table_name
 
 Загрузка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
 
-## Пример {#examples}
+## Примеры {#examples}
 
-Пример загрузки данных в логическую таблицу:
+### Загрузка данных в логическую таблицу {#logical_table_example}
+
 ```sql
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
@@ -96,4 +102,19 @@ INSERT INTO sales.sales SELECT * FROM sales.sales_ext_upload;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
+```
+
+### Загрузка данных во внешнюю writable-таблицу {#writable_table_example}
+
+Загрузка в таблицу, связанную со standalone-таблицей ADP:
+
+```sql
+INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
+```
+
+<a id="ex_writable_adg"></a>
+Загрузка в таблицу, связанную со standalone-таблицей ADG:
+
+```sql
+INSERT INTO sales.payments_ext_write_adg SELECT *, NULL as bucket_id FROM sales.payments_ext_upload;
 ```

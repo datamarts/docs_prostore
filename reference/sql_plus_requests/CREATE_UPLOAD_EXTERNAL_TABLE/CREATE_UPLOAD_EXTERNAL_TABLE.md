@@ -23,6 +23,11 @@ has_toc: false
 Запрос позволяет создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md) 
 загрузки в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
 
+По умолчанию создается таблица, предназначенная для загрузки данных в 
+[логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md). Такая таблица содержит скрытое 
+служебное поле `sys_op`. Чтобы создать таблицу, предназначенную для загрузки во внешнюю writable-таблицу, нужно указать 
+в запросе ключевое слово `OPTIONS` со значением `auto.create.sys_op.enable=false`.
+
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
@@ -46,23 +51,29 @@ CREATE UPLOAD EXTERNAL TABLE [db_name.]ext_table_name (
 LOCATION source_URI
 FORMAT 'AVRO'
 [MESSAGE_LIMIT messages_per_segment]
+[OPTIONS '<option_list>')]
 ```
 
 Параметры:
-*   `db_name` — имя логической базы данных, в которой создается внешняя таблица. Указание опционально, 
+* `db_name` — имя логической базы данных, в которой создается внешняя таблица. Указание опционально, 
     если выбрана логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-*   `ext_table_name` — имя создаваемой внешней таблицы загрузки. Для удобства различения таблиц выгрузки 
+* `ext_table_name` — имя создаваемой внешней таблицы загрузки. Для удобства различения таблиц выгрузки 
     и таблиц загрузки рекомендуется задавать имя таблицы, указывающее на ее тип, например 
     `sales_ext_upload`;
-*   `column_name_N` — имя столбца таблицы;
-*   `datatype_N` — тип данных столбца `column_name_N`. Возможные значения см. в разделе 
+* `column_name_N` — имя столбца таблицы;
+* `datatype_N` — тип данных столбца `column_name_N`. Возможные значения см. в разделе 
     [Логические типы данных](../../supported_data_types/logical_data_types/logical_data_types.md);
-*   `source_URI` — путь к топику Kafka 
+* `source_URI` — путь к топику Kafka 
     (см. [Формат пути к внешнему приемнику данных](../../path_to_kafka_topic/path_to_kafka_topic.md));
-*   `messages_per_segment` — максимальное количество сообщений, загружаемых 
+* `messages_per_segment` — максимальное количество сообщений, загружаемых 
     в [хранилище](../../../overview/main_concepts/data_storage/data_storage.md) 
     в составе одного блока на один поток загрузки. Значение подбирается в зависимости от параметров 
-    производительности инфраструктуры.
+    производительности инфраструктуры;
+* `option_list` — список дополнительных параметров и их значений в формате `option1=value1;option2=value2...`.
+    Возможные параметры:
+  * `auto.create.sys_op.enable` — признак добавления скрытого служебного поля `sys_op` во внешнюю таблицу, 
+    возможные значения: `true` (по умолчанию) — добавить поле и использовать таблицу для загрузки данных в логическую таблицу,
+    `false` — пропустить добавление поля и использовать таблицу для загрузки данных во writable-таблицу.
 
 ## Ограничения {#restrictions}
 
@@ -71,7 +82,9 @@ FORMAT 'AVRO'
   латинские буквы, цифры и символы подчеркивания в любом порядке.
 * Таблица и ее столбцы не могут иметь имена, перечисленные в разделе [Зарезервированные слова](../../reserved_words/reserved_words.md).
 
-## Пример {#examples}
+## Примеры {#examples}
+
+### Таблица для загрузки в логическую таблицу {#to_logical_table}
 
 ```sql
 CREATE UPLOAD EXTERNAL TABLE sales.sales_ext_upload (
@@ -85,4 +98,21 @@ CREATE UPLOAD EXTERNAL TABLE sales.sales_ext_upload (
 LOCATION  'kafka://zk1:2181,zk2:2181,zk3:2181/sales'
 FORMAT 'AVRO'
 MESSAGE_LIMIT 1000
+```
+
+### Таблица для загрузки во внешнюю writable-таблицу {#to_writable_table}
+
+```sql
+CREATE UPLOAD EXTERNAL TABLE sales.agreements_ext_upload (
+  id INT NOT NULL,
+  client_id INT NOT NULL,
+  number VARCHAR NOT NULL,
+  signature_date DATE,
+  effective_date DATE,
+  closing_date DATE,
+  description VARCHAR
+)
+LOCATION  'kafka://zk1:2181,zk2:2181,zk3:2181/agreements'
+FORMAT 'AVRO'
+OPTIONS ('auto.create.sys_op.enable=false')
 ```

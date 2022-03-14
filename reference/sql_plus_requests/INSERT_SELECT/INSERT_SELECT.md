@@ -21,8 +21,10 @@ has_toc: false
 </details>
 
 Запрос позволяет вставить записи в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
-или внешнюю writable-таблицу (далее — целевая таблица) из другой логической сущности. Источником записей 
-может быть:
+или внешнюю writable-таблицу (далее — целевая таблица) из другой логической сущности. 
+При вставке записей в writable-таблицу нужно учитывать ограничения связанной standalone-таблицы.
+
+Источником записей может быть:
 * логическая таблица, 
 * [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) представление, 
 * [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md),
@@ -72,11 +74,9 @@ has_toc: false
 Записи, вставленные в логическую таблицу, добавляются как горячие записи. При [фиксации изменений](../COMMIT_DELTA/COMMIT_DELTA.md) 
 записи становятся актуальными, а предыдущие актуальные записи — архивными. 
 Наличие предыдущей актуальной записи определяется по первичному ключу: все записи логической таблицы с одинаковым 
-первичным ключом рассматриваются системой как разные исторические состояния одного объекта. 
-
+первичным ключом рассматриваются системой как разные исторические состояния одного объекта.
 Подробнее о версионировании записей 
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
-{: .note-wrapper}
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
 `INSERT SELECT`, зависла, нужно повторить запрос. Список зависших операций можно получить запросом
@@ -279,4 +279,54 @@ DATASOURCE_TYPE = 'adb';
 COMMIT DELTA;
 ```
 
-<пример вставки во внешнюю таблицу>
+### Вставка данных в логическую таблицу из внешней readable-таблицы {#readable_to_logical_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- создание логической таблицы agreements_adp с размещением данных в ADP
+CREATE TABLE agreements_adp (
+  id INT NOT NULL,
+  client_id INT NOT NULL,
+  number VARCHAR NOT NULL,
+  signature_date DATE,
+  effective_date DATE,
+  closing_date DATE,
+  description VARCHAR,
+  PRIMARY KEY(id)
+)
+DISTRIBUTED BY (id)
+DATASOURCE_TYPE (adp);
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+-- вставка данных в логическую таблицу agreements_adp из внешней readable-таблицы agreements_ext_read_adp
+INSERT INTO agreements_adp SELECT * FROM agreements_ext_read_adp;
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```
+
+### Вставка данных во внешнюю writable-таблицу из логической таблицы {#logical_to_writable_example}
+
+```sql
+-- создание внешней writable-таблицы, связанной с таблицей ADQM
+CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
+  id INT NOT NULL,
+  transaction_date TIMESTAMP NOT NULL,
+  product_code VARCHAR(256) NOT NULL,
+  product_units INT NOT NULL,
+  store_id INT NOT NULL,
+  description VARCHAR(256),
+  PRIMARY KEY (id)
+)
+DISTRIBUTED BY (id)
+LOCATION 'core:adqm://dtm__sales.sales'
+OPTIONS ('auto.create.table.enable=true');
+
+-- вставка данных во внешнюю writable-таблицу sales_ext_write_adqm из логической таблицы sales
+INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
+```
+<> <проверить пример, когда INSERT SELECT будет на стенде>

@@ -137,7 +137,7 @@ CREATE TABLE sales.stores (
 DISTRIBUTED BY (id)
 ```
 
-### Создание таблицы с размещением данных в ADQM и ADG {#example_with_adqm_adg}
+### Создание таблицы с размещением данных в ADP и ADG {#example_with_adp_adg}
 
 ```sql
 CREATE TABLE sales.clients (
@@ -148,7 +148,7 @@ CREATE TABLE sales.clients (
   birth_date DATE,
   PRIMARY KEY (id)
 ) DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adqm,adg)
+DATASOURCE_TYPE (adp,adg)
 ```
 
 ### Создание таблицы только на логическом уровне {#logical_example}

@@ -32,7 +32,7 @@ standalone-таблицы удаляются насовсем и не могут
 и [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md)
 недоступно.
 
-Запрос поддерживается для ADB, ADQM и ADP.
+Удаление записей логической таблицы доступно из ADB, ADQM и ADP, удаление записей standalone-таблицы — из ADB и ADP.
 {: .note-wrapper}
 
 Для обновления большого объема данных следует использовать 
@@ -72,7 +72,7 @@ DELETE FROM [db_name.]table_name [WHERE filter_expression]
 
 ## Ограничения {#restrictions}
 
-* Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Удаление записей из логических таблиц возможно только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
 * В блоке `WHERE` не допускается использование функций, которые приводят в разным результатам в разных СУБД хранилища. 
   Примеры таких функций — это операции над числами с плавающей запятой: сравнение с ними, округление и т.д.
 * Не допускается параллельное выполнение идентичных запросов.
@@ -98,6 +98,6 @@ COMMIT DELTA;
 ### Удаление записей из внешней writable-таблицы {#example_writable_table}
 
 ```sql
--- удаление записей по одному договору из внешней writable-таблицы
-DELETE FROM sales.payments_ext_write WHERE agreement_id = 234;
+-- удаление записей по одному клиенту из внешней writable-таблицы
+DELETE FROM sales.agreements_ext_write_adp WHERE client_id = 234;
 ```

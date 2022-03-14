@@ -21,7 +21,8 @@ has_toc: false
 </details>
 
 Запрос позволяет вставить новые записи и обновить существующие записи в [логической таблице](../../../overview/main_concepts/logical_table/logical_table.md)
-или внешней writable-таблице. 
+или внешней writable-таблице.
+При вставке записей в writable-таблицу нужно учитывать ограничения связанной standalone-таблицы.
 
 Существование записи в таблице определяется по значению первичного ключа. 
 Если в таблице существует запись со значением первичного ключа, указанным в запросе, то запись обновляется значениями 
@@ -135,21 +136,18 @@ VALUES (200014, '2021-08-23 09:34:10', 'ABC0003', 3, 123),
 COMMIT DELTA;
 ```
 
-### Вставка данных во все столбцы внешней таблицы {#all_columns_of_ext_table}
+### Вставка данных во все столбцы внешней writable-таблицы {#all_columns_of_ext_table}
 
 ```sql
--- вставка двух записей во внешнюю таблицу payments_ext_write
-UPSERT INTO sales.payments_ext_write 
-VALUES (200, 444444, 'MONTH_FEE', 2000, 643, 'Оплата ежемесячного взноса'), 
-       (201, 555555, 'MONTH_FEE', 2000, 643, 'Оплата ежемесячного взноса');
+UPSERT INTO sales.agreements_ext_write_adp 
+VALUES (200, 444444, 'AB22222', '2022-02-08', '2022-02-09', '2024-02-09', ''), 
+       (201, 555555, 'AB33333', '2022-02-10', '2022-02-11', '2025-02-11', 'Договор с ООО "Овал"');
 ```
 
-### Вставка данных в указанные столбцы внешней таблицы {#some_columns_of_ext_table}
+### Вставка данных в указанные столбцы внешней writable-таблицы {#some_columns_of_ext_table}
 
+Вставка в таблицу без указания некоторых опциональных значений:
 ```sql
--- вставка двух записей во внешнюю таблицу payments_ext_write (без опционального значения description)
-UPSERT INTO sales.payments_ext_write 
-       (id, agreement_id, code, amount, currency_code)
-VALUES (202, 999999, 'MONTH_FEE', 2000, 643), 
-       (200, 444444, 'MONTH_FEE', 1500, 643);
+UPSERT INTO sales.agreements_ext_write_adp (id, client_id, number, signature_date)
+VALUES (202, 999999, 'AB44444', '2022-01-01');
 ```

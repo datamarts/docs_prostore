@@ -56,12 +56,12 @@ DROP READABLE EXTERNAL TABLE [db_name.]ext_table_name_ext
 ### Удаление внешней таблицы с удалением standalone-таблицы {#example_with_options}
 
 ```sql
-DROP READABLE EXTERNAL TABLE sales.agreements_ext_read
+DROP READABLE EXTERNAL TABLE sales.agreements_ext_read_adp
 OPTIONS ('auto.drop.table.enable=true')
 ```
 
 ### Удаление внешней таблицы без удаления standalone-таблицы {#example_without_options}
 
 ```sql
-DROP READABLE EXTERNAL TABLE sales.payments_ext_read
+DROP READABLE EXTERNAL TABLE sales.payments_ext_read_adg
 ```

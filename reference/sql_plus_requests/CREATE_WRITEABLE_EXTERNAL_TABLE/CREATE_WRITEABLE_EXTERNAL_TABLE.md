@@ -1,6 +1,6 @@
 ﻿---
 layout: default
-title: CREATE WRITEABLE EXTERNAL TABLE
+title: CREATE WRITABLE EXTERNAL TABLE
 nav_order: 19.5
 parent: Запросы SQL+
 grand_parent: Справочная информация
@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-# CREATE WRITEABLE EXTERNAL TABLE
+# CREATE WRITABLE EXTERNAL TABLE
 {: .no_toc }
 
 <details markdown="block">
@@ -20,14 +20,16 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет создать внешнюю таблицу, предназначенную для записи данных во внешний источник данных.
-В текущей версии внешним источником данных может быть таблица СУБД хранилища. Таблица должна принадлежать той же
-физической базе данных, в которой система размещает данные логических сущностей.
+Запрос позволяет создать внешнюю WRITABLE-таблицу.
 
 По умолчанию система создает внешнюю таблицу в логической базе данных и не создает связанную с ней
 standalone-таблицу в СУБД хранилища. Это может быть полезно, если standalone-таблица уже существует в СУБД.
 Чтобы standalone-таблица автоматически создалась при выполнении запроса,
-нужно указать в запросе ключевое слово OPTIONS со значением `auto.create.table.enable=true`.
+нужно указать в запросе ключевое слово `OPTIONS` со значением `auto.create.table.enable=true`.
+
+Внешняя таблица должна содержать все физические поля standalone-таблицы. Например, внешняя таблица, связанная с таблицей
+ADG, должна содержать поле `bucket_id` с типом `INT` и ограничением `NOT NULL` (см. пример <>).
+{: .note-wrapper}
 
 В ответе возвращается:
 * пустой объект ResultSet при успешном выполнении запроса;
@@ -39,7 +41,7 @@ standalone-таблицу в СУБД хранилища. Это может бы
 ## Синтаксис {#syntax}
 
 ```sql
-CREATE WRITEABLE EXTERNAL TABLE [db_name.]ext_table_name_ext (
+CREATE WRITABLE EXTERNAL TABLE [db_name.]ext_table_name_ext (
   column_name_1 datatype_1 [NULL | NOT NULL],
   column_name_2 datatype_2 [NULL | NOT NULL],
   column_name_3 datatype_3 [NULL | NOT NULL],
@@ -59,10 +61,10 @@ LOCATION 'core:<datasource_alias>://<path_to_table>'
 * `column_name_N` — имя столбца таблицы. Должно удовлетворять ограничениям, перечисленным в секции [Ограничения](#restrictions);
 * `datatype_N` — тип данных столбца `column_name_N`. Возможные значения см.
   в разделе [Логические типы данных](../../supported_data_types/logical_data_types/logical_data_types.md);
-* `column_list_1` — список столбцов, входящих в первичный ключ таблицы. Опционален, используется в справочных целях.
-  Рекомендуется заполнять в соответствии с первичным ключом standalone-таблицы;
-* `column_list_2` — список столбцов, входящих в ключ шардирования таблицы. Опционален, используется в справочных целях.
-  Рекомендуется заполнять в соответствии с ключом шардирования standalone-таблицы;
+* `column_list_1` — список столбцов, входящих в первичный ключ таблицы. Опционален, если используется существующая 
+  standalone-таблица. Рекомендуется заполнять в соответствии с первичным ключом standalone-таблицы;
+* `column_list_2` — список столбцов, входящих в ключ шардирования таблицы. Опционален, используется существующая
+  standalone-таблица. Рекомендуется заполнять в соответствии с ключом шардирования standalone-таблицы;
 * `datasource_alias` — псевдоним СУБД хранилища, в которой уже размещена или нужно разместить standalone-таблицу, связанную
   с внешней таблицей. Возможные значения: `adb`, `adqm`, `adg`, `adp`;
 * `path_to_table` — путь к связанной standalone-таблице. Состоит из имени схемы (если применимо для СУБД) и имени таблицы,
@@ -83,10 +85,10 @@ LOCATION 'core:<datasource_alias>://<path_to_table>'
 
 ## Примеры {#examples}
 
-### Создание таблицы с ключами и параметрами {#full_example}
+### Создание таблицы с ключами и параметрами (ADP) {#adp_with_options}
 
 ```sql
-CREATE WRITEABLE EXTERNAL TABLE sales.agreements_ext_write (
+CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -101,16 +103,17 @@ LOCATION 'core:adp://sales.agreements'
 OPTIONS ('auto.create.table.enable=true')
 ```
 
-### Создание таблицы без ключей и параметров {#basic_example}
+### Создание таблицы без ключей и параметров (ADG) {#adg_without_options}
 
 ```sql
-CREATE WRITEABLE EXTERNAL TABLE sales.payments_ext_write (
-  id INT,
+CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
+  id INT NOT NULL,
   agreement_id INT,
   code VARCHAR(16),
   amount DOUBLE,
   currency_code VARCHAR(3),
   description VARCHAR,
+  bucket_id INT NOT NULL,
 )
-LOCATION 'core:adg://dtm__sales__agreements'
+LOCATION 'core:adg://dtm__sales__payments'
 ```
