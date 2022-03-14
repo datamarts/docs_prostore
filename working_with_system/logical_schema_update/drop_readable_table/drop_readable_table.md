@@ -22,6 +22,6 @@ has_children: false
 ## Пример {#examples}
 
 ```sql
-DROP READABLE EXTERNAL TABLE sales.agreements_ext_read
+DROP READABLE EXTERNAL TABLE sales.agreements_ext_read_adp
 OPTIONS ('auto.drop.table.enable=true')
 ```

@@ -78,4 +78,22 @@ CHUNK_SIZE 1000;
 -- запуск выгрузки данных из материализованного представления sales_by_stores
 INSERT INTO sales.sales_by_stores_ext_download
 SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm';
+
+-- создание внешней таблицы для выгрузки из внешней readable-таблицы payments_ext_read_adg
+CREATE DOWNLOAD EXTERNAL TABLE sales.payments_ext_download (
+  id INT NOT NULL,
+  agreement_id INT,
+  code VARCHAR(16),
+  amount DOUBLE,
+  currency_code VARCHAR(3),
+  description VARCHAR,
+  bucket_id INT NOT NULL,
+)
+LOCATION 'kafka://zk1:2181,zk2:2181,zk3:2181/agreements_out'
+FORMAT 'AVRO'
+CHUNK_SIZE 1000;
+
+-- запуск выгрузки данных из внешней readable-таблицы payments_ext_read_adg
+INSERT INTO sales.payments_ext_download
+SELECT * FROM sales.payments_ext_read_adg WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
 ```

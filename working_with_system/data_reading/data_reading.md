@@ -51,4 +51,13 @@ FROM stores_by_sold_products AS sold;
 -- запрос данных из материализованного представления sales_by_stores
 SELECT * FROM sales_by_stores
 WHERE store_id IN (1234, 1235, 1236);
+
+-- запрос из внешней readable-таблицы
+SELECT * FROM payments_ext_read_adg as p GROUP BY (p.agreement_id) WHERE amount IS NOT NULL;
+
+-- запрос данных из соединения внешней readable-таблицы и логической таблицы
+SELECT a.id, a.client_id, c.first_name, c.last_name, c.patronymic_name 
+FROM agreements_ext_read_adp AS a
+LEFT JOIN clients AS c
+  ON a.client_id = c.id;
 ```

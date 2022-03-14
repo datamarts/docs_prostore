@@ -12,7 +12,7 @@ has_toc: false
 
 Чтобы создать внешнюю writable-таблицу 
 в [логической БД](../../../overview/main_concepts/logical_db/logical_db.md), 
-выполните запрос [CREATE WRITEABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md). 
+выполните запрос [CREATE WRITABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md). 
 
 При успешном выполнении запроса внешняя таблица появляется в 
 [логической схеме данных](../../../overview/main_concepts/logical_schema/logical_schema.md). Если в запросе указана
@@ -28,10 +28,12 @@ has_toc: false
 Наличие внешней таблицы можно проверить, как описано в разделе 
 [Проверка наличия внешней таблицы](../entity_presence_check/entity_presence_check.md#ext_table_check).
 
-## Пример {#examples}
+## Примеры {#examples}
+
+### Создание таблицы с ключами и параметрами (ADP) {#adp_with_options}
 
 ```sql
-CREATE WRITEABLE EXTERNAL TABLE sales.agreements_ext_write (
+CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -44,4 +46,19 @@ CREATE WRITEABLE EXTERNAL TABLE sales.agreements_ext_write (
 DISTRIBUTED BY (id)
 LOCATION 'core:adp://sales.agreements'
 OPTIONS ('auto.create.table.enable=true')
+```
+
+### Создание таблицы без ключей и параметров (ADG) {#adg_without_options}
+
+```sql
+CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
+  id INT NOT NULL,
+  agreement_id INT,
+  code VARCHAR(16),
+  amount DOUBLE,
+  currency_code VARCHAR(3),
+  description VARCHAR,
+  bucket_id INT NOT NULL,
+)
+LOCATION 'core:adg://dtm__sales__payments'
 ```

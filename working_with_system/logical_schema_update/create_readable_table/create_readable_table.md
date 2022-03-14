@@ -19,7 +19,7 @@ has_toc: false
 опция `auto.create.table.enable=true`, то создается связанная standalone-таблица в СУБД хранилища.
 
 Для удобства разделения внешних таблиц рекомендуется задавать имя таблицы, указывающее на ее тип 
-(например, `payments_ext_read`).
+(например, `payments_ext_read_adg`).
 {: .tip-wrapper}
 
 Внешняя readable-таблица представляет собой проекцию таблицы во внешнем источнике данных и не хранит сами данные.
@@ -28,10 +28,12 @@ has_toc: false
 Наличие внешней таблицы можно проверить, как описано в разделе 
 [Проверка наличия внешней таблицы](../entity_presence_check/entity_presence_check.md#ext_table_check).
 
-## Пример {#examples}
+## Примеры {#examples}
+
+### Создание таблицы с ключами и параметрами (ADP) {#adp_with_options}
 
 ```sql
-CREATE READABLE EXTERNAL TABLE sales.agreements_ext_read (
+CREATE READABLE EXTERNAL TABLE sales.agreements_ext_read_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -44,4 +46,19 @@ CREATE READABLE EXTERNAL TABLE sales.agreements_ext_read (
 DISTRIBUTED BY (id)
 LOCATION 'core:adp://sales.agreements'
 OPTIONS ('auto.create.table.enable=true')
+```
+
+### Создание таблицы без ключей и параметров (ADG) {#adg_without_options}
+
+```sql
+CREATE READABLE EXTERNAL TABLE sales.payments_ext_read_adg (
+  id INT NOT NULL,
+  agreement_id INT,
+  code VARCHAR(16),
+  amount DOUBLE,
+  currency_code VARCHAR(3),
+  description VARCHAR,
+  bucket_id INT NOT NULL
+)
+LOCATION 'core:adg://dtm__sales__payments'
 ```

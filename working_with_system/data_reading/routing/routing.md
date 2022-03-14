@@ -245,6 +245,6 @@ WHERE (t.col1 = 1 AND t.col2 = 2) OR (a.colA = 1 AND t.colB = 2)
     
 В запросах к материализованным представлениям доступны не все сочетания с ключевым словом `FOR SYSTEM_TIME`. 
 Подробнее см. в секции 
-[Ключевое слово FOR SYSTEM_TIME](../../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time_matview) 
+[Ключевое слово FOR SYSTEM_TIME](../../../reference/sql_plus_requests/SELECT/SELECT.md#tab_for_system_time_values) 
 раздела [SELECT](../../../reference/sql_plus_requests/SELECT/SELECT.md).
 {: .note-wrapper}

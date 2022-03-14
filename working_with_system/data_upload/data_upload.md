@@ -10,7 +10,8 @@ has_toc: false
 # Загрузка данных {#data_upload}
 
 Система позволяет параллельно загружать большие объемы данных. Данные можно загружать 
-в [логические таблицы](../../overview/main_concepts/logical_table/logical_table.md) и внешние writable-таблицы.
+в [логические таблицы](../../overview/main_concepts/logical_table/logical_table.md) и 
+[внешние writable-таблицы](../../overview/main_concepts/external_table/external_table.md#writable_table).
 Загрузка данных в [логические](../../overview/main_concepts/logical_view/logical_view.md) 
 и [материализованные представления](../../overview/main_concepts/materialized_view/materialized_view.md) 
 недоступна.
@@ -33,7 +34,9 @@ has_toc: false
 Перед загрузкой данных подготовьте данные и логические сущности:
    1. Загрузите данные из внешней информационной системы в топик Kafka.  
       Данные должны соответствовать [формату загрузки данных](../../reference/upload_format/upload_format.md).
-   2. Создайте логическую таблицу <> или внешнюю writable-таблицу <>, если она еще не создана.
+   2. [Создайте логическую таблицу](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) или 
+      [внешнюю writable-таблицу](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md), 
+      если она еще не создана.
    3. [Создайте](../../reference/sql_plus_requests/CREATE_UPLOAD_EXTERNAL_TABLE/CREATE_UPLOAD_EXTERNAL_TABLE.md)
       [внешнюю таблицу](../../overview/main_concepts/external_table/external_table.md)
       загрузки, если она еще не создана.
@@ -46,26 +49,32 @@ has_toc: false
 2. Выполните запрос [INSERT INTO logical_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) 
    на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
 3. Если необходимо, загрузите или обновите другие данные.
-   <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных, но при этом записи, добавляемые 
-   в каждую из таблиц, должны иметь разные значения первичного ключа или быть полными дубликатами. Система не гарантирует 
-   корректную обработку разных записей таблицы с одинаковыми значениями первичного ключа в одной дельте.
+   <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую 
+   таблицу в одной дельте можно добавлять записи с разными значениями первичного ключа или полные дубликаты.
 4. При загрузке в логическую таблицу: выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md) 
    для сохранения изменений и закрытия дельты.
     
 При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе 
 [Версионирование данных](data_versioning/data_versioning.md).
 
-Пока дельта не закрыта, внесенные в ней изменения данных можно отменить запросом 
+Пока дельта не закрыта, все ее изменения данных можно отменить запросом 
 [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). 
 <br> Созданные внешние таблицы загрузки можно использовать повторно или удалить.
 {: .note-wrapper}
 
+При загрузке данных во внешнюю writable-таблицу нужно учитывать ограничения связанной 
+[standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md).
+{: .note-wrapper}
+
 ## Примеры {#examples}
+
+### Загрузка в логическую таблицу {#logical_table_example}
+
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
 USE sales;
 
--- создание логической таблицы sales
+-- создание логической таблицы
 CREATE TABLE sales (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
@@ -93,9 +102,45 @@ MESSAGE_LIMIT 1000;
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
--- запуск загрузки данных в логическую таблицу sales
+-- запуск загрузки данных в логическую таблицу
 INSERT INTO sales SELECT * FROM sales.sales_ext_upload;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
+```
+
+### Загрузка во внешнюю writable-таблицу {#writable_table_example}
+
+```sql
+-- создание внешней writable-таблицы
+CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
+  id INT NOT NULL,
+  client_id INT NOT NULL,
+  number VARCHAR NOT NULL,
+  signature_date DATE,
+  effective_date DATE,
+  closing_date DATE,
+  description VARCHAR,
+  PRIMARY KEY(id)
+)
+DISTRIBUTED BY (id)
+LOCATION 'core:adp://sales.agreements'
+OPTIONS ('auto.create.table.enable=true');
+
+-- создание внешней таблицы загрузки
+CREATE UPLOAD EXTERNAL TABLE sales.agreements_ext_upload (
+  id INT NOT NULL,
+  client_id INT NOT NULL,
+  number VARCHAR NOT NULL,
+  signature_date DATE,
+  effective_date DATE,
+  closing_date DATE,
+  description VARCHAR
+) 
+LOCATION  'kafka://zk1:2181,zk2:2181,zk3:2181/agreements'
+FORMAT 'AVRO'
+OPTIONS ('auto.create.sys_op.enable=false')
+
+-- запуск загрузки данных во внешнюю writable-таблицу
+INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
 ```

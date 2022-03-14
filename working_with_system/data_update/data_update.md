@@ -21,7 +21,8 @@ has_toc: false
 </details>
 
 Система позволяет обновлять небольшие объемы данных, добавляя новые и удаляя устаревшие данные. Данные можно обновлять 
-в [логических таблицах](../../overview/main_concepts/logical_table/logical_table.md) и внешних writable-таблицах.
+в [логических таблицах](../../overview/main_concepts/logical_table/logical_table.md) и 
+[внешних writable-таблицах](../../overview/main_concepts/external_table/external_table.md#writable_table).
 Обновление данных в [логических](../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованных представлениях](../../overview/main_concepts/materialized_view/materialized_view.md)
 недоступно.
@@ -34,8 +35,9 @@ has_toc: false
 {: .note-wrapper}
 
 Чтобы обновить данные в логической таблице или внешней writable-таблице:
-1. [Создайте](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md)
-   логическую таблицу или внешнюю writable-таблицу, если она еще не создана.
+1. [Создайте логическую таблицу](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) 
+   или [внешнюю writable-таблицу](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md), 
+   если она еще не создана.
 2. При обновлении данных логической таблицы: выполните запрос [BEGIN DELTA](../../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)
    на открытие [дельты](../../overview/main_concepts/delta/delta.md), если она еще не открыта.
 3. Выполните запрос на обновление данных:
@@ -45,20 +47,25 @@ has_toc: false
         для добавления новых или изменения существующих данных;
       * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления данных.
 4. Если необходимо, обновите или загрузите другие данные.
-   <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных, но при этом записи, добавляемые
-   в каждую из таблиц, должны иметь разные значения первичного ключа или быть полными дубликатами. Система не гарантирует
-   корректную обработку разных записей таблицы с одинаковыми значениями первичного ключа в одной дельте.
+   <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую
+   таблицу в одной дельте можно добавлять записи с разными значениями первичного ключа или полные дубликаты.
 5. При обновлении данных логической таблицы: выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md)
    для сохранения изменений и закрытия дельты.
 
 При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе 
 [Версионирование данных](../data_upload/data_versioning/data_versioning.md).
 
-Пока дельта не закрыта, внесенные в ней изменения данных можно отменить запросом
+Пока дельта не закрыта, все ее изменения данных можно отменить запросом
 [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
 {: .note-wrapper}
 
+При обновлении данных во внешней writable-таблицы нужно учитывать ограничения связанной 
+[standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md).
+{: .note-wrapper}
+
 ## Примеры {#examples}
+
+### Обновление данных в логических таблицах {#logical_table_example}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -95,4 +102,33 @@ SELECT * FROM sales WHERE CAST(EXTRACT(MONTH FROM transaction_date) AS INT) = 7 
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
+```
+
+### Обновление данных во внешней writable-таблице {#writable_table_example}
+
+```sql
+-- вставка записей
+INSERT INTO sales.agreements_ext_write_adp 
+VALUES (100, 111111, 'AB12345', '2022-02-01', '2022-02-02', '2024-02-02', 'Договор с ООО "Квадрат"'), 
+       (101, 222222, 'AB67890', '2022-02-11', '2022-02-12', '2025-02-12', 'Договор с ООО "Круг"');
+       
+-- удаление записей по одному клиенту
+DELETE FROM sales.agreements_ext_write_adp WHERE client_id = 234;       
+
+-- создание внешней writable-таблицы, связанной с таблицей ADQM
+CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
+  id INT NOT NULL,
+  transaction_date TIMESTAMP NOT NULL,
+  product_code VARCHAR(256) NOT NULL,
+  product_units INT NOT NULL,
+  store_id INT NOT NULL,
+  description VARCHAR(256),
+  PRIMARY KEY (id)
+)
+DISTRIBUTED BY (id)
+LOCATION 'core:adqm://dtm__sales.sales'
+OPTIONS ('auto.create.table.enable=true');
+
+-- вставка данных во внешнюю writable-таблицу sales_ext_write_adqm из логической таблицы sales
+INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
 ```

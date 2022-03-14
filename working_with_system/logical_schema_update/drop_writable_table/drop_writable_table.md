@@ -10,7 +10,7 @@ has_children: false
 # Удаление внешней writable-таблицы {#drop_writable_table}
 
 Чтобы удалить внешнюю writable-таблицу, 
-выполните запрос [DROP WRITEABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/DROP_WRITEABLE_EXTERNAL_TABLE/DROP_WRITEABLE_EXTERNAL_TABLE.md). 
+выполните запрос [DROP WRITABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/DROP_WRITABLE_EXTERNAL_TABLE/DROP_WRITABLE_EXTERNAL_TABLE.md). 
 
 При успешном выполнении запроса внешняя таблица удаляется из 
 [логической схемы данных](../../../overview/main_concepts/logical_schema/logical_schema.md). Если в запросе указана 
@@ -22,6 +22,6 @@ has_children: false
 ## Пример {#examples}
 
 ```sql
-DROP WRITEABLE EXTERNAL TABLE sales.agreements_ext_write
+DROP WRITABLE EXTERNAL TABLE sales.agreements_ext_write
 OPTIONS ('auto.drop.table.enable=true')
 ```
