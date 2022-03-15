@@ -562,3 +562,60 @@ has_toc: false
 | `SELECT CAST(STDDEV_SAMP(numeric_col, numeric_col) AS DOUBLE) FROM table1 datasource_type = {'ADB' | 'ADP'};` |
 | `SELECT CAST(STDDEV_POP(numeric_col, numeric_col) AS FLOAT) FROM table1 datasource_type = 'ADQM';` |
 | `SELECT STDDEV_POP(CAST(numeric_col AS FLOAT)) FROM table1 datasource_type = 'ADQM';` |
+
+## Функции в SQL+ запросах {#FinctionsinSQLplus}
+
+### COALESCE: INSERT SELECT {#CoalesceinsertselectSQLplus}
+
+| COALESCE: ADB, ADP
+|:---
+| `INSERT INTO table2 (id, boolean_col) SELECT COALESCE(boolean_col,true) FROM table1 datasource_type = 'ADB' | 'ADP'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, int32_col) SELECT COALESCE(int32_col,10) FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, int_col) SELECT COALESCE(int_col,-20) FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, bigint_col) SELECT COALESCE(bigint_col,-20) FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, float_col) SELECT COALESCE(float_col,10.5) FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, double_col) SELECT COALESCE(double_col,-0.5) FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, char10_col) SELECT COALESCE(char10_col,'0123456789') FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, varchar_col) SELECT COALESCE(varchar_col,'0123456789') FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, uuid_col) SELECT COALESCE(uuid_col,'0123456789') FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADQM, ADP
+|:---
+| `INSERT INTO table2 (id, link_col) SELECT COALESCE(link_col,'0123456789') FROM table1 datasource_type = 'ADB' | 'ADP' | 'ADQM'};` |
+
+| COALESCE: ADB, ADP
+|:---
+| `INSERT INTO table2 (id, date_col) SELECT COALESCE(date_col,CAST('2001-02-03' AS DATE)) FROM table1 datasource_type = 'ADB' | 'ADP'};` |
+
+| COALESCE: ADB, ADP
+|:---
+| `INSERT INTO table2 (id, time_col) SELECT COALESCE(time_col,CAST('12:12:12' AS TIME)) FROM table1 datasource_type = 'ADB' | 'ADP'};` |
+
+| COALESCE: ADB, ADP
+|:---
+| `INSERT INTO table2 (id, timestamp_col) SELECT COALESCE(timestamp_col,CAST('2001-02-03 12:12:12' AS TIMESTAMP)) FROM table1 datasource_type = 'ADB' | 'ADP'};` |
+
