@@ -22,12 +22,11 @@ has_toc: false
 
 Запрос позволяет выгрузить данные, выбранные [SELECT](../SELECT/SELECT.md)-подзапросом 
 к [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
-во внешний приемник данных. Данные можно выгружать из следующих сущностей:
+во внешний приемник данных. Данные можно выгружать из следующих сущностей и их соединений:
 * [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
 * [логических представлений](../../../overview/main_concepts/logical_view/logical_view.md) и 
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
-* внешних readable-таблиц,
-* соединения перечисленных сущностей.
+* [внешних readable-таблиц](../../../overview/main_concepts/external_table/external_table.md#readable_table).
 
 Для получения небольшого объема данных можно использовать 
 [запрос данных](../../../working_with_system/data_reading/data_reading.md).
@@ -45,7 +44,7 @@ has_toc: false
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-При успешном выполнении запроса данные выгружаются в тот приемник данных, который был указан 
+При успешном выполнении запроса данные выгружаются в тот топик Kafka, который был указан 
 [при создании внешней таблицы выгрузки](../CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md). Описание 
 формата данных см. в разделе [Формат выгрузки данных](../../download_format/download_format.md).
 
@@ -53,8 +52,9 @@ has_toc: false
 * из [указанной](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или 
   [наиболее оптимальной СУБД](../../../working_with_system/data_reading/routing/routing.md) —
   если данные выгружаются из логических таблиц, логических и материализованных представлений;
-* из той СУБД хранилища, в которой размещаются связанные standalone-таблицы — если данные выгружаются из внешних
-  readable-таблиц.
+* из той СУБД хранилища, в которой размещаются связанные 
+  [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md), — если данные выгружаются 
+  из внешних readable-таблиц и их соединений с другими сущностями.
 
 ## Синтаксис {#syntax}
 

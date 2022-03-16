@@ -183,7 +183,7 @@ has_toc: false
 * Выгрузка данных, выбранных с использованием агрегатных функций, из ADQM дает некорректные результаты. Ограничение 
   связано с тем, что данные из сегментов кластера ADQM выгружаются параллельно и не объединяются.
 
-## [INSERT INTO logical table](../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md#restrictions)
+## [INSERT FROM upload_external_table](../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md#restrictions)
 
 * Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 
