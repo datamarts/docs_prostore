@@ -8,9 +8,20 @@ has_toc: false
 ---
 
 # Загрузка данных {#data_upload}
+{: .no_toc }
 
-Система позволяет параллельно загружать большие объемы данных. Данные можно загружать 
-в [логические таблицы](../../overview/main_concepts/logical_table/logical_table.md) и 
+<details markdown="block">
+  <summary>
+    Содержание раздела
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+Система позволяет параллельно загружать большие объемы данных. 
+
+Можно загружать данные в [логические таблицы](../../overview/main_concepts/logical_table/logical_table.md) и 
 [внешние writable-таблицы](../../overview/main_concepts/external_table/external_table.md#writable_table).
 Загрузка данных в [логические](../../overview/main_concepts/logical_view/logical_view.md) 
 и [материализованные представления](../../overview/main_concepts/materialized_view/materialized_view.md) 
@@ -22,9 +33,9 @@ has_toc: false
 
 ## Подготовка к загрузке {#preparing}
 
-Данные загружаются в систему из [сообщений топика Kafka](../../reference/upload_format/upload_format.md). 
+Данные загружаются в систему из [сообщений топиков Kafka](../../reference/upload_format/upload_format.md). 
 Поэтому, если в брокере сообщений Kafka не настроено автоматическое создание топиков, нужно создать топики вручную.
-Чтобы создать топик, следуйте любой из инструкций, доступных в документации Kafka:
+Чтобы создать топик, следуйте любой из инструкций в документации Kafka:
 *   [Quick Start](https://kafka.apache.org/documentation/#quickstart),
 *   [Adding and removing topics](https://kafka.apache.org/documentation/#basic_ops_add_topic).
 
@@ -41,29 +52,35 @@ has_toc: false
       [внешнюю таблицу](../../overview/main_concepts/external_table/external_table.md)
       загрузки, если она еще не создана.
 
-## Загрузка {#upload}
+## Загрузка данных в логическую таблицу {#upload_to_logical_table}
 
-Чтобы загрузить данные из внешней информационной системы в логическую таблицу или внешнюю writable-таблицу:
-1. При загрузке в логическую таблицу: выполните запрос [BEGIN DELTA](../../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md) 
+Чтобы загрузить данные из внешней информационной системы в логическую таблицу:
+1. Выполните запрос [BEGIN DELTA](../../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)
    на открытие [дельты](../../overview/main_concepts/delta/delta.md), если она еще не открыта.
-2. Выполните запрос [INSERT INTO logical_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) 
+2. Выполните запрос [INSERT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md)
    на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
 3. Если необходимо, загрузите или обновите другие данные.
-   <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую 
+   <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую
    таблицу в одной дельте можно добавлять записи с разными значениями первичного ключа или полные дубликаты.
-4. При загрузке в логическую таблицу: выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md) 
+4. Выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md)
    для сохранения изменений и закрытия дельты.
-    
-При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе 
+
+При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе
 [Версионирование данных](data_versioning/data_versioning.md).
 
-Пока дельта не закрыта, все ее изменения данных можно отменить запросом 
-[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). 
+Пока дельта не закрыта, все ее изменения данных можно отменить запросом
+[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
 <br> Созданные внешние таблицы загрузки можно использовать повторно или удалить.
 {: .note-wrapper}
 
-При загрузке данных во внешнюю writable-таблицу нужно учитывать ограничения связанной 
-[standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md).
+## Загрузка данных в writable-таблицу {#upload_to_writable_table}
+
+Чтобы загрузить данные из внешней информационной системы во внешнюю writable-таблицу, выполните запрос 
+[INSERT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) 
+на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
+
+При загрузке данных в writable-таблицу нужно учитывать ограничения, которые конкретная СУБД накладывает на
+работу со своими таблицами.
 {: .note-wrapper}
 
 ## Примеры {#examples}

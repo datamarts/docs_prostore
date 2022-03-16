@@ -23,8 +23,10 @@ has_toc: false
 Раздел описывает маршрутизацию к данным [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
 [логических](../../../overview/main_concepts/logical_view/logical_view.md) и 
 [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md). 
-<br> Запросы к внешним readable-таблицам всегда исполняются в той СУБД, где расположены standalone-таблицы, связанные с этими 
-внешними таблицами.
+<br> Запросы к [внешней readable-таблице](../../../overview/main_concepts/external_table/external_table.md#readable_table) 
+всегда исполняется в той СУБД, где расположена 
+[standalone-таблица](../../../overview/main_concepts/standalone_table/standalone_table.md), связанная 
+с этой внешней таблицей.
 {: .note-wrapper}
 
 Запросы на [чтение](../../data_reading/data_reading.md) и [выгрузку данных](../../data_download/data_download.md)

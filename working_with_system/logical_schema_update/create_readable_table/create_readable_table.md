@@ -10,19 +10,20 @@ has_toc: false
 
 # Создание внешней readable-таблицы {#create_readable_table}
 
-Чтобы создать внешнюю readable-таблицу 
-в [логической БД](../../../overview/main_concepts/logical_db/logical_db.md), 
+Чтобы создать [внешнюю readable-таблицу](../../../overview/main_concepts/external_table/external_table.md#readable_table) 
+в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [CREATE READABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md). 
 
 При успешном выполнении запроса внешняя таблица появляется в 
 [логической схеме данных](../../../overview/main_concepts/logical_schema/logical_schema.md). Если в запросе указана
-опция `auto.create.table.enable=true`, то создается связанная standalone-таблица в СУБД хранилища.
+опция `auto.create.table.enable=true`, в СУБД хранилища создается связанная 
+[standalone-таблица](../../../overview/main_concepts/standalone_table/standalone_table.md).
 
-Для удобства разделения внешних таблиц рекомендуется задавать имя таблицы, указывающее на ее тип 
-(например, `payments_ext_read_adg`).
+Чтобы можно было различать разные типы внешних таблиц между собой, рекомендуется давать им имена, указывающие на тип
+таблицы, например `payments_ext_read` или `payments_ext_read_adg`.
 {: .tip-wrapper}
 
-Внешняя readable-таблица представляет собой проекцию таблицы во внешнем источнике данных и не хранит сами данные.
+Внешняя readable-таблица представляет собой проекцию standalone-таблицы и не хранит сами данные.
 {: .note-wrapper}
 
 Наличие внешней таблицы можно проверить, как описано в разделе 

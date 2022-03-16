@@ -8,7 +8,6 @@ has_toc: false
 ---
 
 # Обновление данных {#data_update}
-
 {: .no_toc }
 
 <details markdown="block">
@@ -20,9 +19,10 @@ has_toc: false
 {:toc}
 </details>
 
-Система позволяет обновлять небольшие объемы данных, добавляя новые и удаляя устаревшие данные. Данные можно обновлять 
-в [логических таблицах](../../overview/main_concepts/logical_table/logical_table.md) и 
-[внешних writable-таблицах](../../overview/main_concepts/external_table/external_table.md#writable_table).
+Система позволяет обновлять небольшие объемы данных: добавлять новые записи, изменять и удалять текущие записи. 
+
+Можно обновлять данные [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md) и 
+[внешних writable-таблиц](../../overview/main_concepts/external_table/external_table.md#writable_table).
 Обновление данных в [логических](../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованных представлениях](../../overview/main_concepts/materialized_view/materialized_view.md)
 недоступно.
@@ -34,33 +34,46 @@ has_toc: false
 Обновление данных поддерживается в ADB, ADQM и ADP.
 {: .note-wrapper}
 
-Чтобы обновить данные в логической таблице или внешней writable-таблице:
-1. [Создайте логическую таблицу](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) 
-   или [внешнюю writable-таблицу](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md), 
+## Обновление данных логической таблицы {#update_in_logical_table}
+
+Чтобы обновить данные логической таблицы:
+1. [Создайте логическую таблицу](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md),
    если она еще не создана.
-2. При обновлении данных логической таблицы: выполните запрос [BEGIN DELTA](../../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)
+2. Выполните запрос [BEGIN DELTA](../../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)
    на открытие [дельты](../../overview/main_concepts/delta/delta.md), если она еще не открыта.
 3. Выполните запрос на обновление данных:
-      * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
-        [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или 
-        [UPSERT VALUES](../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) — 
-        для добавления новых или изменения существующих данных;
-      * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления данных.
+    * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md),
+      [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или
+      [UPSERT VALUES](../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) —
+      для добавления новых или изменения существующих данных;
+    * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления данных.
 4. Если необходимо, обновите или загрузите другие данные.
    <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую
    таблицу в одной дельте можно добавлять записи с разными значениями первичного ключа или полные дубликаты.
-5. При обновлении данных логической таблицы: выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md)
+5. Выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md)
    для сохранения изменений и закрытия дельты.
 
-При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе 
+При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе
 [Версионирование данных](../data_upload/data_versioning/data_versioning.md).
 
 Пока дельта не закрыта, все ее изменения данных можно отменить запросом
 [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
 {: .note-wrapper}
 
-При обновлении данных во внешней writable-таблицы нужно учитывать ограничения связанной 
-[standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md).
+## Обновление данных writable-таблицы {#update_in_writable_table}
+
+Чтобы обновить данные во внешней writable-таблице:
+1. [Создайте внешнюю writable-таблицу](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md),
+   если она еще не создана.
+2. Выполните запрос на обновление данных:
+    * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md),
+      [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или
+      [UPSERT VALUES](../../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md) —
+      для добавления новых или изменения существующих данных;
+    * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления данных.
+
+При обновлении данных writable-таблицы нужно учитывать ограничения, которые конкретная СУБД накладывает на
+работу со своими таблицами.
 {: .note-wrapper}
 
 ## Примеры {#examples}

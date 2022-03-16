@@ -9,11 +9,11 @@ has_toc: false
 
 # Запрос данных {#data_reading}
 
-Система позволяет запрашивать небольшие объемы данных. Данные можно запрашивать из 
-[логических таблиц](../../overview/main_concepts/logical_table/logical_table.md),
-[логических](../../overview/main_concepts/logical_view/logical_view.md) и
-[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), а также
-внешних readable-таблиц.
+Система позволяет запрашивать небольшие объемы данных. Данные можно запрашивать из следующих сущностей и их соединений:
+* [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md),
+* [логических представлений](../../overview/main_concepts/logical_view/logical_view.md),
+* [материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), 
+* [внешних readable-таблиц](../../overview/main_concepts/external_table/external_table.md#readable_table).
 
 Под небольшим объемом данных подразумевается результат, содержащий десятки строк.
 Для получения большого объема данных следует использовать [выгрузку данных](../data_download/data_download.md).

@@ -7,12 +7,23 @@ has_children: false
 ---
 
 # Выгрузка данных {#data_download}
+{: .no_toc }
+
+<details markdown="block">
+  <summary>
+    Содержание раздела
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
 
 Система позволяет выгружать большие объемы данных, а также изменений, выполненных 
-в указанных дельтах. Данные можно выгружать из [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md), 
-[логических](../../overview/main_concepts/logical_view/logical_view.md) и 
-[материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), а также 
-внешних readable-таблиц.
+в указанных дельтах. Данные можно выгружать из следующих сущностей и их соединений: 
+* [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md), 
+* [логических представлений](../../overview/main_concepts/logical_view/logical_view.md),
+* [материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md),
+* [внешних readable-таблиц](../../overview/main_concepts/external_table/external_table.md#readable_table).
 
 Под большим объемом данных подразумевается количество записей от нескольких сотен до нескольких миллионов.
 Для получения небольшого объема данных можно использовать функцию [запроса данных](../data_reading/data_reading.md).
@@ -20,7 +31,7 @@ has_children: false
 
 Данные выгружаются из системы в виде [сообщений Kafka](../../reference/upload_format/upload_format.md).
 Поэтому, если в брокере сообщений Kafka не настроено автоматическое создание топиков, нужно создать топики вручную.
-Чтобы создать топик, следуйте любой из инструкций, доступных в документации Kafka:
+Чтобы создать топик, следуйте любой из инструкций в документации Kafka:
 * [Quick Start](https://kafka.apache.org/documentation/#quickstart),
 * [Adding and removing topics](https://kafka.apache.org/documentation/#basic_ops_add_topic).
 
@@ -37,11 +48,12 @@ has_children: false
 Созданные внешние таблицы выгрузки можно использовать повторно или удалить.
 
 Данные выгружаются из следующей СУБД хранилища:
-* из указанной или [наиболее оптимальной СУБД](../../../working_with_system/data_reading/routing/routing.md) —
+* из указанной или [наиболее оптимальной СУБД](../../working_with_system/data_reading/routing/routing.md) —
   если данные выгружаются из логических таблиц, логических и
   материализованных представлений;
-* из той СУБД хранилища, в которой размещаются связанные standalone-таблицы — если данные выгружаются из внешних
-  readable-таблиц.
+* из той СУБД хранилища, в которой размещаются связанные 
+  [standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md), — если данные выгружаются 
+  из внешних readable-таблиц.
 
 ## Пример {#example}
 ```sql

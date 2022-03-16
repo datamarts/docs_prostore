@@ -10,19 +10,20 @@ has_toc: false
 
 # Создание внешней writable-таблицы {#create_writable_table}
 
-Чтобы создать внешнюю writable-таблицу 
-в [логической БД](../../../overview/main_concepts/logical_db/logical_db.md), 
+Чтобы создать [внешнюю writable-таблицу](../../../overview/main_concepts/external_table/external_table.md#writable_table) 
+в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
 выполните запрос [CREATE WRITABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md). 
 
 При успешном выполнении запроса внешняя таблица появляется в 
 [логической схеме данных](../../../overview/main_concepts/logical_schema/logical_schema.md). Если в запросе указана
-опция `auto.create.table.enable=true`, то создается связанная standalone-таблица в СУБД хранилища.
+опция `auto.create.table.enable=true`, в СУБД хранилища создается связанная 
+[standalone-таблица](../../../overview/main_concepts/standalone_table/standalone_table.md).
 
-Для удобства разделения внешних таблиц рекомендуется задавать имя таблицы, указывающее на ее тип 
-(например, `payments_ext_write`).
+Чтобы можно было различать разные типы внешних таблиц между собой, рекомендуется давать им имена, указывающие на тип
+таблицы, например `payments_ext_write` или `payments_ext_write_adg`.
 {: .tip-wrapper}
 
-Внешняя writable-таблица представляет собой проекцию таблицы во внешнем источнике данных и не хранит сами данные.
+Внешняя writable-таблица представляет собой проекцию standalone-таблицы и не хранит сами данные.
 {: .note-wrapper}
 
 Наличие внешней таблицы можно проверить, как описано в разделе 
