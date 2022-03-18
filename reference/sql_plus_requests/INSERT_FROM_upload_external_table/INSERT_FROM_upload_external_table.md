@@ -118,5 +118,5 @@ INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_up
 Загрузка в таблицу, связанную со standalone-таблицей ADG:
 
 ```sql
-INSERT INTO sales.payments_ext_write_adg SELECT *, NULL as bucket_id FROM sales.payments_ext_upload;
+INSERT INTO sales.payments_ext_write_adg SELECT *, 0 as bucket_id FROM sales.payments_ext_upload;
 ```

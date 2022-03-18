@@ -393,14 +393,16 @@ INNER JOIN sales.sales FOR SYSTEM_TIME STARTED IN(0,1) AS s
 ### Запрос из внешней readable-таблицы {#readable_example}
 
 ```sql
-SELECT * FROM sales.payments_ext_read_adg as p GROUP BY (p.agreement_id) WHERE amount IS NOT NULL
+SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
+FROM sales.payments_ext_read_adg AS p 
+GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
 ### Соединение внешней readable-таблицы и логической таблицы {#readable_logical_example}
 
 ```sql
-SELECT a.id, a.client_id, c.first_name, c.last_name, c.patronymic_name 
+SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
 FROM sales.agreements_ext_read_adp AS a
-LEFT JOIN sales.clients AS c
+LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
   ON a.client_id = c.id
 ```

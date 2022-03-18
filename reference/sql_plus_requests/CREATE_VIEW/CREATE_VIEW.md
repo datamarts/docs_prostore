@@ -62,7 +62,9 @@ CREATE OR REPLACE VIEW [db_name.]view_name AS SELECT query
   * ключевого слова [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time).
 * Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе `query`, игнорируется.
 
-## Пример {#examples}
+## Примеры {#examples}
+
+### Представление на основе логической таблицы {#on_logical_table}
 
 ```sql
 CREATE VIEW sales.stores_by_sold_products AS
@@ -71,4 +73,23 @@ CREATE VIEW sales.stores_by_sold_products AS
   GROUP BY store_id
   ORDER BY product_amount DESC
   LIMIT 20
+```
+
+### Представление на основе внешней readable-таблицы {#on_readable_table}
+
+```sql
+CREATE VIEW sales.payments_by_agreement AS
+SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
+FROM sales.payments_ext_read_adg AS p 
+GROUP BY p.agreement_id, p.code, p.currency_code
+```
+
+### Представление на основе соединения логической таблицы внешней readable-таблицы {#on_two_type_tables}
+
+```sql
+CREATE VIEW sales.agreements_with_client_info
+SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
+FROM sales.agreements_ext_read_adp AS a
+LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
+  ON a.client_id = c.id
 ```

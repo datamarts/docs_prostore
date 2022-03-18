@@ -37,9 +37,7 @@ ADG, должна содержать поле `bucket_id` с типом `INT` и
 * пустой объект ResultSet при успешном выполнении запроса;
 * исключение при неуспешном выполнении запроса.
 
-Внешние таблицы не отображаются в [системных представлениях](../../system_views/system_views.md) `INFORMATION_SCHEMA`.
-Наличие внешней таблицы можно проверить, как описано в разделе
-[Проверка наличия внешней таблицы](../entity_presence_check/entity_presence_check.md#ext_table_check).
+Наличие внешней таблицы можно проверить, как описано в разделе <>.
 
 Изменение внешней таблицы недоступно. Для замены таблицы необходимо удалить ее и создать новую.
 {: .note-wrapper}
@@ -119,7 +117,7 @@ CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
   amount DOUBLE,
   currency_code VARCHAR(3),
   description VARCHAR,
-  bucket_id INT NOT NULL,
+  bucket_id INT NOT NULL
 )
 LOCATION 'core:adg://dtm__sales__payments'
 ```

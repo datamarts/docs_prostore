@@ -105,16 +105,15 @@ MESSAGE_LIMIT 1000
 ### Таблица для загрузки во внешнюю writable-таблицу {#to_writable_table}
 
 ```sql
-CREATE UPLOAD EXTERNAL TABLE sales.agreements_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE sales.payments_ext_upload (
   id INT NOT NULL,
-  client_id INT NOT NULL,
-  number VARCHAR NOT NULL,
-  signature_date DATE,
-  effective_date DATE,
-  closing_date DATE,
+  agreement_id INT,
+  code VARCHAR(16),
+  amount DOUBLE,
+  currency_code VARCHAR(3),
   description VARCHAR
 )
-LOCATION  'kafka://zk1:2181,zk2:2181,zk3:2181/agreements'
+LOCATION  'kafka://$kafka/payments'
 FORMAT 'AVRO'
 OPTIONS ('auto.create.sys_op.enable=false')
 ```

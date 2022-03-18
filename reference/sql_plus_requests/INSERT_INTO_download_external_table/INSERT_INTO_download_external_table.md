@@ -105,14 +105,15 @@ CREATE DOWNLOAD EXTERNAL TABLE sales.payments_ext_download (
   code VARCHAR(16),
   amount DOUBLE,
   currency_code VARCHAR(3),
-  description VARCHAR,
-  bucket_id INT NOT NULL,
+  description VARCHAR
 )
-LOCATION 'kafka://zk1:2181,zk2:2181,zk3:2181/agreements_out'
+LOCATION 'kafka://$kafka/agreements_out'
 FORMAT 'AVRO'
 CHUNK_SIZE 1000;
 
 -- запуск выгрузки данных из внешней readable-таблицы
 INSERT INTO sales.payments_ext_download
-SELECT * FROM sales.payments_ext_read_adg WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
+SELECT s.id, s.agreement_id, s.code, s.amount, s.currency_code, s.description 
+FROM sales.payments_ext_read_adg AS s 
+WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
 ```

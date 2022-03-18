@@ -131,7 +131,7 @@ DATASOURCE_TYPE = origin_datasource_alias
 
 ## Примеры {#examples}
 
-### Создание представления на основе одной таблицы с условием {#example_with_condition}
+### Представление на основе одной таблицы с условием {#example_with_condition}
 
 Создание представления с размещением в ADG и ADQM:
 
@@ -152,7 +152,7 @@ AS SELECT * FROM sales.sales
 DATASOURCE_TYPE = 'adb'
 ```
 
-### Создание представления на основе одной таблицы с условием, агрегацией и группировкой {#example_with_group_by}
+### Представление на основе одной таблицы с условием, агрегацией и группировкой {#example_with_group_by}
 
 Создание представления с размещением в ADQM:
 
@@ -171,7 +171,7 @@ AS SELECT store_id, product_code, SUM(product_units) as product_units FROM sales
 DATASOURCE_TYPE = 'adb'
 ```
 
-### Создание представления на основе двух таблиц {#example_with_join}
+### Представление на основе двух таблиц {#example_with_join}
 
 ```sql
 CREATE MATERIALIZED VIEW sales.sales_and_stores (
@@ -196,7 +196,7 @@ AS SELECT
 DATASOURCE_TYPE = 'adb'
 ```
 
-### Создание представления только на логическом уровне {#logical_example}
+### Представление только на логическом уровне {#logical_example}
 
 ```sql
 CREATE MATERIALIZED VIEW sales.stores_by_sold_products_matview (
