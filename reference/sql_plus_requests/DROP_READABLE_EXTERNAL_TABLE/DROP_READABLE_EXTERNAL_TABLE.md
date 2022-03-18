@@ -39,11 +39,18 @@ DROP READABLE EXTERNAL TABLE [db_name.]ext_table_name_ext
 [OPTIONS ('<option_list>')]
 ```
 
-Параметры: 
-* `db_name` — имя логической базы данных, из которой удаляется внешняя таблица. Опционально, если выбрана
-  логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-* `ext_table_name` — имя удаляемой внешней таблицы;
-* `option_list` — список дополнительных параметров и их значений в формате `option1=value1;option2=value2...`.
+db_name
+
+: Имя логической базы данных, из которой удаляется внешняя таблица. Опционально, если выбрана
+  логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+ext_table_name
+
+: Имя удаляемой внешней таблицы.
+
+option_list
+
+: Список дополнительных параметров и их значений в формате `option1=value1;option2=value2...`.
   Возможные параметры:
   * `auto.drop.table.enable` — признак удаления связанной standalone-таблицы, возможные значения: `true` — удалить таблицу,
     `false` (по умолчанию) — не удалять таблицу.
