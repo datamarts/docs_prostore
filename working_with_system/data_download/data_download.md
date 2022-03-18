@@ -55,7 +55,10 @@ has_children: false
   [standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md), — если данные выгружаются 
   из внешних readable-таблиц.
 
-## Пример {#example}
+## Примеры {#example}
+
+### Выгрузка из логической таблицы {#from_logical_table}
+
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
 USE sales;
@@ -76,7 +79,11 @@ CHUNK_SIZE 1000;
 -- запуск выгрузки данных из логической таблицы sales
 INSERT INTO sales_ext_download 
 SELECT * FROM sales WHERE product_units > 2 FOR SYSTEM_TIME AS OF DELTA_NUM 10;
+```
 
+### Выгрузка из материализованного представления {#from_matview}
+
+```sql
 -- создание внешней таблицы для выгрузки из материализованного представления sales_by_stores
 CREATE DOWNLOAD EXTERNAL TABLE testdb_doc.sales_by_stores_ext_download (
 store_id INT,
@@ -90,22 +97,27 @@ CHUNK_SIZE 1000;
 -- запуск выгрузки данных из материализованного представления sales_by_stores
 INSERT INTO sales.sales_by_stores_ext_download
 SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm';
+```
 
--- создание внешней таблицы для выгрузки из внешней readable-таблицы payments_ext_read_adg
+### Выгрузка из внешней readable-таблицы {#from_readable_table}
+
+```sql
+-- создание внешней таблицы выгрузки из внешней readable-таблицы payments_ext_read_adg
 CREATE DOWNLOAD EXTERNAL TABLE sales.payments_ext_download (
-  id INT NOT NULL,
-  agreement_id INT,
-  code VARCHAR(16),
-  amount DOUBLE,
-  currency_code VARCHAR(3),
-  description VARCHAR,
-  bucket_id INT NOT NULL,
+id INT NOT NULL,
+agreement_id INT,
+code VARCHAR(16),
+amount DOUBLE,
+currency_code VARCHAR(3),
+description VARCHAR
 )
-LOCATION 'kafka://zk1:2181,zk2:2181,zk3:2181/agreements_out'
+LOCATION 'kafka://$kafka/agreements_out'
 FORMAT 'AVRO'
 CHUNK_SIZE 1000;
 
 -- запуск выгрузки данных из внешней readable-таблицы payments_ext_read_adg
 INSERT INTO sales.payments_ext_download
-SELECT * FROM sales.payments_ext_read_adg WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
+SELECT s.id, s.agreement_id, s.code, s.amount, s.currency_code, s.description
+FROM sales.payments_ext_read_adg AS s
+WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
 ```

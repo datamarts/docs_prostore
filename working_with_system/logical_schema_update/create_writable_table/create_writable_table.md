@@ -59,7 +59,7 @@ CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
   amount DOUBLE,
   currency_code VARCHAR(3),
   description VARCHAR,
-  bucket_id INT NOT NULL,
+  bucket_id INT NOT NULL
 )
 LOCATION 'core:adg://dtm__sales__payments'
 ```

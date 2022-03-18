@@ -8,6 +8,16 @@ has_toc: false
 ---
 
 # Запрос данных {#data_reading}
+{: .no_toc }
+
+<details markdown="block">
+  <summary>
+    Содержание раздела
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
 
 Система позволяет запрашивать небольшие объемы данных. Данные можно запрашивать из следующих сущностей и их соединений:
 * [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md),
@@ -33,6 +43,8 @@ has_toc: false
 
 ## Примеры {#examples}
 
+### Запрос из логической таблицы {#from_logical_table}
+
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
 USE sales;
@@ -43,21 +55,37 @@ FROM sales AS s
 GROUP BY (s.store_id)
 ORDER BY product_amount DESC
 LIMIT 20;
+```
 
+### Запрос из логического представления {#from_logical_view}
+
+```sql
 -- запрос данных из логического представления stores_by_sold_products
 SELECT sold.store_id, sold.product_amount
-FROM stores_by_sold_products AS sold;
+FROM sales.stores_by_sold_products AS sold;
+```
 
+### Запрос из материализованного представления {#from_matview}
+
+```sql
 -- запрос данных из материализованного представления sales_by_stores
 SELECT * FROM sales_by_stores
 WHERE store_id IN (1234, 1235, 1236);
+```
 
--- запрос из внешней readable-таблицы
-SELECT * FROM payments_ext_read_adg as p GROUP BY (p.agreement_id) WHERE amount IS NOT NULL;
+### Запрос из внешней readable-таблицы {#from_readable_table}
 
--- запрос данных из соединения внешней readable-таблицы и логической таблицы
-SELECT a.id, a.client_id, c.first_name, c.last_name, c.patronymic_name 
-FROM agreements_ext_read_adp AS a
-LEFT JOIN clients AS c
-  ON a.client_id = c.id;
+```sql
+SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
+FROM sales.payments_ext_read_adg AS p 
+GROUP BY p.agreement_id, p.code, p.currency_code
+```
+
+### Запрос из соединения внешней readable-таблицы и логической таблицы {#from_two_type_tables}
+
+```sql
+SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
+FROM sales.agreements_ext_read_adp AS a
+LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
+  ON a.client_id = c.id
 ```

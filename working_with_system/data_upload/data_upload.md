@@ -128,6 +128,8 @@ COMMIT DELTA;
 
 ### Загрузка во внешнюю writable-таблицу {#writable_table_example}
 
+Загрузка через внешнюю writable-таблицу в standalone-таблицу ADP, созданную через систему (см. параметр `auto.create.table.enable=true`):
+
 ```sql
 -- создание внешней writable-таблицы
 CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
@@ -160,4 +162,41 @@ OPTIONS ('auto.create.sys_op.enable=false')
 
 -- запуск загрузки данных во внешнюю writable-таблицу
 INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
+```
+
+Подробнее об опции `auto.create.table.enable` см. в разделах 
+[CREATE WRITABLE EXTERNAL TABLE](../../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md) и 
+[CREATE READABLE EXTERNAL TABLE](../../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md).
+{: .note-wrapper}
+
+Загрузка через внешнюю writable-таблицу в существующую standalone-таблицу ADG:
+
+```sql
+-- создание внешней writable-таблицы
+CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
+id INT NOT NULL,
+agreement_id INT,
+code VARCHAR(16),
+amount DOUBLE,
+currency_code VARCHAR(3),
+description VARCHAR,
+bucket_id INT NOT NULL
+)
+LOCATION 'core:adg://dtm__sales__payments';
+
+-- создание внешней таблицы загрузки
+CREATE UPLOAD EXTERNAL TABLE sales.payments_ext_upload (
+id INT NOT NULL,
+agreement_id INT,
+code VARCHAR(16),
+amount DOUBLE,
+currency_code VARCHAR(3),
+description VARCHAR
+)
+LOCATION  'kafka://$kafka/payments'
+FORMAT 'AVRO'
+OPTIONS ('auto.create.sys_op.enable=false');
+
+-- запуск загрузки данных во внешнюю writable-таблицу
+INSERT INTO sales.payments_ext_write_adg SELECT *, 0 as bucket_id FROM sales.payments_ext_upload;
 ```
