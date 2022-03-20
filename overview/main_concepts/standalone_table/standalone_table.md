@@ -32,6 +32,7 @@ _Standalone-таблица_ — таблица СУБД хранилища, не
 [CREATE READABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md).
 {: .note-wrapper}
 
+<a id="img_standalone_table"></a>
 ![](standalone_table.svg)
 {: .figure-center}
 *Связи standalone-таблицы с внешними таблицами*

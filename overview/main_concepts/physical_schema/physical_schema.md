@@ -10,6 +10,11 @@ has_toc: false
 
 # Физическая схема данных {#physical_schema}
 
+Раздел не относится к standalone-таблицам. Такие таблицы не принадлежат
+физической схеме данных (см. [рисунок](../standalone_table/standalone_table.md#img_standalone_table) в разделе
+[Standalone-таблица](../standalone_table/standalone_table.md)).
+{: .note-wrapper}
+
 _Физическая схема данных_ — структура хранения данных логических сущностей в 
 [физических таблицах](../physical_table/physical_table.md) [хранилища](../data_storage/data_storage.md).
 
@@ -38,8 +43,3 @@ _Физическая схема данных_ — структура хране
 | <table>_history | − | +<br>Архивные записи | − | −
 | <table>_actual_shard | − | − | +<br>Горячие, актуальные и архивные записи узла кластера | −
 | tbl_buffer_shard | − | − | +<br>Идентификаторы горячих записей узла кластера | −
-
-Физическая схема данных, описанная в этом разделе, не относится к 
-[standalone-таблицам](../../../overview/main_concepts/standalone_table/standalone_table.md): такие таблицы хранят только 
-текущее состояние данных.
-{: .note-wrapper}
