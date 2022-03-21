@@ -10,11 +10,6 @@ has_toc: false
 
 # Физическая схема данных {#physical_schema}
 
-Раздел не относится к standalone-таблицам. Такие таблицы не принадлежат
-физической схеме данных (см. [рисунок](../standalone_table/standalone_table.md#img_standalone_table) в разделе
-[Standalone-таблица](../standalone_table/standalone_table.md)).
-{: .note-wrapper}
-
 _Физическая схема данных_ — структура хранения данных логических сущностей в 
 [физических таблицах](../physical_table/physical_table.md) [хранилища](../data_storage/data_storage.md).
 
