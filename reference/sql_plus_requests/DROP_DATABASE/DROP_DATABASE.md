@@ -37,8 +37,11 @@ DROP DATABASE db_name
 DROP DATABASE db_name LOGICAL_ONLY
 ```
 
-Параметры:
-*   `db_name` — имя удаляемой логической базы данных.
+**Параметры:**
+
+`db_name`
+
+: Имя удаляемой логической базы данных.
 
 ### Ключевое слово LOGICAL_ONLY {#logical_only}
 

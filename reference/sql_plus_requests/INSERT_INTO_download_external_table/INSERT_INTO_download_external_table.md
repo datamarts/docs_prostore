@@ -62,11 +62,20 @@ has_toc: false
 INSERT INTO [db_name.]ext_table_name SELECT query
 ```
 
-Параметры:
-*   `db_name` — имя логической базы данных, из которой выгружаются данные. Параметр опционален, если выбрана 
-    логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-*   `ext_table_name` — имя внешней таблицы выгрузки;
-*   `query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора выгружаемых данных.
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных, из которой выгружаются данные. Опционально, если выбрана логическая БД, 
+  [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`ext_table_name`
+
+: Имя внешней таблицы выгрузки.
+
+`query`
+
+: [SELECT](../SELECT/SELECT.md)-подзапрос для выбора выгружаемых данных.
 
 ## Ограничения {#restrictions}
 

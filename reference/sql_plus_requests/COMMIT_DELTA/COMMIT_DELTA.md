@@ -52,9 +52,12 @@ COMMIT DELTA
 COMMIT DELTA SET date_time_expression
 ```
 
-Параметры:
-*   `date_time_expression` — метка даты и времени вида `'YYYY-MM-DD hh:mm:ss'`. Возможные форматы см. в разделе
-    [Форматы даты и времени](../../timestamp_formats/timestamp_formats.md).
+**Параметры:**
+
+`date_time_expression`
+
+: Метка даты и времени вида `'YYYY-MM-DD hh:mm:ss'`. Возможные форматы см. в разделе
+  [Форматы даты и времени](../../timestamp_formats/timestamp_formats.md).
 
 ## Ограничения {#restrictions}
 

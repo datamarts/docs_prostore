@@ -36,8 +36,11 @@ has_toc: false
 CONFIG_STORAGE_ADD('datasource_alias')
 ```
 
-Параметры:
-*   `datasource_alias` — псевдоним СУБД хранилища. Возможные значения: `adb`, `adqm`, `adg`, `adp`.
+**Параметры:**
+
+`datasource_alias`
+
+: Псевдоним СУБД хранилища. Возможные значения: `adb`, `adqm`, `adg`, `adp`.
 
 ## Пример {#examples}
 

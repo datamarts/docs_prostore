@@ -56,16 +56,27 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 [WHERE filter_expression]
 ```
 
-Параметры:
-*   `db_name` — имя логической базы данных. Опционально, если выбрана логическая БД, 
-    [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-*   `table_name` — имя логической таблицы, данные которой удаляются;
-*   `date_time_expression` — выражение, определяющее категорию удаляемых данных. Может принимать 
-    следующие значения:
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных. Опционально, если выбрана логическая БД, 
+  [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`table_name`
+
+: Имя логической таблицы, данные которой удаляются.
+
+`date_time_expression`
+
+: Выражение, определяющее категорию удаляемых данных. Может принимать значения:
     *   `'YYYY-MM-DD hh:mm:ss'` — удаление истории старше указанного момента времени. Возможные форматы 
         см. в разделе [Форматы даты и времени](../../timestamp_formats/timestamp_formats.md);
-    *   `'infinite'` — удаление записей с историей;
-*   `filter_expression` — условие выбора удаляемых данных.
+    *   `'infinite'` — удаление записей с историей.
+
+`filter_expression`
+
+: Условие выбора удаляемых данных.
 
 ## Ограничения {#restrictions}
 

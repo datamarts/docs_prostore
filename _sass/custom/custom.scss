@@ -113,3 +113,17 @@ h2 {
   left: 0.9em;
   top: 0.9em;
 }
+
+// custom styles for parameter lists
+
+.main-content dt {
+    text-align:left
+}
+
+.main-content dt::after {
+    content: none
+}
+
+.main-content dd {
+    grid-column: 1 / 3
+}

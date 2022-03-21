@@ -23,10 +23,16 @@ has_toc: false
 DROP UPLOAD EXTERNAL TABLE [db_name.]ext_table_name
 ```
 
-Параметры:
-*   `db_name` — имя логической базы данных, из которой удаляется внешняя таблица загрузки. Опционально, 
-    если выбрана логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-*   `ext_table_name` — имя удаляемой внешней таблицы загрузки.
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных, из которой удаляется внешняя таблица загрузки. Опционально, если выбрана логическая БД, 
+  [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`ext_table_name`
+
+: Имя удаляемой внешней таблицы загрузки.
 
 ## Ограничения {#restrictions}
 

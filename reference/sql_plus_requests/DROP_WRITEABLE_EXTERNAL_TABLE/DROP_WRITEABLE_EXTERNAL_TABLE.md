@@ -39,16 +39,18 @@ DROP WRITABLE EXTERNAL TABLE [db_name.]ext_table_name_ext
 [OPTIONS ('<option_list>')]
 ```
 
-db_name
+**Параметры:**
+
+`db_name`
 
 : Имя логической базы данных, из которой удаляется внешняя таблица. Опционально, если выбрана
   логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
 
-ext_table_name
+`ext_table_name`
 
 : Имя удаляемой внешней таблицы.
 
-option_list
+`option_list`
 
 : Список дополнительных параметров и их значений в формате `option1=value1;option2=value2...`.
   Возможные параметры:

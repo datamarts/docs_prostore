@@ -50,13 +50,17 @@ RESUME_WRITE_OPERATION(write_operation_number)
 RESUME_WRITE_OPERATION()
 ```
 
-Параметры:
-*   `write_operation_number` — номер операции записи, обработку которой нужно возобновить. Если номер 
+**Параметры:**
+
+`write_operation_number`
+
+: Номер операции записи, обработку которой нужно возобновить. Если номер 
     не указан, возобновляется обработка всех незавершенных операций, которые есть в горячей дельте 
     [логической базы данных](../../../overview/main_concepts/logical_db/logical_db.md).
 
 Номер операции можно узнать с помощью запроса
 [GET_WRITE_OPERATIONS](../../sql_plus_requests/RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md).
+{: .note-wrapper}
 
 ## Пример {#examples}
 
