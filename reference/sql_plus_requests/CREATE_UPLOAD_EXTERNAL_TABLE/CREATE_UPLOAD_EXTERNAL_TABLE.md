@@ -23,19 +23,19 @@ has_toc: false
 Запрос позволяет создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md) 
 загрузки в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
 
-По умолчанию создается таблица, предназначенная для загрузки данных в 
-[логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md). Такая таблица содержит скрытое 
-служебное поле `sys_op`. Чтобы создать таблицу, предназначенную для загрузки во 
-[внешнюю writable-таблицу](../../../overview/main_concepts/external_table/external_table.md#writable_table), нужно указать 
-в запросе ключевое слово `OPTIONS` со значением `auto.create.sys_op.enable=false`.
+По умолчанию создается таблица, которая предназначена для загрузки данных в 
+[логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) и содержит скрытое 
+служебное поле `sys_op`. Если загружаемые данные не содержат поле `sys_op` (например, они предназначены для
+[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table)), 
+нужно указать в запросе ключевое слово `OPTIONS` со значением `auto.create.sys_op.enable=false`.
 
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-После успешного выполнения запроса можно выполнять запросы 
-[INSERT FROM upload_external_table](../INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) на загрузку данных. Подробнее о порядке 
-выполнения действий для загрузки данных см. в разделе 
+После успешного выполнения запроса можно выполнять 
+[запросы на загрузку данных](../INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md). 
+Подробнее о действиях по загрузке данных см. в разделе 
 [Загрузка данных](../../../working_with_system/data_upload/data_upload.md).
 
 Изменение внешней таблицы недоступно. Для замены внешней таблицы необходимо удалить ее и создать новую.
