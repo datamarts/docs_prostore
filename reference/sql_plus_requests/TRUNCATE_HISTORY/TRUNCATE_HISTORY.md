@@ -82,7 +82,9 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 
 Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
-## Пример {#examples}
+## Примеры {#examples}
+
+### Удаление истории изменений {#history_example}
 
 Удаление истории изменений тех записей, чье значение `product_units` меньше `10`, из таблицы `sales` 
 по момент времени `'2019-12-23 15:15:14'`:
@@ -90,6 +92,9 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 TRUNCATE HISTORY sales.sales FOR SYSTEM_TIME AS OF '2019-12-23 15:15:14'
 WHERE product_units < 10
 ```
+
+### Удаление записей и истории изменений {#records_and_history_example}
+
 Удаление записей, чье значение `id` равно `123456`, с историей изменений из таблицы `stores`:
 ```sql
 TRUNCATE HISTORY sales.stores FOR SYSTEM_TIME AS OF 'infinite'

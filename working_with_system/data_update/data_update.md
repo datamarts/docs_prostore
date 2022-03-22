@@ -34,6 +34,10 @@ has_toc: false
 Обновление данных поддерживается в ADB, ADQM и ADP.
 {: .note-wrapper}
 
+Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
+обновления данных, зависла, нужно повторить запрос, указав в начале запроса ключевое слово `RETRY`. Примеры запросов 
+см. [ниже](#retry_example).
+
 ## Обновление данных логической таблицы {#update_in_logical_table}
 
 Чтобы обновить данные логической таблицы:
@@ -145,3 +149,32 @@ OPTIONS ('auto.create.table.enable=true');
 -- вставка данных во внешнюю writable-таблицу sales_ext_write_adqm из логической таблицы sales
 INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
 ```
+
+### Перезапуск операций по вставке и удалению записей {#retry_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+-- вставка записи в логическую таблицу sales без опционального значения description      
+UPSERT INTO sales
+       (id, transaction_date, product_code, product_units, store_id)
+VALUES (200015, '2021-10-15 10:11:01', 'ABC0003', 1, 123);
+
+-- перезапуск обработки операции по вставке записи
+RETRY UPSERT INTO sales
+       (id, transaction_date, product_code, product_units, store_id)
+VALUES (200015, '2021-10-15 10:11:01', 'ABC0003', 1, 123); 
+
+-- удаление записей логической таблицы sales о покупках в магазине
+DELETE FROM sales WHERE store_id = 456;
+
+-- перезапуск обработки операции по удалению записей
+RETRY DELETE FROM sales WHERE store_id = 456;
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```   

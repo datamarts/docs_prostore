@@ -78,8 +78,7 @@ has_toc: false
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
-`INSERT SELECT`, зависла, нужно повторить запрос. Список зависших операций можно получить запросом
-[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+`INSERT SELECT`, зависла, нужно повторить запрос, указав ключевое слово [RETRY](#retry).
 
 Вставка данных из readable-таблицы в логическую таблицу может привести к расхождениям между СУБД. 
 Расхождения возникают, если логическая таблица размещена в нескольких СУБД и за время выполнения запроса данные 
@@ -97,10 +96,15 @@ has_toc: false
 INSERT INTO [db_name.]table_name SELECT query
 ```
 
-Вставка данных только в некоторые столбцы таблицы 
+Вставка данных в некоторые столбцы таблицы 
 (с заполнением остальных столбцов значениями по умолчанию):
 ```sql
 INSERT INTO [db_name.]table_name (column_list) SELECT query
+```
+
+Перезапуск операции по вставке данных:
+```sql
+RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
 ```
 
 **Параметры:**
@@ -124,13 +128,28 @@ INSERT INTO [db_name.]table_name (column_list) SELECT query
 
 : [SELECT](../SELECT/SELECT.md)-подзапрос для выбора данных.
 
+### Ключевое слово RETRY {#retry}
+
+Ключевое слово перезапускает обработку операции записи, созданной запросом `INSERT SELECT`.
+Это может быть полезно, если операция зависла: дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или
+[откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока есть зависшая операция. Пример запроса см. [ниже](#retry_example).
+
+Перезапустить обработку можно только для незавершенных операций.
+Ключевое слово `RETRY` недоступно в запросах на вставку записей во внешнюю writable-таблицу.
+
+Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
+
+Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+{: .tip-wrapper}
+
 ## Ограничения {#restrictions}
 
 * Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
 * Типы вставляемых данных должны соответствовать типам данных столбцов в целевой логической таблице.
 * Не допускается параллельное выполнение идентичных запросов.
 
-## Пример {#examples}
+## Примеры {#examples}
 
 ### Вставка данных во все столбцы логической таблицы {#all_columns_of_logical_table}
 
@@ -347,3 +366,28 @@ OPTIONS ('auto.create.table.enable=true');
 -- вставка данных во внешнюю writable-таблицу sales_ext_write_adqm из логической таблицы sales
 INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
 ```
+
+### Перезапуск операции по вставке записей {#retry_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+   
+-- вставка записей в таблицу current_stores без указания значения столбца description
+INSERT INTO current_stores 
+       (id, category, region, address)
+SELECT id, category, region, address 
+FROM stores FOR SYSTEM_TIME AS OF DELTA_NUM 12 DATASOURCE_TYPE = 'adqm';
+
+-- перезапуск обработки операции по вставке записи
+RETRY INSERT INTO current_stores 
+       (id, category, region, address)
+SELECT id, category, region, address 
+FROM stores FOR SYSTEM_TIME AS OF DELTA_NUM 12 DATASOURCE_TYPE = 'adqm';
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```  

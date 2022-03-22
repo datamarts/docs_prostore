@@ -69,8 +69,7 @@ has_toc: false
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
-`UPSERT VALUES`, зависла, нужно повторить запрос. Список зависших операций можно получить запросом
-[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+`UPSERT VALUES`, зависла, нужно повторить запрос, указав ключевое слово [RETRY](#retry).
 
 ## Синтаксис {#syntax}
 
@@ -79,9 +78,14 @@ has_toc: false
 UPSERT INTO [db_name.]table_name VALUES (value_list_1), (value_list_2), ...
 ```
 
-Вставка данных только в некоторые столбцы таблицы (с сохранением значений остальных столбцов без изменений):
+Вставка данных в некоторые столбцы таблицы (с сохранением значений остальных столбцов без изменений):
 ```sql
 UPSERT INTO [db_name.]table_name (column_list) VALUES (value_list_1), (value_list_2), ...
+```
+
+Перезапуск операции по вставке данных:
+```sql
+RETRY UPSERT INTO [db_name.]table_name [(column_list)] VALUES (value_list_1), (value_list_2), ...
 ```
 
 **Параметры:**
@@ -106,12 +110,27 @@ UPSERT INTO [db_name.]table_name (column_list) VALUES (value_list_1), (value_lis
 : Список вставляемых значений. Значения указываются в круглых скобках через запятую. Каждый такой 
   список — это строка, вставляемая в таблицу. 
 
+### Ключевое слово RETRY {#retry}
+
+Ключевое слово перезапускает обработку операции записи, созданной запросом `UPSERT VALUES`.
+Это может быть полезно, если операция зависла: дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или
+[откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока есть зависшая операция. Пример запроса см. [ниже](#retry_example).
+
+Перезапустить обработку можно только для незавершенных операций.
+Ключевое слово `RETRY` недоступно в запросах на вставку записей во внешнюю writable-таблицу.
+
+Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
+
+Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+{: .tip-wrapper}
+
 ## Ограничения {#restrictions}
 
 * Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
 * Не допускается параллельное выполнение идентичных запросов.
 
-## Пример {#examples}
+## Примеры {#examples}
 
 ### Вставка данных во все столбцы логической таблицы {#all_columns_of_logical_table}
 
@@ -135,14 +154,17 @@ COMMIT DELTA;
 ### Вставка данных в указанные столбцы логической таблицы {#some_columns_of_logical_table}
 
 ```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
 -- вставка двух записей в логическую таблицу sales (без опционального значения description)
-UPSERT INTO sales.sales 
+UPSERT INTO sales 
        (id, transaction_date, product_code, product_units, store_id)
 VALUES (200014, '2021-08-23 09:34:10', 'ABC0003', 3, 123), 
-       (200012, '2021-08-23 20:05:56', 'ABC0001', 6, 234);
+       (200012, '2021-08-23 20:05:56', 'ABC0001', 6, 234); 
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
@@ -163,3 +185,26 @@ VALUES (200, 444444, 'AB22222', '2022-02-08', '2022-02-09', '2024-02-09', ''),
 UPSERT INTO sales.agreements_ext_write_adp (id, client_id, number, signature_date)
 VALUES (202, 999999, 'AB44444', '2022-01-01');
 ```
+
+### Перезапуск операции по вставке записей {#retry_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+-- вставка записи в логическую таблицу sales (без опционального значения description)       
+UPSERT INTO sales
+       (id, transaction_date, product_code, product_units, store_id)
+VALUES (200015, '2021-10-15 10:11:01', 'ABC0003', 1, 123);
+
+-- перезапуск обработки операции по вставке записи
+RETRY UPSERT INTO sales
+       (id, transaction_date, product_code, product_units, store_id)
+VALUES (200015, '2021-10-15 10:11:01', 'ABC0003', 1, 123); 
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```     
