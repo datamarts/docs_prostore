@@ -20,15 +20,13 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет загрузить данные из топика Kafka в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
-или [внешнюю writable-таблицу](../../../overview/main_concepts/external_table/external_table.md#writable_table).
+Запрос загружает данные из топика Kafka в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
+или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md).
 Загружаемые данные должны соответствовать [формату загрузки данных](../../upload_format/upload_format.md). 
-При загрузке данных в writable-таблицу нужно учитывать ограничения связанной 
-[standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md) в конкретной СУБД.
+При загрузке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
 
 Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md), 
-если она отсутствует, и загрузить данные в топик Kafka.
-Подробнее о порядке выполнения действий для загрузки данных см. в разделе
+если она отсутствует, и загрузить данные в топик Kafka. Подробнее о действия по загрузке данных см. в разделе 
 [Загрузка данных](../../../working_with_system/data_upload/data_upload.md).
 
 Загрузка данных в [логические](../../../overview/main_concepts/logical_view/logical_view.md)
@@ -49,27 +47,26 @@ has_toc: false
 
 При успешном выполнении запроса данные загружаются в следующие СУБД [хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
 * в те СУБД, которые выбраны для размещения данных таблицы — если данные загружаются в логическую таблицу;
-* в ту СУБД, которая содержит связанную standalone-таблицу — если данные загружаются во внешнюю writable-таблицу.
+* в ту СУБД, которая содержит standalone-таблицу — если данные загружаются в standalone-таблицу.
 
 Расположение данных логической таблицы можно задавать запросами
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
 `DATASOURCE_TYPE`.
 
-При загрузке данных во внешнюю writable-таблицу, которая связана со standalone-таблицей ADG, нужно указать в SELECT-подзапросе 
-поле `bucket_id` со значением `0` (см. пример [ниже](#ex_writable_adg)). 
-В этом случае значение `bucket_id` будет вычислено в ADG.
+При загрузке данных в standalone-таблицу ADG, в SELECT-подзапросе нужно указать поле `bucket_id` со значением `0` 
+(см. пример [ниже](#ex_writable_adg)). В этом случае значение `bucket_id` рассчитается в ADG.
 {: .note-wrapper}
 
 ## Синтаксис {#syntax}
 
-Запрос с явным перечислением столбцов внешней таблицы:
+Запрос с явным перечислением столбцов внешней таблицы загрузки:
 ```sql
-INSERT INTO [db_name.]table_name SELECT column_list FROM [db_name.]ext_table_name
+INSERT INTO [db_name.]table_name SELECT column_list FROM [db_name.]upload_ext_table_name
 ```
 
 Запрос с использованием символа `*`:
 ```sql
-INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]ext_table_name
+INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]upload_ext_table_name
 ```
 
 **Параметры:**
@@ -81,7 +78,10 @@ INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]ext_table_name
 
 `table_name`
 
-: Имя логической таблицы или внешней writable-таблицы, в которую загружаются данные.
+: Имя таблицы, в которую загружаются данные. Возможные значения:
+  * имя логической таблицы,
+  * имя [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table), 
+    указывающей на нужную standalone-таблицу.
 
 `column_list`
 
@@ -89,7 +89,7 @@ INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]ext_table_name
   Имена и порядок следования указанных столбцов должны совпадать с именами и порядком следования столбцов (полей) 
   в таблице, куда загружаются данные, и топике Kafka, из которого загружаются данные.
 
-`ext_table_name`
+`upload_ext_table_name`
 
 : Имя внешней таблицы загрузки.
 
@@ -118,16 +118,16 @@ INSERT INTO sales.sales SELECT * FROM sales.sales_ext_upload;
 COMMIT DELTA;
 ```
 
-### Загрузка данных во внешнюю writable-таблицу {#writable_table_example}
+### Загрузка данных в standalone-таблицу через внешнюю writable-таблицу {#writable_table_example}
 
-Загрузка в таблицу, связанную со standalone-таблицей ADP:
+Загрузка в standalone-таблицу ADP, на которую указывает внешняя writable-таблица `agreements_ext_write_adp`:
 
 ```sql
 INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
 ```
 
 <a id="ex_writable_adg"></a>
-Загрузка в таблицу, связанную со standalone-таблицей ADG:
+Загрузка в standalone-таблицу ADG, на которую указывает внешняя writable-таблица `payments_ext_write_adg`:
 
 ```sql
 INSERT INTO sales.payments_ext_write_adg SELECT *, 0 as bucket_id FROM sales.payments_ext_upload;
