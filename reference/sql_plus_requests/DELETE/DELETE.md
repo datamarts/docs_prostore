@@ -20,10 +20,13 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет удалить записи согласно условию, указанному в блоке `WHERE`.
-В зависимости от вида таблицы удаляются следующие записи:
-* актуальные записи [логической таблицы](../../../overview/main_concepts/logical_table/logical_table.md),
-* записи [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md).
+Запрос удаляет записи согласно условию, указанному в блоке `WHERE`.
+
+Удаляются следующие записи:
+* актуальные записи [логической таблицы](../../../overview/main_concepts/logical_table/logical_table.md) — если в 
+  запросе указана логическая таблица; 
+* записи [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md) — если в запросе 
+  указана [внешняя writable-таблица](../../../overview/main_concepts/external_table/external_table.md#writable_table).
 
 Удаляемые записи логической таблицы становятся архивными, оставаясь при этом доступными для чтения и выгрузки. Записи
 standalone-таблицы удаляются насовсем и не могут быть восстановлены средствами системы.
@@ -77,7 +80,9 @@ RETRY DELETE FROM [db_name.]table_name [WHERE filter_expression]
 
 `table_name`
 
-: Имя таблицы, из которой удаляются записи.
+: Имя таблицы, из которой удаляются записи. Возможные значения: 
+  * имя логической таблицы, 
+  * имя внешней writable-таблицы, указывающей на нужную standalone-таблицу.
 
 `filter_expression`
 
@@ -108,7 +113,7 @@ RETRY DELETE FROM [db_name.]table_name [WHERE filter_expression]
 
 ## Примеры {#examples}
 
-### Удаление записей из логической таблицы {#example_logical_table}
+### Удаление записей логической таблицы {#example_logical_table}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -124,10 +129,10 @@ DELETE FROM sales WHERE store_id = 234;
 COMMIT DELTA;
 ```
 
-### Удаление записей из внешней writable-таблицы {#example_writable_table}
+### Удаление записей standalone-таблицы через внешнюю writable-таблицу {#example_writable_table}
 
 ```sql
--- удаление записей по клиентам из внешней writable-таблицы
+-- удаление записей standalone-таблицы, на которую указывает внешняя writable-таблица agreements_ext_write_adp
 DELETE FROM sales.agreements_ext_write_adp WHERE client_id < 100;
 ```
 
