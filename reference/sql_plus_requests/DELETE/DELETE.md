@@ -47,8 +47,7 @@ standalone-таблицы удаляются насовсем и не могут
 *   исключение при неуспешном выполнении запроса.
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
-`DELETE`, зависла, нужно повторить запрос. Список зависших операций можно получить запросом 
-[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+`DELETE`, зависла, нужно повторить запрос, указав ключевое слово [RETRY](#retry).
 
 Запрос `DELETE` не удаляет историю изменений данных в логической таблице. 
 <br>Чтобы удалить часть данных с историей изменений или только историю изменений, выполните запрос [TRUNCATE HISTORY](../TRUNCATE_HISTORY/TRUNCATE_HISTORY.md), 
@@ -60,7 +59,7 @@ standalone-таблицы удаляются насовсем и не могут
 ## Синтаксис {#syntax}
 
 ```sql
-DELETE FROM [db_name.]table_name [WHERE filter_expression]
+[RETRY] DELETE FROM [db_name.]table_name [WHERE filter_expression]
 ```
 
 **Параметры:**
@@ -78,6 +77,21 @@ DELETE FROM [db_name.]table_name [WHERE filter_expression]
 
 : Условие выбора удаляемых записей. Если условие не указано, удаляются все актуальные данные таблицы или все данные 
   standalone-таблицы (в зависимости от вида таблицы).
+
+### Ключевое слово RETRY {#retry}
+
+Ключевое слово перезапускает обработку операции записи, созданной DELETE-запросом. 
+Это может быть полезно, если операция зависла: дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или 
+[откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока есть зависшая операция. 
+
+Перезапустить обработку можно только для незавершенных операций.
+Ключевое слово `RETRY` недоступно в запросах на удаление записей standalone-таблицы.
+
+Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
+
+Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+{: .tip-wrapper}
 
 ## Ограничения {#restrictions}
 
@@ -97,8 +111,14 @@ USE sales;
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
--- удаление записей по диапазону магазинов из логической таблицы sales
-DELETE FROM sales WHERE store_id BETWEEN 100 AND 200;
+-- удаление записей логической таблицы sales о покупках в закрытом магазине
+DELETE FROM sales WHERE store_id = 234;
+
+-- удаление записей логической таблицы sales о покупках в еще одном магазине
+DELETE FROM sales WHERE store_id = 123;
+
+-- перезапуск обработки завившей операции по удалению записей
+RETRY DELETE FROM sales WHERE store_id = 123;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
@@ -107,6 +127,6 @@ COMMIT DELTA;
 ### Удаление записей из внешней writable-таблицы {#example_writable_table}
 
 ```sql
--- удаление записей по одному клиенту из внешней writable-таблицы
-DELETE FROM sales.agreements_ext_write_adp WHERE client_id = 234;
+-- удаление записей по клиентам из внешней writable-таблицы
+DELETE FROM sales.agreements_ext_write_adp WHERE client_id < 100;
 ```
