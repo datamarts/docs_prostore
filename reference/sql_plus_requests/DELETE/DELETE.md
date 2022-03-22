@@ -27,16 +27,18 @@ has_toc: false
   запросе указана логическая таблица; 
 * записи [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md) — если в запросе 
   указана [внешняя writable-таблица](../../../overview/main_concepts/external_table/external_table.md#writable_table).
+{: .review-highlight}
 
 Удаляемые записи логической таблицы становятся архивными, оставаясь при этом доступными для чтения и выгрузки. Записи
 standalone-таблицы удаляются насовсем и не могут быть восстановлены средствами системы.
+{: .review-highlight}
 
 Удаление данных из [логических](../../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md)
 недоступно.
 
 Удаление записей логической таблицы доступно из ADB, ADQM и ADP, удаление записей standalone-таблицы — из ADB и ADP.
-{: .note-wrapper}
+{: .note-wrapper .review-highlight}
 
 Для обновления большого объема данных следует использовать 
 [загрузку данных](../../../working_with_system/data_upload/data_upload.md).
@@ -51,6 +53,7 @@ standalone-таблицы удаляются насовсем и не могут
 
 Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
 `DELETE`, зависла, нужно повторить запрос, указав ключевое слово [RETRY](#retry).
+{: .review-highlight}
 
 Запрос `DELETE` не удаляет историю изменений данных в логической таблице. 
 <br>Чтобы удалить часть данных с историей изменений или только историю изменений, выполните запрос [TRUNCATE HISTORY](../TRUNCATE_HISTORY/TRUNCATE_HISTORY.md), 
@@ -80,29 +83,35 @@ RETRY DELETE FROM [db_name.]table_name [WHERE filter_expression]
 
 `table_name`
 
-: Имя таблицы, из которой удаляются записи. Возможные значения: 
+: Имя таблицы, из которой удаляются записи. Возможные значения: {: .review-highlight}
   * имя логической таблицы, 
   * имя внешней writable-таблицы, указывающей на нужную standalone-таблицу.
+{: .review-highlight}
 
 `filter_expression`
 
 : Условие выбора удаляемых записей. Если условие не указано, удаляются все актуальные данные таблицы или все данные 
   standalone-таблицы (в зависимости от вида таблицы).
+{: .review-highlight}
 
 ### Ключевое слово RETRY {#retry}
 
 Ключевое слово перезапускает обработку операции записи, созданной запросом `DELETE`. 
 Это может быть полезно, если операция зависла: дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или 
 [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока есть зависшая операция. Пример запроса см. [ниже](#retry_example).
+{: .review-highlight}
 
 Перезапустить обработку можно только для незавершенных операций.
 Ключевое слово `RETRY` недоступно в запросах на удаление записей standalone-таблицы.
+{: .review-highlight}
 
 Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
+{: .review-highlight}
 
 Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
 [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 {: .tip-wrapper}
+{: .review-highlight}
 
 ## Ограничения {#restrictions}
 

@@ -127,3 +127,10 @@ h2 {
 .main-content dd {
     grid-column: 1 / 3
 }
+
+// custom styles for highlighting the changes for a review
+
+.review-highlight {
+ background-color: #FFFBC1;
+ padding: 0.1em 0.2em;
+}
