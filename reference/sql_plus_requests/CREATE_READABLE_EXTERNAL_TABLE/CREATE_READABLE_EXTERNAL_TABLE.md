@@ -52,8 +52,8 @@ CREATE READABLE EXTERNAL TABLE [db_name.]ext_table_name_ext (
   [PRIMARY KEY (column_list_1)]
 ) 
 [DISTRIBUTED BY (column_list_2)]
-LOCATION 'core:<datasource_alias>://<path_to_table>'
-[OPTIONS ('<option_list>')]
+LOCATION 'core:datasource_alias://path_to_table'
+[OPTIONS ('option_list')]
 ```
 
 **Параметры:**

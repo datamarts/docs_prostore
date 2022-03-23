@@ -52,7 +52,7 @@ CREATE UPLOAD EXTERNAL TABLE [db_name.]ext_table_name (
 LOCATION source_URI
 FORMAT 'AVRO'
 [MESSAGE_LIMIT messages_per_segment]
-[OPTIONS '<option_list>')]
+[OPTIONS 'option_list')]
 ```
 
 **Параметры:**

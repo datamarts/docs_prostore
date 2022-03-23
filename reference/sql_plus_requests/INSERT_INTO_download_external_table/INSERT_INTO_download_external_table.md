@@ -33,7 +33,7 @@ has_toc: false
 {: .note-wrapper}
 
 Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md)
-с указанием [пути к внешнему приемнику данных](../../path_to_kafka_topic/path_to_kafka_topic.md). Подробнее о порядке 
+с указанием [пути к топику Kafka](../../path_to_kafka_topic/path_to_kafka_topic.md). Подробнее о порядке 
 выполнения действий для выгрузки данных см. в разделе [Выгрузка данных](../../../working_with_system/data_download/data_download.md).
 {: .note-wrapper}
 

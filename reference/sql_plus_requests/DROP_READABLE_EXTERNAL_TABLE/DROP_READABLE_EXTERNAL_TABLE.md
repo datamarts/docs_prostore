@@ -36,7 +36,7 @@ has_toc: false
 
 ```sql
 DROP READABLE EXTERNAL TABLE [db_name.]ext_table_name_ext
-[OPTIONS ('<option_list>')]
+[OPTIONS ('option_list')]
 ```
 
 **Параметры:**

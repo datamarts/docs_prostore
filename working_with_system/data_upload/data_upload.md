@@ -59,7 +59,7 @@ has_toc: false
    на открытие [дельты](../../overview/main_concepts/delta/delta.md), если она еще не открыта.
 2. Выполните запрос [INSERT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md)
    на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
-3. Если необходимо, загрузите или обновите другие данные.
+3. Если необходимо, загрузите или [обновите](../data_update/data_update.md) другие данные.
    <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую
    таблицу в одной дельте можно добавлять записи с разными значениями первичного ключа или полные дубликаты.
 4. Выполните запрос [COMMIT DELTA](../../reference/sql_plus_requests/COMMIT_DELTA/COMMIT_DELTA.md)
@@ -68,10 +68,13 @@ has_toc: false
 При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе
 [Версионирование данных](data_versioning/data_versioning.md).
 
-Пока дельта не закрыта, все ее изменения данных можно отменить запросом
-[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
-<br> Созданные внешние таблицы загрузки можно использовать повторно или удалить.
+Пока дельта не закрыта, внесенные изменения можно отменить запросом 
+[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). Незавершенную 
+операцию по загрузке или обновлению данных можно отменить запросом 
+[ERASE_WRITE_OPERATION](../../reference/sql_plus_requests/ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
 {: .note-wrapper}
+
+Созданные внешние таблицы загрузки можно использовать повторно или удалить.
 
 ## Загрузка данных в writable-таблицу {#upload_to_writable_table}
 

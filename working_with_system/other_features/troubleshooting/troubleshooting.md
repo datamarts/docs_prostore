@@ -38,16 +38,26 @@ has_toc: false
 
 ## Управление загрузкой и обновлением данных в логических таблицах {#error_managing}
 
-Загрузкой и обновлением данных в логических таблицах можно управлять с помощью следующих запросов:
+Процессами загрузки и обновления данных в горячей [дельте](../../../overview/main_concepts/delta/delta.md) можно управлять 
+с помощью следующих запросов:
 * [GET_WRITE_OPERATIONS](../../../reference/sql_plus_requests/GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md) — возвращает 
-  информацию об операциях горячей [дельты](../../../overview/main_concepts/delta/delta.md), находящихся в статусах 
-  «Выполняется» и «Ошибка»;
-* [RESUME_WRITE_OPERATION](../../../reference/sql_plus_requests/RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) — 
-  возобновляет обработку операций горячей дельты, находящихся в статусах «Выполняется» и «Ошибка»;
-* [ROLLBACK CRASHED_WRITE_OPERATIONS](../../../reference/sql_plus_requests/ROLLBACK_CRASHED_WRITE_OPERATIONS/ROLLBACK_CRASHED_WRITE_OPERATIONS.md) — 
-  возобновляет обработку операций горячей дельты, находящихся в статусе «Ошибка»;
-* [ROLLBACK DELTA](../../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md) — отменяет операции 
-  горячей дельты.
+  информацию о незавершенных операциях записи;
+* [RESUME_WRITE_OPERATION](../../../reference/sql_plus_requests/RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) —
+  возобновляет обработку одной или всех* незавершенных операций записи;
+* [ERASE_WRITE_OPERATION](../../../reference/sql_plus_requests/ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md) — отменяет 
+  незавершенную операцию записи;
+* [ROLLBACK CRASHED_WRITE_OPERATIONS](../../../reference/sql_plus_requests/ROLLBACK_CRASHED_WRITE_OPERATIONS/ROLLBACK_CRASHED_WRITE_OPERATIONS.md) —
+  возобновляет обработку одной или всех незавершенных операций записи со статусом «Отменяется»;
+* [ROLLBACK DELTA](../../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md) — отменяет все** операции
+  записи в горячей дельте.
+
+\* Кроме операций со статусом «Выполняется», запущенных запросами
+[обновления данных](../../../working_with_system/data_update/data_update.md).<br>
+\*\* Кроме операций со статусами «Выполняется» и «Отменяется», запущенных запросами обновления данных.
+
+Подробнее о возможных статусах операций см. в разделе 
+[Операция записи](../../../overview/main_concepts/write_operation/write_operation.md#write_operation_statuses).
+{: .note-wrapper}
 
 ## Основные причины ошибок загрузки и обновления данных {#error_reasons}
 
@@ -72,7 +82,7 @@ has_toc: false
 {: .note-wrapper}
 
 Основные причины ошибок обновления данных:
-* несоответствие порядка, количества или типов столбцов между логической таблицей-приемником данных и запросом на 
+* несоответствие порядка, количества или типов столбцов между таблицей-приемником данных и запросом на 
 обновление данных;
 * отсутствие в запросе [INSERT VALUES](../../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
   [INSERT SELECT](../../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или 

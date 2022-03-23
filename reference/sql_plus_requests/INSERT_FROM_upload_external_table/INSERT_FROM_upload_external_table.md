@@ -24,7 +24,6 @@ has_toc: false
 или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md).
 Загружаемые данные должны соответствовать [формату загрузки данных](../../upload_format/upload_format.md). 
 При загрузке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
-{: .review-highlight}
 
 Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md), 
 если она отсутствует, и загрузить данные в топик Kafka. Подробнее о действия по загрузке данных см. в разделе 
@@ -46,11 +45,9 @@ has_toc: false
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-При успешном выполнении запроса данные загружаются в следующие СУБД [хранилища](../../../overview/main_concepts/data_storage/data_storage.md): 
-{: .review-highlight}
+При успешном выполнении запроса данные загружаются в следующие СУБД [хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
 * в те СУБД, которые выбраны для размещения данных таблицы — если данные загружаются в логическую таблицу;
 * в ту СУБД, которая содержит standalone-таблицу — если данные загружаются в standalone-таблицу.
-{: .review-highlight}
 
 Расположение данных логической таблицы можно задавать запросами
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
@@ -58,7 +55,12 @@ has_toc: false
 
 При загрузке данных в standalone-таблицу ADG, в SELECT-подзапросе нужно указать поле `bucket_id` со значением `0` 
 (см. пример [ниже](#ex_writable_adg)). В этом случае значение `bucket_id` рассчитается в ADG.
-{: .note-wrapper .review-highlight}
+{: .note-wrapper}
+
+Незавершенную операцию по загрузке данных можно перезапустить запросом 
+[RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) 
+или отменить запросом [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md). 
+{: .tip-wrapper}
 
 ## Синтаксис {#syntax}
 
@@ -85,7 +87,6 @@ INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]upload_ext_table_name
   * имя логической таблицы,
   * имя [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table), 
     указывающей на нужную standalone-таблицу.
-{: .review-highlight}
 
 `column_list`
 

@@ -60,8 +60,10 @@ has_toc: false
 При успешном выполнении действий состояние данных в логических таблицах обновляется, как описано в разделе
 [Версионирование данных](../data_upload/data_versioning/data_versioning.md).
 
-Пока дельта не закрыта, все ее изменения данных можно отменить запросом
-[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
+Пока дельта не закрыта, внесенные изменения можно отменить запросом
+[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). Незавершенную
+операцию по загрузке или обновлению данных можно отменить запросом
+[ERASE_WRITE_OPERATION](../../reference/sql_plus_requests/ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
 {: .note-wrapper}
 
 ## Обновление данных writable-таблицы {#update_in_writable_table}
