@@ -1,14 +1,14 @@
 ﻿---
 layout: default
-title: INSERT FROM upload_external_table
-nav_order: 34.5
+title: INSERT SELECT FROM upload_external_table
+nav_order: 37.5
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
 has_toc: false
 ---
 
-# INSERT FROM upload_external_table
+# INSERT SELECT FROM upload_external_table
 {: .no_toc }
 
 <details markdown="block">
@@ -20,14 +20,16 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос загружает данные из топика Kafka в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
+Запрос загружает данные из топика Kafka, указанного при создании внешней таблицы загрузки (upload_external_table), 
+в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
 или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md).
-Загружаемые данные должны соответствовать [формату загрузки данных](../../upload_format/upload_format.md). 
-При загрузке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
 
-Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md), 
-если она отсутствует, и загрузить данные в топик Kafka. Подробнее о действия по загрузке данных см. в разделе 
+Загружаемые данные должны соответствовать [формату загрузки данных](../../upload_format/upload_format.md).
+Перед выполнением запроса необходимо создать [внешнюю таблицу](../../../overview/main_concepts/external_table/external_table.md),
+если она отсутствует, и загрузить данные в топик Kafka. Подробнее о действиях по загрузке данных см. в разделе
 [Загрузка данных](../../../working_with_system/data_upload/data_upload.md).
+
+При загрузке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
 
 Загрузка данных в [логические](../../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованные представления](../../../overview/main_concepts/materialized_view/materialized_view.md)

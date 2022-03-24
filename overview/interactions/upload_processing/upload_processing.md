@@ -12,7 +12,7 @@ has_toc: false
 
 Запрос на загрузку данных обрабатывается в следующем порядке:
 1. Внешняя информационная система отправляет запрос 
-   [INSERT FROM upload_external_table](../../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) 
+   [INSERT FROM upload_external_table](../../../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md) 
    через JDBC-драйвер Prostore.
 2. Запрос поступает в сервис исполнения запросов Prostore.
 3. Сервис исполнения запросов отправляет команду на загрузку данных в соответствующие коннекторы и 
@@ -23,7 +23,7 @@ has_toc: false
    [standalone-таблица](../../main_concepts/standalone_table/standalone_table.md).
 4. Информация о процессе загрузки данных сохраняется в [сервисной базе данных](../../main_concepts/service_db/service_db.md).
 5. Каждый задействованный коннектор загружает данные из топика Kafka в свою СУБД хранилища. Используется топик, с которым связана внешняя 
-   таблица загрузки, указанная в запросе [IINSERT FROM upload_external_table](../../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md).
+   таблица загрузки, указанная в запросе [IINSERT FROM upload_external_table](../../../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md).
 6. По завершении загрузки каждого или всех пакетов данных (в зависимости от СУБД) сервис исполнения 
    запросов отправляет в каждую задействованную СУБД команду на 
    [версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).

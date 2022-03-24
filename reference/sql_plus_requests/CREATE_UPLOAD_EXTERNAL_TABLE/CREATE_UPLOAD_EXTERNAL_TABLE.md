@@ -34,7 +34,7 @@ has_toc: false
 *   исключение при неуспешном выполнении запроса.
 
 После успешного выполнения запроса можно выполнять 
-[запросы на загрузку данных](../INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md). 
+[запросы на загрузку данных](../INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md). 
 Подробнее о действиях по загрузке данных см. в разделе 
 [Загрузка данных](../../../working_with_system/data_upload/data_upload.md).
 

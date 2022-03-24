@@ -28,8 +28,8 @@ has_toc: false
 * записи [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md) — если в запросе 
   указана [внешняя writable-таблица](../../../overview/main_concepts/external_table/external_table.md#writable_table).
 
-Удаляемые записи логической таблицы становятся архивными, оставаясь при этом доступными для чтения и выгрузки. Записи
-standalone-таблицы удаляются насовсем и не могут быть восстановлены средствами системы.
+Удаляемые записи логической таблицы становятся архивными, но остаются доступными при чтении и выгрузке исторических данных.
+Записи standalone-таблицы удаляются насовсем и не могут быть восстановлены средствами системы.
 
 Удаление данных из [логических](../../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md)

@@ -34,10 +34,17 @@ has_toc: false
 Подробнее о версионировании записей см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 {: .note-wrapper}
 
-Дельту невозможно закрыть, если зависла операция, запущенная запросом обновления данных. Если это произошло, 
-повторите запрос, который создал проблемную операцию, с ключевым словом `RETRY` в начале 
-запроса. Система перезапустит обработку операции. После выполнения запроса можно закрыть дельту. 
-<br>Наличие зависших операций можно проверить запросом [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+Если какая-то из операций записи зависла, дельту невозможно закрыть. В этом случае нужно перезапустить или отменить 
+проблемную операцию:
+* чтобы отменить операцию, выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md);
+* чтобы перезапустить операцию:
+  * выполните запрос [RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) — если операция была 
+    запущена запросом [загрузки данных](../../../working_with_system/data_upload/data_upload.md); 
+  * повторите исходный запрос, добавив в начало запроса ключевое слово `RETRY`, — если операция была запущена запросом 
+    [обновления данных](../../../working_with_system/data_update/data_update.md).
+
+Наличие незавершенных операций можно проверить с помощью запроса 
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 {: .note-wrapper}
 
 ## Синтаксис {#syntax}

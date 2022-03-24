@@ -34,10 +34,6 @@ has_toc: false
 Обновление данных поддерживается в ADB, ADQM и ADP.
 {: .note-wrapper}
 
-Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
-обновления данных, зависла, нужно повторить запрос, указав в начале запроса ключевое слово `RETRY`. Примеры запросов 
-см. [ниже](#retry_example).
-
 ## Обновление данных логической таблицы {#update_in_logical_table}
 
 Чтобы обновить данные логической таблицы:
@@ -61,9 +57,13 @@ has_toc: false
 [Версионирование данных](../data_upload/data_versioning/data_versioning.md).
 
 Пока дельта не закрыта, внесенные изменения можно отменить запросом
-[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). Незавершенную
-операцию по загрузке или обновлению данных можно отменить запросом
-[ERASE_WRITE_OPERATION](../../reference/sql_plus_requests/ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
+{: .note-wrapper}
+
+Незавершенную [операцию](../../overview/main_concepts/write_operation/write_operation.md) по обновлению 
+данных можно перезапустить или отменить. 
+Чтобы перезапустить операцию, повторите исходный запрос с ключевым словом `RETRY` (см. примеры [ниже](#retry_example)),
+чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
 {: .note-wrapper}
 
 ## Обновление данных writable-таблицы {#update_in_writable_table}

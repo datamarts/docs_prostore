@@ -57,7 +57,7 @@ has_toc: false
 Чтобы загрузить данные из внешней информационной системы в логическую таблицу:
 1. Выполните запрос [BEGIN DELTA](../../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)
    на открытие [дельты](../../overview/main_concepts/delta/delta.md), если она еще не открыта.
-2. Выполните запрос [INSERT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md)
+2. Выполните запрос [INSERT SELECT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md)
    на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
 3. Если необходимо, загрузите или [обновите](../data_update/data_update.md) другие данные.
    <br>В открытой дельте можно выполнять множество запросов на обновление и загрузку данных. При этом в каждую логическую
@@ -69,9 +69,13 @@ has_toc: false
 [Версионирование данных](data_versioning/data_versioning.md).
 
 Пока дельта не закрыта, внесенные изменения можно отменить запросом 
-[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). Незавершенную 
-операцию по загрузке или обновлению данных можно отменить запросом 
-[ERASE_WRITE_OPERATION](../../reference/sql_plus_requests/ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+[ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
+{: .note-wrapper}
+
+Незавершенную [операцию](../../overview/main_concepts/write_operation/write_operation.md) по загрузке данных можно 
+перезапустить или отменить. Чтобы перезапустить операцию, выполните запрос 
+[RESUME_WRITE_OPERATION](../../reference/sql_plus_requests/RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md),
+чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
 {: .note-wrapper}
 
 Созданные внешние таблицы загрузки можно использовать повторно или удалить.
@@ -79,7 +83,7 @@ has_toc: false
 ## Загрузка данных в writable-таблицу {#upload_to_writable_table}
 
 Чтобы загрузить данные из внешней информационной системы во внешнюю writable-таблицу, выполните запрос 
-[INSERT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) 
+[INSERT SELECT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md) 
 на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
 
 При загрузке данных в writable-таблицу нужно учитывать ограничения, которые конкретная СУБД накладывает на

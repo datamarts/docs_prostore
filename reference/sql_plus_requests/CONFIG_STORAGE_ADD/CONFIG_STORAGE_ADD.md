@@ -13,7 +13,7 @@ has_toc: false
 Запрос позволяет подключить к системе источник данных — [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
 указанного типа. После успешного выполнения запроса можно 
 [создавать](../CREATE_TABLE/CREATE_TABLE.md) [логические таблицы](../../../overview/main_concepts/logical_table/logical_table.md) 
-с размещением данных в этой СУБД и [загружать](../INSERT_FROM_upload_external_table/INSERT_FROM_upload_external_table.md) 
+с размещением данных в этой СУБД и [загружать](../INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md) 
 данные в нее.
 
 Перед выполнением запроса необходимо добавить параметры СУБД 
