@@ -87,17 +87,17 @@ CREATE VIEW sales.stores_by_sold_products AS
 
 ```sql
 CREATE VIEW sales.payments_by_agreement AS
-SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
-FROM sales.payments_ext_read_adg AS p 
-GROUP BY p.agreement_id, p.code, p.currency_code
+  SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
+  FROM sales.payments_ext_read_adg AS p 
+  GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
 ### Представление на основе соединения логической таблицы внешней readable-таблицы {#on_two_type_tables}
 
 ```sql
-CREATE VIEW sales.agreements_with_client_info
-SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
-FROM sales.agreements_ext_read_adp AS a
-LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
-  ON a.client_id = c.id
+CREATE VIEW sales.agreements_with_client_info AS
+  SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
+  FROM sales.agreements_ext_read_adp AS a
+  LEFT JOIN sales.clients AS c
+    ON a.client_id = c.id
 ```
