@@ -33,6 +33,8 @@ has_children: false
     * параметр `ADQM_CLUSTER` теперь имеет значение по умолчанию `default_cluster`;
     * значения параметра `ADQM_SHARDING_EXPR` изменены с `cityHash64` и `intAdd` на `CITY_HASH_64` и `INT_ADD` соответственно;
   * начало путей `io.arenadata` во всех вхождениях заменено на `ru.datamart`;
+  * добавлены неучтенные ранее параметры для ADG: `TARANTOOL_VERTX_WORKERS`, `TARANTOOL_DB_SYNC_CONNECTION_TIMEOUT`,
+    `TARANTOOL_DB_SYNC_READ_TIMEOUT` и `TARANTOOL_DB_SYNC_REQUEST_TIMEOUT`;
 * добавлено ограничение на имена логических сущностей и их столбцов: имя должно начинаться с латинской буквы, 
   после первого символа могут следовать латинские буквы, цифры и символы подчеркивания в любом порядке;
 * изменен ответ [GET_CHANGES](../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md) в случае отсутствия журнала: 
