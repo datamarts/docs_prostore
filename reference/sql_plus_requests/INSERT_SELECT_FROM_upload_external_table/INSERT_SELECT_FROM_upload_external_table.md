@@ -48,8 +48,8 @@ has_toc: false
 *   исключение при неуспешном выполнении запроса.
 
 При успешном выполнении запроса данные загружаются в следующие СУБД [хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
-* в те СУБД, которые выбраны для размещения данных таблицы — если данные загружаются в логическую таблицу;
-* в ту СУБД, которая содержит standalone-таблицу — если данные загружаются в standalone-таблицу.
+* в те СУБД, которые выбраны для размещения данных таблицы, — если данные загружаются в логическую таблицу;
+* в ту СУБД, которая содержит standalone-таблицу, — если данные загружаются в standalone-таблицу.
 
 Расположение данных логической таблицы можно задавать запросами
 [CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
@@ -125,7 +125,7 @@ INSERT INTO sales.sales SELECT * FROM sales.sales_ext_upload;
 COMMIT DELTA;
 ```
 
-### Загрузка данных в standalone-таблицу через внешнюю writable-таблицу {#writable_table_example}
+### Загрузка данных в standalone-таблицу {#standalone_table_example}
 
 Загрузка в standalone-таблицу ADP, на которую указывает внешняя writable-таблица `agreements_ext_write_adp`:
 

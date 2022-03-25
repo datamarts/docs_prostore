@@ -20,21 +20,19 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет вставить записи в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
-или [внешнюю writable-таблицу](../../../overview/main_concepts/external_table/external_table.md#writable_table) 
-(далее — целевая таблица) из другой логической сущности. При вставке записей в writable-таблицу нужно учитывать 
-ограничения, которые конкретная СУБД накладывает на работу со своими таблицами.
+Запрос вставляет записи в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
+или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md)
+(далее — целевая таблица) из другой логической сущности.
+{: .review-highlight}
 
-Источником записей может быть:
-* логическая таблица, 
-* [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) представление, 
-* [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md),
-* внешняя writable-таблица,
-* соединение любых из перечисленных сущностей.
+Данные в standalone-таблицу вставляются с помощью 
+[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table).
+При вставке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
+{: .review-highlight}
 
 Вставка записей в логические и материализованные представления недоступна.
 
-Запрос поддерживается для ADB, ADQM и ADP.
+Вставка данных возможна в ADB, ADQM и ADP.
 {: .note-wrapper}
 
 Для вставки большого объема данных следует использовать
@@ -42,15 +40,13 @@ has_toc: false
 [выгрузки](../../../working_with_system/data_download/data_download.md) и загрузки данных.
 {: .tip-wrapper}
 
-Источником данных всегда служит одна [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
-[хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
-* [указанная](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или
-  [наиболее оптимальная СУБД](../../../working_with_system/data_reading/routing/routing.md) —
-  если данные выбираются из логических таблиц, логических и материализованных представлений;
-* та СУБД хранилища, в которой размещаются связанные 
-  [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md), — если данные выбираются 
-  из [внешних readable-таблиц](../../../overview/main_concepts/external_table/external_table.md#readable_table) 
-  и их соединений с другими сущностями.
+Источниками данных могут быть следующие сущности и их соединения:
+{: .review-highlight}
+* логическая таблица, 
+* [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) представление, 
+* [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md),
+* standalone-таблица.
+{: .review-highlight}
 
 Вставка данных возможна при любом из условий:
 * источник данных и данные целевой таблицы находятся в одной СУБД хранилища,
@@ -61,16 +57,30 @@ has_toc: false
 `DATASOURCE_TYPE`.
 {: .note-wrapper}
 
+Запрос обрабатывается в порядке, описанном в разделе
+[Порядок обработки запросов на обновление данных](../../../overview/interactions/llw_processing/llw_processing.md).
+
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-В зависимости от вида таблицы, указанной в запросе, записи вставляются:
-* в [физические таблицы](../../../overview/main_concepts/physical_table/physical_table.md) тех СУБД хранилища, 
-  в которых размещены данные указанной логической таблицы;
-* в standalone-таблицу, которая связана с указанной внешней таблицей.
+Записи выбираются из одной [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
+[хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
+{: .review-highlight}
+* [указанной в запросе](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или
+  [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) —
+  если данные выбираются из логических таблиц, логических и материализованных представлений;
+* содержащей standalone-таблицу — если данные выбираются из standalone-таблицы или ее соединений с другими сущностями.
+{: .review-highlight}
 
-Записи, вставленные в логическую таблицу, добавляются как горячие записи. При [фиксации изменений](../COMMIT_DELTA/COMMIT_DELTA.md) 
+В зависимости от вида целевой таблицы записи вставляются:
+{: .review-highlight}
+* в [физические таблицы](../../../overview/main_concepts/physical_table/physical_table.md) тех СУБД хранилища, 
+  в которых размещены данные логической таблицы, если целевая таблица — логическая;
+* в standalone-таблицу иначе.
+{: .review-highlight}
+
+Записи в логическую таблицу вставляются как горячие записи. При [фиксации изменений](../COMMIT_DELTA/COMMIT_DELTA.md) 
 записи становятся актуальными, а предыдущие актуальные записи — архивными. 
 Наличие предыдущей актуальной записи определяется по первичному ключу: все записи логической таблицы с одинаковым 
 первичным ключом рассматриваются системой как разные исторические состояния одного объекта.
@@ -80,13 +90,14 @@ has_toc: false
 Пока ответ на запрос не вернулся, операцию по вставке данных можно перезапустить или отменить. Чтобы перезапустить операцию, 
 повторите исходный запрос с ключевым словом [RETRY](#retry), 
 чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+{: .review-highlight}
 
-Вставка данных из readable-таблицы в логическую таблицу может привести к расхождениям между СУБД хранилища из-за 
+Вставка данных из standalone-таблицы в логическую таблицу может привести к расхождениям между СУБД хранилища из-за 
 разной скорости записи в разные СУБД.
-<br>Расхождения в данных можно найти с помощью запроса [CHECK_SUM](../CHECK_SUM/CHECK_SUM.md).
-Если расхождения возникли, их нужно устранить вручную. Предотвратить дальнейшие расхождения можно сторонними средствами, 
+Проверить наличие расхождений в данных можно с помощью запроса [CHECK_SUM](../CHECK_SUM/CHECK_SUM.md).
+<br>Если расхождения возникли, их нужно устранить вручную. Предотвратить дальнейшие расхождения можно сторонними средствами, 
 их выбор зависит от инсталляции.
-{: .warning-wrapper}
+{: .warning-wrapper  .review-highlight}
 
 ## Синтаксис {#syntax}
 
@@ -115,7 +126,12 @@ RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
 
 `table_name`
 
-: Имя логической или внешней таблицы, в которую вставляются данные.
+: Имя таблицы, в которую вставляются данные. Возможные значения:
+{: .review-highlight}
+* имя логической таблицы,
+* имя [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table),
+  указывающей на нужную standalone-таблицу.
+{: .review-highlight}
 
 `column_list`
 
@@ -132,14 +148,17 @@ RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
 Ключевое слово перезапускает обработку операции записи, созданной запросом `INSERT SELECT`.
 Это может быть полезно, например, если операция зависла: дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или
 [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока есть зависшая операция. Пример запроса см. [ниже](#retry_example).
+{: .review-highlight}
 
 Перезапуск обработки возможен только для незавершенных операций. Список незавершенных операций можно посмотреть
 с помощью запроса [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+{: .review-highlight}
 
 Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
+{: .review-highlight}
 
-Ключевое слово `RETRY` недоступно в запросах на вставку записей во внешнюю writable-таблицу.
-{: .note-wrapper}
+Ключевое слово `RETRY` недоступно в запросах на вставку записей в standalone-таблицу.
+{: .note-wrapper  .review-highlight}
 
 ## Ограничения {#restrictions}
 
@@ -314,7 +333,7 @@ DATASOURCE_TYPE = 'adb';
 COMMIT DELTA;
 ```
 
-### Вставка данных в логическую таблицу из внешней readable-таблицы {#readable_to_logical_example}
+### Вставка данных в логическую таблицу из standalone-таблицы {#standalone_to_logical_example}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -337,17 +356,18 @@ DATASOURCE_TYPE (adp);
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
--- вставка данных в логическую таблицу agreements_adp из внешней readable-таблицы agreements_ext_read_adp
+-- вставка данных в логическую таблицу agreements_adp из standalone-таблицы, 
+--   на которую указывает внешняя readable-таблица agreements_ext_read_adp
 INSERT INTO agreements_adp SELECT * FROM agreements_ext_read_adp;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
 ```
 
-### Вставка данных во внешнюю writable-таблицу из логической таблицы {#logical_to_writable_example}
+### Вставка данных в standalone-таблицу из логической таблицы {#logical_to_standalone_example}
 
 ```sql
--- создание внешней writable-таблицы, связанной с таблицей ADQM
+-- создание внешней writable-таблицы, связанной со standalone-таблицей ADQM
 CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
@@ -361,7 +381,8 @@ DISTRIBUTED BY (id)
 LOCATION 'core:adqm://dtm__sales.sales'
 OPTIONS ('auto.create.table.enable=true');
 
--- вставка данных во внешнюю writable-таблицу sales_ext_write_adqm из логической таблицы sales
+-- вставка данных в standalone-таблицу, на которую указывает внешняя writable-таблица sales_ext_write_adqm,
+--   из логической таблицы sales
 INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
 ```
 
