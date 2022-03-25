@@ -52,9 +52,9 @@ has_toc: false
 
 ```sql
 CREATE TABLE [db_name.]table_name (
-  column_name_1 datatype_1 NOT NULL,
-  column_name_2 datatype_2,
-  column_name_3 datatype_3,
+  column_name_1 datatype_1 [ NULL | NOT NULL ],
+  column_name_2 datatype_2 [ NULL | NOT NULL ],
+  column_name_3 datatype_3 [ NULL | NOT NULL ],
   PRIMARY KEY (column_list_1)
 ) DISTRIBUTED BY (column_list_2)
 [DATASOURCE_TYPE (datasource_aliases)]
@@ -72,7 +72,7 @@ CREATE TABLE [db_name.]table_name (
 * `column_list_2` — список столбцов, входящих в ключ шардирования таблицы. Столбцы 
   должны быть из числа столбцов `column_list_1`;
 * `datasource_aliases` — список псевдонимов СУБД хранилища, в которых нужно разместить данные таблицы. 
-  Элементы списка перечисляются через запятую. Возможные значения: `adb`, `adqm`, `adg`. 
+  Элементы списка перечисляются через запятую. Возможные значения: `adb`, `adqm`, `adg`, `adp`. 
   Значения можно указывать без кавычек (например, `adb`) или двойных кавычках (например, `"adb"`).
     
 ### Ключевое слово DATASOURCE_TYPE {#datasource_type}
