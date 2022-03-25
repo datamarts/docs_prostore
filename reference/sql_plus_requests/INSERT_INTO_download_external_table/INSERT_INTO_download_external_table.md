@@ -20,13 +20,24 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет выгрузить данные, выбранные [SELECT](../SELECT/SELECT.md)-подзапросом 
-к [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md), 
-во внешний приемник данных. Данные можно выгружать из следующих сущностей и их соединений:
+Запрос выгружает данные из [логической базы данных](../../../overview/main_concepts/logical_db/logical_db.md) 
+в топик Kafka, указанный 
+[при создании внешней таблицы выгрузки](../CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md) 
+(download_external_table). Формат выгрузки описан в разделе
+[Формат выгрузки данных](../../download_format/download_format.md).
+{: .review-highlight}
+
+Данные можно выгружать из следующих сущностей и их соединений:
+{: .review-highlight}
 * [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
 * [логических представлений](../../../overview/main_concepts/logical_view/logical_view.md) и 
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
-* [внешних readable-таблиц](../../../overview/main_concepts/external_table/external_table.md#readable_table).
+* [standalone-таблиц](../../../overview/main_concepts/standalone_table/standalone_table.md).
+{: .review-highlight}
+
+Данные standalone-таблицы выгружаются с помощью 
+[внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table).
+{: .review-highlight}
 
 Для получения небольшого объема данных можно использовать 
 [запрос данных](../../../working_with_system/data_reading/data_reading.md).
@@ -44,17 +55,13 @@ has_toc: false
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-При успешном выполнении запроса данные выгружаются в тот топик Kafka, который был указан 
-[при создании внешней таблицы выгрузки](../CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md). Описание 
-формата данных см. в разделе [Формат выгрузки данных](../../download_format/download_format.md).
-
-Данные выгружаются из следующей СУБД хранилища:
-* из [указанной](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или 
-  [наиболее оптимальной СУБД](../../../working_with_system/data_reading/routing/routing.md) —
+Данные выгружаются из следующей СУБД [хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
+{: .review-highlight}
+* [указанной в запросе](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или 
+  [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) —
   если данные выгружаются из логических таблиц, логических и материализованных представлений;
-* из той СУБД хранилища, в которой размещаются связанные 
-  [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md), — если данные выгружаются 
-  из внешних readable-таблиц и их соединений с другими сущностями.
+* содержащей standalone-таблицу — если данные выгружаются из standalone-таблицы или ее соединений с другими сущностями.
+{: .review-highlight}
 
 ## Синтаксис {#syntax}
 
@@ -104,7 +111,7 @@ INSERT INTO sales.sales_by_stores_ext_download
 SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm'
 ```
 
-### Выгрузка из внешней readable-таблицы {#readable_table_example}
+### Выгрузка из standalone-таблицы {#standalone_table_example}
 
 ```sql
 -- создание внешней таблицы выгрузки
@@ -120,7 +127,7 @@ LOCATION 'kafka://$kafka/agreements_out'
 FORMAT 'AVRO'
 CHUNK_SIZE 1000;
 
--- запуск выгрузки данных из внешней readable-таблицы
+-- выгрузка данных из standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
 INSERT INTO sales.payments_ext_download
 SELECT s.id, s.agreement_id, s.code, s.amount, s.currency_code, s.description 
 FROM sales.payments_ext_read_adg AS s 
