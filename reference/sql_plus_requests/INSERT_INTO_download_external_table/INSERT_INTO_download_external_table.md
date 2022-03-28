@@ -25,19 +25,15 @@ has_toc: false
 [при создании внешней таблицы выгрузки](../CREATE_DOWNLOAD_EXTERNAL_TABLE/CREATE_DOWNLOAD_EXTERNAL_TABLE.md) 
 (download_external_table). Формат выгрузки описан в разделе
 [Формат выгрузки данных](../../download_format/download_format.md).
-{: .review-highlight}
 
 Данные можно выгружать из следующих сущностей и их соединений:
-{: .review-highlight}
 * [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
 * [логических представлений](../../../overview/main_concepts/logical_view/logical_view.md) и 
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
 * [standalone-таблиц](../../../overview/main_concepts/standalone_table/standalone_table.md).
-{: .review-highlight}
 
 Данные standalone-таблицы выгружаются с помощью 
 [внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table).
-{: .review-highlight}
 
 Для получения небольшого объема данных можно использовать 
 [запрос данных](../../../working_with_system/data_reading/data_reading.md).
@@ -56,12 +52,10 @@ has_toc: false
 *   исключение при неуспешном выполнении запроса.
 
 Данные выгружаются из следующей СУБД [хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
-{: .review-highlight}
 * [указанной в запросе](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или 
   [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) —
   если данные выгружаются из логических таблиц, логических и материализованных представлений;
 * содержащей standalone-таблицу — если данные выгружаются из standalone-таблицы или ее соединений с другими сущностями.
-{: .review-highlight}
 
 ## Синтаксис {#syntax}
 

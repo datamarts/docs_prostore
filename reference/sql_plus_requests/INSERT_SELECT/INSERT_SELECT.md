@@ -23,12 +23,11 @@ has_toc: false
 Запрос вставляет записи в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
 или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md)
 (далее — целевая таблица) из другой логической сущности.
-{: .review-highlight}
 
-Данные в standalone-таблицу вставляются с помощью 
-[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table).
+Синтаксис вставки в standalone-таблицу подразумевает использование 
+[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table), которая 
+ссылается на нужную standalone-таблицу.
 При вставке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
-{: .review-highlight}
 
 Вставка записей в логические и материализованные представления недоступна.
 
@@ -41,12 +40,10 @@ has_toc: false
 {: .tip-wrapper}
 
 Источниками данных могут быть следующие сущности и их соединения:
-{: .review-highlight}
 * логическая таблица, 
 * [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) представление, 
 * [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md),
 * standalone-таблица.
-{: .review-highlight}
 
 Вставка данных возможна при любом из условий:
 * источник данных и данные целевой таблицы находятся в одной СУБД хранилища,
@@ -66,19 +63,10 @@ has_toc: false
 
 Записи выбираются из одной [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
 [хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
-{: .review-highlight}
 * [указанной в запросе](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или
   [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) —
   если данные выбираются из логических таблиц, логических и материализованных представлений;
 * содержащей standalone-таблицу — если данные выбираются из standalone-таблицы или ее соединений с другими сущностями.
-{: .review-highlight}
-
-В зависимости от вида целевой таблицы записи вставляются:
-{: .review-highlight}
-* в [физические таблицы](../../../overview/main_concepts/physical_table/physical_table.md) тех СУБД хранилища, 
-  в которых размещены данные логической таблицы, если целевая таблица — логическая;
-* в standalone-таблицу иначе.
-{: .review-highlight}
 
 Записи в логическую таблицу вставляются как горячие записи. При [фиксации изменений](../COMMIT_DELTA/COMMIT_DELTA.md) 
 записи становятся актуальными, а предыдущие актуальные записи — архивными. 
@@ -87,17 +75,13 @@ has_toc: false
 Подробнее о версионировании записей 
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 
-Пока ответ на запрос не вернулся, операцию по вставке данных можно перезапустить или отменить. Чтобы перезапустить операцию, 
+Незавершенную операцию по вставке данных можно перезапустить или отменить. Чтобы перезапустить операцию, 
 повторите исходный запрос с ключевым словом [RETRY](#retry), 
 чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
-{: .review-highlight}
 
-Вставка данных из standalone-таблицы в логическую таблицу может привести к расхождениям между СУБД хранилища из-за 
-разной скорости записи в разные СУБД.
-Проверить наличие расхождений в данных можно с помощью запроса [CHECK_SUM](../CHECK_SUM/CHECK_SUM.md).
-<br>Если расхождения возникли, их нужно устранить вручную. Предотвратить дальнейшие расхождения можно сторонними средствами, 
-их выбор зависит от инсталляции.
-{: .warning-wrapper  .review-highlight}
+При вставке данных из standalone-таблицы в логическую таблицу нужно обеспечить неизменность данных в standalone-таблице 
+на время работы запроса. Иначе вставка может привести к расхождениям данных между СУБД хранилища.
+{: .warning-wrapper}
 
 ## Синтаксис {#syntax}
 
@@ -127,11 +111,9 @@ RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
 `table_name`
 
 : Имя таблицы, в которую вставляются данные. Возможные значения:
-{: .review-highlight}
 * имя логической таблицы,
 * имя [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table),
   указывающей на нужную standalone-таблицу.
-{: .review-highlight}
 
 `column_list`
 
@@ -145,20 +127,18 @@ RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
 
 ### Ключевое слово RETRY {#retry}
 
-Ключевое слово перезапускает обработку операции записи, созданной запросом `INSERT SELECT`.
-Это может быть полезно, например, если операция зависла: дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или
-[откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока есть зависшая операция. Пример запроса см. [ниже](#retry_example).
-{: .review-highlight}
-
-Перезапуск обработки возможен только для незавершенных операций. Список незавершенных операций можно посмотреть
-с помощью запроса [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
-{: .review-highlight}
+Ключевое слово перезапускает обработку незавершенной [операции записи](../../../overview/main_concepts/write_operation/write_operation.md),
+созданной запросом [INSERT SELECT](../INSERT_SELECT/INSERT_SELECT.md). Пример запроса см. [ниже](#retry_example). 
+Список незавершенных операций можно получить с помощью запроса 
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 
 Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
-{: .review-highlight}
 
 Ключевое слово `RETRY` недоступно в запросах на вставку записей в standalone-таблицу.
-{: .note-wrapper  .review-highlight}
+
+Горячую дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или
+[откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока в ней есть незавершенные операции записи.
+{: .note-wrapper}
 
 ## Ограничения {#restrictions}
 
