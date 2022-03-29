@@ -12,8 +12,12 @@ has_toc: false
 
 Запрос позволяет создать или заменить [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md). Логическое представление 
-можно создать на основе данных одной или нескольких [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md),
-[внешних readable-таблиц](../../../overview/main_concepts/external_table/external_table.md#readable_table) или их соединений.
+можно создать на основе данных [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md),
+[standalone-таблиц](../../../overview/main_concepts/standalone_table/standalone_table.md) или их соединений.
+
+Синтаксис создания представления на основе standalone-таблицы подразумевает использование
+[внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table), которая
+указывает на нужную standalone-таблицу.
 
 В ответе возвращается:
 * пустой объект ResultSet при успешном выполнении запроса;
@@ -83,18 +87,21 @@ CREATE VIEW sales.stores_by_sold_products AS
   LIMIT 20
 ```
 
-### Представление на основе внешней readable-таблицы {#on_readable_table}
+### Представление на основе standalone-таблицы {#on_standalone_table}
 
 ```sql
+-- представление на основе standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
 CREATE VIEW sales.payments_by_agreement AS
   SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
   FROM sales.payments_ext_read_adg AS p 
   GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
-### Представление на основе соединения логической таблицы внешней readable-таблицы {#on_two_type_tables}
+### Представление на основе соединения логической таблицы и standalone-таблицы {#on_two_type_tables}
 
 ```sql
+-- представление на основе логической таблицы clients и standalone-таблицы, на которую указывает 
+--   внешняя readable-таблица agreements_ext_read_adp
 CREATE VIEW sales.agreements_with_client_info AS
   SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
   FROM sales.agreements_ext_read_adp AS a

@@ -20,16 +20,16 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос удаляет записи согласно условию, указанному в блоке `WHERE`.
-
-Удаляются следующие записи:
-* актуальные записи [логической таблицы](../../../overview/main_concepts/logical_table/logical_table.md) — если в 
-  запросе указана логическая таблица; 
-* записи [standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md) — если в запросе 
-  указана [внешняя writable-таблица](../../../overview/main_concepts/external_table/external_table.md#writable_table).
+Запрос удаляет записи [логической таблицы](../../../overview/main_concepts/logical_table/logical_table.md) или
+[standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md) согласно условию, 
+указанному в блоке `WHERE`.
 
 Удаляемые записи логической таблицы становятся архивными, но остаются доступными при чтении и выгрузке исторических данных.
 Записи standalone-таблицы удаляются насовсем и не могут быть восстановлены средствами системы.
+
+Синтаксис удаления из standalone-таблицы подразумевает использование
+[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table), которая
+указывает на нужную standalone-таблицу.
 
 Удаление данных из [логических](../../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md)
@@ -129,7 +129,7 @@ DELETE FROM sales WHERE store_id = 234;
 COMMIT DELTA;
 ```
 
-### Удаление записей standalone-таблицы через внешнюю writable-таблицу {#example_writable_table}
+### Удаление записей standalone-таблицы {#example_standalone_table}
 
 ```sql
 -- удаление записей standalone-таблицы, на которую указывает внешняя writable-таблица agreements_ext_write_adp

@@ -26,7 +26,7 @@ has_toc: false
 По умолчанию создается таблица, которая предназначена для загрузки данных в 
 [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) и содержит скрытое 
 служебное поле `sys_op`. Если загружаемые данные не содержат поле `sys_op` (например, они предназначены для
-[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table)), 
+[standalone-таблицы](../../../overview/main_concepts/standalone_table/standalone_table.md)), 
 нужно указать в запросе ключевое слово `OPTIONS` со значением `auto.create.sys_op.enable=false`.
 
 В ответе возвращается:
@@ -95,7 +95,7 @@ FORMAT 'AVRO'
    Возможные параметры:
   * `auto.create.sys_op.enable` — признак добавления скрытого служебного поля `sys_op` во внешнюю таблицу, 
     возможные значения: `true` (по умолчанию) — добавить поле и использовать таблицу для загрузки данных в логическую таблицу,
-    `false` — не добавлять поле и использовать таблицу для загрузки данных во writable-таблицу.
+    `false` — не добавлять поле и использовать таблицу для загрузки данных в standalone-таблицу.
 
 ## Ограничения {#restrictions}
 
@@ -122,7 +122,7 @@ FORMAT 'AVRO'
 MESSAGE_LIMIT 1000
 ```
 
-### Таблица для загрузки во внешнюю writable-таблицу {#to_writable_table}
+### Таблица для загрузки в standalone-таблицу {#to_standalone_table}
 
 ```sql
 CREATE UPLOAD EXTERNAL TABLE sales.payments_ext_upload (

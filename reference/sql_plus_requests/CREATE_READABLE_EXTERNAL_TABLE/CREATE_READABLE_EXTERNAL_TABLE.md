@@ -20,7 +20,7 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет создать [внешнюю readable-таблицу](../../../overview/main_concepts/external_table/external_table.md#readable_table).
+Запрос создает [внешнюю readable-таблицу](../../../overview/main_concepts/external_table/external_table.md#readable_table).
 
 По умолчанию система создает внешнюю таблицу в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md) 
 и не создает связанную с ней

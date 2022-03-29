@@ -32,8 +32,9 @@ has_toc: false
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
 * [standalone-таблиц](../../../overview/main_concepts/standalone_table/standalone_table.md).
 
-Данные standalone-таблицы выгружаются с помощью 
-[внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table).
+Синтаксис выгрузки из standalone-таблицы подразумевает использование
+[внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table), которая
+указывает на нужную standalone-таблицу.
 
 Для получения небольшого объема данных можно использовать 
 [запрос данных](../../../working_with_system/data_reading/data_reading.md).

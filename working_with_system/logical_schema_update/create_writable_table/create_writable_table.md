@@ -23,7 +23,7 @@ has_toc: false
 таблицы, например `payments_ext_write` или `payments_ext_write_adg`.
 {: .tip-wrapper}
 
-Внешняя writable-таблица представляет собой проекцию standalone-таблицы и не хранит сами данные.
+Внешняя writable-таблица указывает на standalone-таблицу и не хранит сами данные.
 {: .note-wrapper}
 
 Наличие внешней таблицы можно проверить, как описано в разделе 

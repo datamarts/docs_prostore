@@ -21,8 +21,8 @@ has_toc: false
 </details>
 
 _Материализованное представление_ — набор записей, содержащих результаты запроса к данным 
-одной или нескольких [логических таблиц](../logical_table/logical_table.md), 
-[внешних readable-таблиц](../external_table/external_table.md#readable_table) или их соединений. Материализованное 
+[логических таблиц](../logical_table/logical_table.md), 
+[standalone-таблиц](../standalone_table/standalone_table.md) или их соединений. Материализованное 
 представление позволяет предварительно вычислить результат запроса и сохранить его для будущего использования.
 
 Материализованное представление строится на основе данных одной [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 

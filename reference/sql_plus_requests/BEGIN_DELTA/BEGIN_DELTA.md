@@ -21,7 +21,7 @@ has_toc: false
 если она еще не определена.
 {: .note-wrapper}
 
-Загрузка и обновление данных во [внешних writable-таблицах](../../../overview/main_concepts/external_table/external_table.md#writable_table) 
+Загрузка и обновление данных в [standalone-таблицах](../../../overview/main_concepts/standalone_table/standalone_table.md) 
 происходит вне механизма дельт. Поэтому при работе с такими таблицами открывать дельту не нужно.
 {: .note-wrapper}
 

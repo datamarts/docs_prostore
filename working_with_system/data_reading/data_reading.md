@@ -23,7 +23,7 @@ has_toc: false
 * [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md),
 * [логических представлений](../../overview/main_concepts/logical_view/logical_view.md),
 * [материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), 
-* [внешних readable-таблиц](../../overview/main_concepts/external_table/external_table.md#readable_table).
+* [standalone-таблиц](../../overview/main_concepts/standalone_table/standalone_table.md).
 
 Под небольшим объемом данных подразумевается результат, содержащий десятки строк.
 Для получения большого объема данных следует использовать [выгрузку данных](../data_download/data_download.md).
@@ -73,17 +73,20 @@ SELECT * FROM sales_by_stores
 WHERE store_id IN (1234, 1235, 1236);
 ```
 
-### Запрос из внешней readable-таблицы {#from_readable_table}
+### Запрос из standalone-таблицы {#from_standalone_table}
 
 ```sql
+-- запрос данных из standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
 SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
 FROM sales.payments_ext_read_adg AS p 
 GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
-### Запрос из соединения внешней readable-таблицы и логической таблицы {#from_two_type_tables}
+### Запрос из соединения standalone-таблицы и логической таблицы {#from_two_type_tables}
 
 ```sql
+-- запрос данных из логической таблицы clients и standalone-таблицы, на которую указывает 
+--   внешняя readable-таблица agreements_ext_read_adp
 SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
 FROM sales.agreements_ext_read_adp AS a
 LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c

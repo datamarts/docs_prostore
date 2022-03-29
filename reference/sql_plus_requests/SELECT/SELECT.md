@@ -24,11 +24,15 @@ has_toc: false
 * [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md),
 * [логических представлений](../../../overview/main_concepts/logical_view/logical_view.md),
 * [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
-* [внешних readable-таблиц](../../../overview/main_concepts/external_table/external_table.md#readable_table).
+* [standalone-таблиц](../../../overview/main_concepts/standalone_table/standalone_table.md).
+
+Синтаксис чтения из standalone-таблицы подразумевает использование
+[внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table), которая
+указывает на нужную standalone-таблицу.
 
 Запросы к логическим таблицам и представлениям по умолчанию возвращают данные, актуальные на текущий момент. 
 Чтобы выбрать срез данных на определенный момент времени, укажите ключевое слово [FOR SYSTEM_TIME](#for_system_time) 
-с нужным значением. Для внешних readable-таблиц ключевое слово недоступно: запросы к таким таблицам всегда 
+с нужным значением. Для standalone-таблиц ключевое слово недоступно: запросы к таким таблицам всегда 
 возвращают текущее состояние данных.
 
 Запрос также можно использовать для 
@@ -128,7 +132,7 @@ FROM [db_name.]entity_name
 соединяется несколько логических таблиц и представлений, для каждой логической сущности можно указать свое ключевое слово
 `FOR SYSTEM_TIME`, при этом значения этих ключевых слов могут различаться (см. пример [ниже](#deltas_example)).
 
-Ключевое слово недоступно в запросах к внешним readable-таблицам.
+Ключевое слово недоступно в запросах к standalone-таблицам.
 {: .note-wrapper}
 
 Если ключевое слово не указано, из логических таблиц и логических представлений
@@ -408,17 +412,20 @@ INNER JOIN sales.sales FOR SYSTEM_TIME STARTED IN(0,1) AS s
 
 О возможных типах соединений см. в секции [Поддерживаемые типы соединений](#join_prefixes).
 
-### Запрос из внешней readable-таблицы {#readable_example}
+### Запрос из standalone-таблицы {#standalone_example}
 
 ```sql
+-- запрос данных из standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
 SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
 FROM sales.payments_ext_read_adg AS p 
 GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
-### Соединение внешней readable-таблицы и логической таблицы {#readable_logical_example}
+### Соединение standalone-таблицы и логической таблицы {#two_type_example}
 
 ```sql
+-- запрос данных из логической таблицы clients и standalone-таблицы, на которую указывает 
+--   внешняя readable-таблица agreements_ext_read_adp
 SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
 FROM sales.agreements_ext_read_adp AS a
 LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c

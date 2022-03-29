@@ -16,15 +16,16 @@ _Standalone-таблица_ — таблица СУБД хранилища, не
 
 С данными standalone-таблиц можно работать через систему, используя
 единый [синтаксис SQL+](../../../reference/sql_plus_requests/sql_plus_requests.md).
-Работа ведется через [внешние таблицы](../external_table/external_table.md), которые ссылаются на standalone-таблицу:
-* через [внешнюю readable-таблицу](../external_table/external_table.md#readable_table) можно
+Синтаксис для работы со standalone-таблицей предполагает использование [внешних таблиц](../external_table/external_table.md), 
+которые указывают на standalone-таблицу:
+* [внешняя readable-таблица](../external_table/external_table.md#readable_table) позволяет 
   [читать](../../../working_with_system/data_reading/data_reading.md) и 
   [выгружать](../../../working_with_system/data_download/data_download.md) данные,
-* через [внешнюю writable-таблицу](../external_table/external_table.md#writable_table) можно 
+* [внешняя writable-таблица](../external_table/external_table.md#writable_table) позволяет 
   [вставлять](../../../working_with_system/data_update/data_update.md) и 
   [загружать](../../../working_with_system/data_upload/data_upload.md) данные.
 
-Внешняя таблица может быть связана с существующей standalone-таблицей. Если standalone-таблица отсутствует, 
+Внешняя таблица может указывать на существующую standalone-таблицу. Если standalone-таблица отсутствует, 
 она может быть автоматически создана при создании внешней таблицы.
 
 Подробнее об создании внешних таблиц см. в разделах 

@@ -23,7 +23,7 @@ has_toc: false
 таблицы, например `payments_ext_read` или `payments_ext_read_adg`.
 {: .tip-wrapper}
 
-Внешняя readable-таблица представляет собой проекцию standalone-таблицы и не хранит сами данные.
+Внешняя readable-таблица указывает на standalone-таблицу и не хранит сами данные.
 {: .note-wrapper}
 
 Наличие внешней таблицы можно проверить, как описано в разделе 

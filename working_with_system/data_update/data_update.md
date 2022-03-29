@@ -22,7 +22,7 @@ has_toc: false
 Система позволяет обновлять небольшие объемы данных: добавлять новые записи, изменять и удалять текущие записи. 
 
 Можно обновлять данные [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md) и 
-[внешних writable-таблиц](../../overview/main_concepts/external_table/external_table.md#writable_table).
+[standalone-таблиц](../../overview/main_concepts/standalone_table/standalone_table.md).
 Обновление данных в [логических](../../overview/main_concepts/logical_view/logical_view.md)
 и [материализованных представлениях](../../overview/main_concepts/materialized_view/materialized_view.md)
 недоступно.
@@ -66,11 +66,11 @@ has_toc: false
 чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
 {: .note-wrapper}
 
-## Обновление данных writable-таблицы {#update_in_writable_table}
+## Обновление данных standalone-таблицы {#update_in_standalone_table}
 
-Чтобы обновить данные во внешней writable-таблице:
+Чтобы обновить данные в standalone-таблице:
 1. [Создайте внешнюю writable-таблицу](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md),
-   если она еще не создана.
+   указывающую на нужную standalone-таблицу, если writable-таблица еще не создана.
 2. Выполните запрос на обновление данных:
     * [INSERT VALUES](../../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md),
       [INSERT SELECT](../../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md) или
@@ -78,8 +78,7 @@ has_toc: false
       для добавления новых или изменения существующих данных;
     * [DELETE](../../reference/sql_plus_requests/DELETE/DELETE.md) — для удаления данных.
 
-При обновлении данных writable-таблицы нужно учитывать ограничения, которые конкретная СУБД накладывает на
-работу со своими таблицами.
+При обновлении данных в standalone-таблице нужно учитывать ограничения таблицы в конкретной СУБД.
 {: .note-wrapper}
 
 ## Примеры {#examples}
@@ -123,10 +122,10 @@ SELECT * FROM sales WHERE CAST(EXTRACT(MONTH FROM transaction_date) AS INT) = 7 
 COMMIT DELTA;
 ```
 
-### Обновление данных во внешней writable-таблице {#writable_table_example}
+### Обновление данных в standalone-таблице {#standalone_table_example}
 
 ```sql
--- вставка записей
+-- вставка записей в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp
 INSERT INTO sales.agreements_ext_write_adp 
 VALUES (100, 111111, 'AB12345', '2022-02-01', '2022-02-02', '2024-02-02', 'Договор с ООО "Квадрат"'), 
        (101, 222222, 'AB67890', '2022-02-11', '2022-02-12', '2025-02-12', 'Договор с ООО "Круг"');
@@ -134,7 +133,7 @@ VALUES (100, 111111, 'AB12345', '2022-02-01', '2022-02-02', '2024-02-02', 'До�
 -- удаление записей по одному клиенту
 DELETE FROM sales.agreements_ext_write_adp WHERE client_id = 234;       
 
--- создание внешней writable-таблицы, связанной с таблицей ADQM
+-- создание внешней writable-таблицы с созданием связанной standalone-таблицы в ADQM
 CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
@@ -148,7 +147,7 @@ DISTRIBUTED BY (id)
 LOCATION 'core:adqm://dtm__sales.sales'
 OPTIONS ('auto.create.table.enable=true');
 
--- вставка данных во внешнюю writable-таблицу sales_ext_write_adqm из логической таблицы sales
+-- вставка данных из логической таблицы sales в standalone-таблицу, на которую указывает внешняя writable-таблица sales_ext_write_adqm
 INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
 ```
 

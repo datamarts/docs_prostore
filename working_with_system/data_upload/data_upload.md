@@ -22,7 +22,7 @@ has_toc: false
 Система позволяет параллельно загружать большие объемы данных. 
 
 Можно загружать данные в [логические таблицы](../../overview/main_concepts/logical_table/logical_table.md) и 
-[внешние writable-таблицы](../../overview/main_concepts/external_table/external_table.md#writable_table).
+[standalone-таблицы](../../overview/main_concepts/standalone_table/standalone_table.md).
 Загрузка данных в [логические](../../overview/main_concepts/logical_view/logical_view.md) 
 и [материализованные представления](../../overview/main_concepts/materialized_view/materialized_view.md) 
 недоступна.
@@ -46,11 +46,13 @@ has_toc: false
    1. Загрузите данные из внешней информационной системы в топик Kafka.  
       Данные должны соответствовать [формату загрузки данных](../../reference/upload_format/upload_format.md).
    2. [Создайте логическую таблицу](../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md) или 
-      [внешнюю writable-таблицу](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md), 
-      если она еще не создана.
+      [standalone-таблицу](../../overview/main_concepts/standalone_table/standalone_table.md), если она еще не создана.
    3. [Создайте](../../reference/sql_plus_requests/CREATE_UPLOAD_EXTERNAL_TABLE/CREATE_UPLOAD_EXTERNAL_TABLE.md)
-      [внешнюю таблицу](../../overview/main_concepts/external_table/external_table.md)
-      загрузки, если она еще не создана.
+      [внешнюю таблицу загрузки](../../overview/main_concepts/external_table/external_table.md#upload_table), если она 
+      еще не создана.
+   4. Если нужно загрузить данные в standalone-таблицу, 
+      [создайте](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md)
+      [внешнюю writable-таблицу](../../overview/main_concepts/external_table/external_table.md#writable_table).
 
 ## Загрузка данных в логическую таблицу {#upload_to_logical_table}
 
@@ -80,14 +82,14 @@ has_toc: false
 
 Созданные внешние таблицы загрузки можно использовать повторно или удалить.
 
-## Загрузка данных в writable-таблицу {#upload_to_writable_table}
+## Загрузка данных в standalone-таблицу {#upload_to_standalone_table}
 
-Чтобы загрузить данные из внешней информационной системы во внешнюю writable-таблицу, выполните запрос 
+Чтобы загрузить данные из внешней информационной системы в standalone-таблицу, выполните запрос 
 [INSERT SELECT FROM upload_external_table](../../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md) 
-на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки.
+на загрузку данных. В запросе нужно указать внешнюю таблицу загрузки, определяющую параметры загрузки, а также
+внешнюю writable-таблицу, ссылающуюся на целевую standalone-таблицу.
 
-При загрузке данных в writable-таблицу нужно учитывать ограничения, которые конкретная СУБД накладывает на
-работу со своими таблицами.
+При загрузке данных в standalone-таблицу нужно учитывать ограничения таблицы в конкретной СУБД.
 {: .note-wrapper}
 
 ## Примеры {#examples}
@@ -133,12 +135,12 @@ INSERT INTO sales SELECT * FROM sales.sales_ext_upload;
 COMMIT DELTA;
 ```
 
-### Загрузка во внешнюю writable-таблицу {#writable_table_example}
+### Загрузка в standalone-таблицу {#standalone_table_example}
 
-Загрузка через внешнюю writable-таблицу в standalone-таблицу ADP, созданную через систему (см. параметр `auto.create.table.enable=true`):
+Загрузка в standalone-таблицу ADP, созданную через систему (см. параметр `auto.create.table.enable=true`):
 
 ```sql
--- создание внешней writable-таблицы
+-- создание внешней writable-таблицы с созданием связанной standalone-таблицы в ADP
 CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
@@ -167,7 +169,7 @@ LOCATION  'kafka://zk1:2181,zk2:2181,zk3:2181/agreements'
 FORMAT 'AVRO'
 OPTIONS ('auto.create.sys_op.enable=false')
 
--- запуск загрузки данных во внешнюю writable-таблицу
+-- запуск загрузки данных в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp
 INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
 ```
 
@@ -176,10 +178,10 @@ INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_up
 [CREATE READABLE EXTERNAL TABLE](../../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md).
 {: .note-wrapper}
 
-Загрузка через внешнюю writable-таблицу в существующую standalone-таблицу ADG:
+Загрузка в существующую standalone-таблицу ADG:
 
 ```sql
--- создание внешней writable-таблицы
+-- создание внешней writable-таблицы, указывающей на существующую standalone-таблицу ADG
 CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
 id INT NOT NULL,
 agreement_id INT,
@@ -204,6 +206,6 @@ LOCATION  'kafka://$kafka/payments'
 FORMAT 'AVRO'
 OPTIONS ('auto.create.sys_op.enable=false');
 
--- запуск загрузки данных во внешнюю writable-таблицу
+-- запуск загрузки данных в standalone-таблицу, на которую указывает внешняя writable-таблица payments_ext_write_adg
 INSERT INTO sales.payments_ext_write_adg SELECT *, 0 as bucket_id FROM sales.payments_ext_upload;
 ```

@@ -20,16 +20,18 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет вставить новые записи и обновить существующие записи в [логической таблице](../../../overview/main_concepts/logical_table/logical_table.md)
-или [внешней writable-таблице](../../../overview/main_concepts/external_table/external_table.md#writable_table). 
-При вставке записей в writable-таблицу нужно учитывать ограничения, которые конкретная СУБД накладывает на 
-работу со своими таблицами.
+Запрос вставляет записи в [логической таблицу](../../../overview/main_concepts/logical_table/logical_table.md)
+или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md).
+
+Синтаксис вставки в standalone-таблицу подразумевает использование
+[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table), которая
+указывает на нужную standalone-таблицу.
+При вставке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
 
 Запрос поддерживается для ADB и ADP.
 {: .note-wrapper}
 
-Существование записи в таблице определяется по значению первичного ключа. 
-Если в таблице существует запись со значением первичного ключа, указанным в запросе, то запись обновляется значениями 
+Если в таблице уже есть запись со значением первичного ключа, указанным в запросе, то запись обновляется значениями 
 из запроса. Иначе, если запись отсутствует, то добавляется новая запись со значениями из запроса, а пропущенные поля 
 заполняются значениями по умолчанию.
 
@@ -91,7 +93,10 @@ RETRY UPSERT INTO [db_name.]table_name [(column_list)] VALUES (value_list_1), (v
 
 `table_name`
 
-: Имя логической или внешней таблицы, в которую вставляются данные.
+: Имя таблицы, в которую вставляются данные. Возможные значения:
+* имя логической таблицы,
+* имя [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table),
+  указывающей на нужную standalone-таблицу.
 
 `column_list`
 
@@ -163,18 +168,20 @@ VALUES (200014, '2021-08-23 09:34:10', 'ABC0003', 3, 123),
 COMMIT DELTA;
 ```
 
-### Вставка данных во все столбцы внешней writable-таблицы {#all_columns_of_ext_table}
+### Вставка данных во все столбцы standalone-таблицы {#all_columns_of_standalone_table}
 
 ```sql
+-- вставка записей в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp
 UPSERT INTO sales.agreements_ext_write_adp 
 VALUES (200, 444444, 'AB22222', '2022-02-08', '2022-02-09', '2024-02-09', ''), 
        (201, 555555, 'AB33333', '2022-02-10', '2022-02-11', '2025-02-11', 'Договор с ООО "Овал"');
 ```
 
-### Вставка данных в указанные столбцы внешней writable-таблицы {#some_columns_of_ext_table}
+### Вставка данных в указанные столбцы standalone-таблицы {#some_columns_of_standalone_table}
 
-Вставка в таблицу без указания некоторых опциональных значений:
 ```sql
+-- вставка записей в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp,
+--  без некоторых опциональных значений
 UPSERT INTO sales.agreements_ext_write_adp (id, client_id, number, signature_date)
 VALUES (202, 999999, 'AB44444', '2022-01-01');
 ```
