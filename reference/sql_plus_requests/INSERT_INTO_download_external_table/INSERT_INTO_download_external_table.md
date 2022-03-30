@@ -70,7 +70,7 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 
 ## Пример {#examples}
 
-### Выгрузка из СУБД, заданной в конфигурации {#default_db_example}
+### Выгрузка из наиболее оптимальной СУБД {#default_db_example}
 
 ```sql
 INSERT INTO sales.sales_ext_download

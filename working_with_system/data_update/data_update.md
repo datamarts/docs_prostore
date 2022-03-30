@@ -45,9 +45,8 @@ has_toc: false
 При успешном выполнении действий состояние данных системы обновляется, как описано в разделе 
 [Версионирование данных](../data_upload/data_versioning/data_versioning.md).
 
-Пока дельта не закрыта, изменения по всем ее завершенным [операциям записи](../../overview/main_concepts/write_operation/write_operation.md) 
-можно отменить с помощью запроса [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md). 
-Изменения по незавершенным операциям отменить невозможно.
+Пока дельта не закрыта, изменения по ее [операциям записи](../../overview/main_concepts/write_operation/write_operation.md) 
+можно отменить с помощью запроса [ROLLBACK DELTA](../../reference/sql_plus_requests/ROLLBACK_DELTA/ROLLBACK_DELTA.md).
 {: .note-wrapper}
 
 ## Примеры {#examples}
