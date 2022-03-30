@@ -17,16 +17,50 @@ has_children: false
 {:toc}
 </details>
 
-## Текущая версия документации (5.4) {#current}
+## Текущая версия документации (5.5) {#current}
+
+Изменения:
+* добавлена возможность работать со [standalone-таблицами](../overview/main_concepts/standalone_table/standalone_table.md) — 
+  таблицами, которые не относятся к логической и физической схемам данных;
+* добавлены новые сущности, предназначенные для работы со standalone-таблицами: 
+  [внешняя writable-таблица](../overview/main_concepts/external_table/external_table.md#writable_table) и 
+  [внешняя readable-таблица](../overview/main_concepts/external_table/external_table.md#readable_table);
+* в запрос [CREATE UPLOAD EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_UPLOAD_EXTERNAL_TABLE/CREATE_UPLOAD_EXTERNAL_TABLE.md) 
+  добавлено ключевое слово `OPTIONS`; его значение `auto.create.sys_op.enable=false`
+  позволяет создать таблицу, предназначенную для загрузки в standalone-таблицу;
+* изменен способ возобновления [операций](../overview/main_concepts/write_operation/write_operation.md) 
+  по [обновлению данных](../working_with_system/data_update/data_update.md): 
+  теперь нужно повторить исходный запрос, добавив в его начало 
+  ключевое слово `RETRY`, а повторение запроса без ключевого слова не возобновляет обработку операции;
+* добавлены новые запросы:
+  * запросы по управлению внешними writable- и readable-таблицами:
+    * [CREATE WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md);
+    * [DROP WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_WRITEABLE_EXTERNAL_TABLE);
+    * [CREATE READABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md);
+    * [DROP READABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_READABLE_EXTERNAL_TABLE/DROP_READABLE_EXTERNAL_TABLE.md);
+  * [ERASE_CHANGE_OPERATION](../reference/sql_plus_requests/ERASE_CHANGE_OPERATION/ERASE_CHANGE_OPERATION.md);
+  * [ERASE_WRITE_OPERATION](../reference/sql_plus_requests/ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md);
+* запрос `INSERT INTO logical_table` переименован в справочнике запросов в
+  [INSERT SELECT FROM upload_external_table](../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md):
+  переименование связано с тем, что теперь запрос позволяет загружать данные не только в логические таблицы, но и 
+  в standalone-таблицы; синтаксис запроса не изменился, изменилось только обозначение запроса в документе;
+* в [конфигурацию системы](../maintenance/configuration/system/system.md) добавлены параметры `TARANTOOL_DB_SYNC_BUFFER_SIZE` и 
+`ADQM_BUFFER_SIZE`;
+* описан [формат служебного топика Kafka](../reference/system_topic_format/system_topic_format.md).
+  
+## Архивные версии документации {#archive}
+
+### Версия 5.4
+
+Версия 5.4 доступна в [архиве](https://datamarts.github.io/docs_prostore_archive/v5-4/).
 
 Изменения:
 * начало строки подключения изменено с `jdbc:adtm` на `jdbc:prostore`;
-* запрос `UPSERT VALUES` переименован в [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md), 
-  запрос `UPSERT SELECT` — в [INSERT SELECT](../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md);
+* запрос `UPSERT VALUES` переименован в `INSERT VALUES`, запрос `UPSERT SELECT` — в `INSERT SELECT`;
 * добавлены новые запросы:
-  * [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md);
-  * [CHECK_SUM_SNAPSHOT](../reference/sql_plus_requests/CHECK_SUM_SNAPSHOT/CHECK_SUM_SNAPSHOT.md);
-* обновлена [конфигурация системы](../maintenance/configuration/system/system.md):
+  * `UPSERT VALUES`;
+  * `CHECK_SUM_SNAPSHOT`;
+* обновлена `конфигурация системы`:
   * добавлен параметр `KAFKA_STATUS_EVENT_TOPIC`;
   * изменены значения по умолчанию:
     * параметр `ADQM_DB_NAME` теперь имеет значение по умолчанию `default`;
@@ -35,12 +69,9 @@ has_children: false
   * начало путей `io.arenadata` во всех вхождениях заменено на `ru.datamart`;
   * добавлены неучтенные ранее параметры для ADG: `TARANTOOL_VERTX_WORKERS`, `TARANTOOL_DB_SYNC_CONNECTION_TIMEOUT`,
     `TARANTOOL_DB_SYNC_READ_TIMEOUT` и `TARANTOOL_DB_SYNC_REQUEST_TIMEOUT`;
-* добавлено ограничение на имена логических сущностей и их столбцов: имя должно начинаться с латинской буквы, 
+* добавлено ограничение на имена логических сущностей и их столбцов: имя должно начинаться с латинской буквы,
   после первого символа могут следовать латинские буквы, цифры и символы подчеркивания в любом порядке;
-* изменен ответ [GET_CHANGES](../reference/sql_plus_requests/GET_CHANGES/GET_CHANGES.md) в случае отсутствия журнала: 
-  теперь возвращается пустой объект ResultSet, а не ошибка.
-  
-## Архивные версии документации {#archive}
+* изменен ответ `GET_CHANGES` в случае отсутствия журнала: теперь возвращается пустой объект ResultSet, а не ошибка.
 
 ### Версия 5.3
 
