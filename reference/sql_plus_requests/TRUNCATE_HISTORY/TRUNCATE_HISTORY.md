@@ -56,22 +56,35 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 [WHERE filter_expression]
 ```
 
-Параметры:
-*   `db_name` — имя логической базы данных. Опционально, если выбрана логическая БД, 
-    [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-*   `table_name` — имя логической таблицы, данные которой удаляются;
-*   `date_time_expression` — выражение, определяющее категорию удаляемых данных. Может принимать 
-    следующие значения:
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных. Опционально, если выбрана логическая БД, 
+  [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`table_name`
+
+: Имя логической таблицы, данные которой удаляются.
+
+`date_time_expression`
+
+: Выражение, определяющее категорию удаляемых данных. Может принимать значения:
     *   `'YYYY-MM-DD hh:mm:ss'` — удаление истории старше указанного момента времени. Возможные форматы 
         см. в разделе [Форматы даты и времени](../../timestamp_formats/timestamp_formats.md);
-    *   `'infinite'` — удаление записей с историей;
-*   `filter_expression` — условие выбора удаляемых данных.
+    *   `'infinite'` — удаление записей с историей.
+
+`filter_expression`
+
+: Условие выбора удаляемых данных.
 
 ## Ограничения {#restrictions}
 
 Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
-## Пример {#examples}
+## Примеры {#examples}
+
+### Удаление истории изменений {#history_example}
 
 Удаление истории изменений тех записей, чье значение `product_units` меньше `10`, из таблицы `sales` 
 по момент времени `'2019-12-23 15:15:14'`:
@@ -79,6 +92,9 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 TRUNCATE HISTORY sales.sales FOR SYSTEM_TIME AS OF '2019-12-23 15:15:14'
 WHERE product_units < 10
 ```
+
+### Удаление записей и истории изменений {#records_and_history_example}
+
 Удаление записей, чье значение `id` равно `123456`, с историей изменений из таблицы `stores`:
 ```sql
 TRUNCATE HISTORY sales.stores FOR SYSTEM_TIME AS OF 'infinite'

@@ -20,7 +20,14 @@ has_toc: false
 {:toc}
 </details>
 
-Запросы на [чтение](../../data_reading/data_reading.md) и [выгрузку данных](../../data_download/data_download.md) 
+Раздел описывает маршрутизацию к данным [логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
+[логических](../../../overview/main_concepts/logical_view/logical_view.md) и 
+[материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md). 
+<br> Запрос к [standalone-таблице](../../../overview/main_concepts/standalone_table/standalone_table.md)
+всегда исполняется в той СУБД, где расположена эта standalone-таблица.
+{: .note-wrapper}
+
+Запросы на [чтение](../../data_reading/data_reading.md) и [выгрузку данных](../../data_download/data_download.md)
 маршрутизируются следующим образом:
 1.  Если в запросе указано ключевое слово [DATASOURCE_TYPE](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) 
     с [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
@@ -29,7 +36,7 @@ has_toc: false
 2.  Иначе:
     1. Определяются те СУБД хранилища, в которых можно выполнить запрос, — выбираются СУБД, содержащие 
        данные всех запрашиваемых логических сущностей.
-    2. Определяется категория и подкатегория запроса (или только категория — в зависимости от
+    2. Определяется категория или категория и подкатегория запроса (в зависимости от
        [конфигурации системы](../../../maintenance/configuration/system/system.md)).   
     3. Запрос направляется в ту из выбранных СУБД, которая имеет в конфигурации системы 
        самый высокий приоритет для исполнения таких запросов (см. [ниже](#standard_priorities)).
@@ -238,6 +245,6 @@ WHERE (t.col1 = 1 AND t.col2 = 2) OR (a.colA = 1 AND t.colB = 2)
     
 В запросах к материализованным представлениям доступны не все сочетания с ключевым словом `FOR SYSTEM_TIME`. 
 Подробнее см. в секции 
-[Ключевое слово FOR SYSTEM_TIME](../../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time_matview) 
+[Ключевое слово FOR SYSTEM_TIME](../../../reference/sql_plus_requests/SELECT/SELECT.md#tab_for_system_time_values) 
 раздела [SELECT](../../../reference/sql_plus_requests/SELECT/SELECT.md).
 {: .note-wrapper}

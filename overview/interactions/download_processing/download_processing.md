@@ -11,20 +11,20 @@ has_toc: false
 # Порядок обработки запросов на выгрузку данных {#download_processing}
 
 Запрос на выгрузку данных обрабатывается в следующем порядке:
-1. Внешняя информационная система формирует запрос [INSERT INTO download_external_table](../../../reference/sql_plus_requests/INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md), 
-    используя JDBC-драйвер Prostore.
+1. Внешняя информационная система формирует запрос [INSERT INTO download_external_table](../../../reference/sql_plus_requests/INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md) 
+   через JDBC-драйвер Prostore.
 2. Запрос поступает в сервис исполнения запросов Prostore.
-3. Сервис исполнения запросов анализирует запрос и запрашивает актуальную информацию о 
-    [логической схеме данных](../../main_concepts/logical_schema/logical_schema.md) 
-    в [сервисной базе данных](../../main_concepts/service_db/service_db.md).
-4. Сервис исполнения запросов определяет, из какой [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
-   [хранилища](../../main_concepts/data_storage/data_storage.md) следует выгрузить данные с учетом параметров 
-   запроса, месторасположения данных и [конфигурации системы](../../../maintenance/configuration/system/system.md).  
-   Затем сервис отправляет в соответствующий коннектор команду на выгрузку данных из выбранной СУБД.
-5. Коннектор выгружает данные в топик Kafka, который определен в свойствах внешней таблицы выгрузки, 
-    указанной в запросе.
-6. После успешного выполнения выгрузки данных JDBC-драйвер возвращает синхронный ответ во внешнюю 
-    информационную систему.
+3. Сервис запрашивает актуальную информацию о 
+   [логической схеме данных](../../main_concepts/logical_schema/logical_schema.md) 
+   в [сервисной базе данных](../../main_concepts/service_db/service_db.md) и определяет, из какой [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
+   [хранилища](../../main_concepts/data_storage/data_storage.md) следует выгрузить данные 
+   (см. раздел [Маршрутизация запросов к данным](../../../working_with_system/data_reading/routing/routing.md)).
+4. Сервис исполнения запросов отправляет в коннектор выбранной СУБД команду на выгрузку данных.
+5. Коннектор выгружает данные в топик Kafka, с которым связана внешняя таблица выгрузки, 
+   указанная в запросе 
+   [INSERT INTO download_external_table](../../../reference/sql_plus_requests/INSERT_INTO_download_external_table/INSERT_INTO_download_external_table.md).
+6. JDBC-драйвер возвращает ответ во внешнюю информационную систему. Ответ возвращается синхронно: после успешной выгрузки
+   всех данных.
     
 Подробнее о компонентах системы см. в разделе [Компоненты системы](../../components/components.md), 
 обо всех внешних связях системы см. в разделе [Связи с другими системами и компонентами](../interactions.md).

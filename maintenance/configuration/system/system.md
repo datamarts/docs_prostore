@@ -304,7 +304,9 @@ adg:
 # тайм-аут чтения из ADG (в миллисекундах)
         timeout_read: ${TARANTOOL_DB_SYNC_READ_TIMEOUT:5000}
 # тайм-аут запроса в ADG (в миллисекундах)
-        timeout_request: ${TARANTOOL_DB_SYNC_REQUEST_TIMEOUT:5000}      
+        timeout_request: ${TARANTOOL_DB_SYNC_REQUEST_TIMEOUT:5000}
+ # размер буфера запросов в ADG
+        bufferSize: ${TARANTOOL_DB_SYNC_BUFFER_SIZE:5000}
 # настройки картриджа Tatantool
     cartridge:
 # сетевой путь и порт к картриджу Tarantool
@@ -355,6 +357,8 @@ adqm:
     socketTimeout: ${ADQM_SOCKET_TIMEOUT:30000}
 # время ожидания (в миллисекундах) завершения обмена данными с ADQM до тайм-аута
     dataTransferTimeout: ${ADQM_DATA_TRANSFER_TIMEOUT:10000}
+# размер буфера запросов в ADQM
+    bufferSize: ${ADQM_BUFFER_SIZE:10000}
 # настройки DDL-операторов
   ddl:
 # имя кластера ADQM

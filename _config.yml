@@ -1,7 +1,7 @@
 title: "Документация Prostore"
 description: A Jekyll theme for documentation
 baseurl: "/docs_prostore" # the subpath of your site, e.g. /blog
-url: "https://datamarts.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+#url: "https://datamarts.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 markdown: kramdown
 highlighter: rouge

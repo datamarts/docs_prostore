@@ -20,14 +20,18 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос позволяет вставить несколько записей в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
-(далее — целевая таблица) из другой логической сущности: логической таблицы, 
-[логического](../../../overview/main_concepts/logical_view/logical_view.md) 
-или [материализованного представления](../../../overview/main_concepts/materialized_view/materialized_view.md).
-Вставка данных в логические и материализованные представления 
-недоступна.
+Запрос вставляет записи в [логическую таблицу](../../../overview/main_concepts/logical_table/logical_table.md) 
+или [standalone-таблицу](../../../overview/main_concepts/standalone_table/standalone_table.md)
+(далее — целевая таблица) из другой логической сущности.
 
-Запрос поддерживается для ADB, ADQM и ADP.
+Синтаксис вставки в standalone-таблицу подразумевает использование 
+[внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table), которая 
+указывает на standalone-таблицу.
+При вставке данных в standalone-таблицу нужно учитывать ее ограничения в конкретной СУБД.
+
+Вставка записей в логические и материализованные представления недоступна.
+
+Вставка данных возможна в ADB, ADQM и ADP.
 {: .note-wrapper}
 
 Для вставки большого объема данных следует использовать
@@ -35,73 +39,116 @@ has_toc: false
 [выгрузки](../../../working_with_system/data_download/data_download.md) и загрузки данных.
 {: .tip-wrapper}
 
-Вставка данных возможна, если выполнено любое из условий:
-* данные целевой таблицы размещены только в одной СУБД хранилища, и источником данных служит та же СУБД
-  хранилища;
-* данные целевой таблицы размещены в ADB и ADQM, и источником данных служит ADB.
+Источниками данных могут быть следующие сущности и их соединения:
+* логическая таблица, 
+* [логическое представление](../../../overview/main_concepts/logical_view/logical_view.md) представление, 
+* [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md),
+* standalone-таблица.
 
-Источником данных всегда служит одна СУБД хранилища: указанная в запросе или, если такая не указана, наиболее 
-оптимальная СУБД для исполнения [SELECT](../SELECT/SELECT.md)-подзапроса. Подробнее о выборе СУБД для 
-исполнения запроса см. в разделе 
-[Маршрутизация запросов к данным](../../../working_with_system/data_reading/routing/routing.md).
+Вставка данных возможна при любом из условий:
+* источник данных и данные целевой таблицы находятся в одной СУБД хранилища,
+* источник данных находится в ADB, а данные целевой таблицы — в ADB и (или) ADQM.
+
+Расположение данных логической таблицы можно задавать запросами
+[CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
+`DATASOURCE_TYPE`.
+{: .note-wrapper}
+
+Запрос обрабатывается в порядке, описанном в разделе
+[Порядок обработки запросов на обновление данных](../../../overview/interactions/llw_processing/llw_processing.md).
 
 В ответе возвращается:
 *   пустой объект ResultSet при успешном выполнении запроса;
 *   исключение при неуспешном выполнении запроса.
 
-При успешном выполнении запроса вставленные записи сохраняются как актуальные записи, а предыдущие актуальные записи, 
-если такие найдены, становятся архивными. Наличие предыдущей актуальной записи определяется по первичному ключу: 
-все записи таблицы с одинаковым первичным ключом рассматриваются системой как различные исторические состояния одного 
-объекта. Подробнее о версионировании
+Записи выбираются из одной [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
+[хранилища](../../../overview/main_concepts/data_storage/data_storage.md):
+* [указанной в запросе](../../../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type) или
+  [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) —
+  если данные выбираются из логических таблиц, логических и материализованных представлений;
+* содержащей standalone-таблицу — если данные выбираются из standalone-таблицы или ее соединений с другими сущностями.
+
+Записи в логическую таблицу вставляются как горячие записи. При [фиксации изменений](../COMMIT_DELTA/COMMIT_DELTA.md) 
+записи становятся актуальными, а предыдущие актуальные записи — архивными. 
+Наличие предыдущей актуальной записи определяется по первичному ключу: все записи логической таблицы с одинаковым 
+первичным ключом рассматриваются системой как разные исторические состояния одного объекта.
+Подробнее о версионировании записей 
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 
-Если [операция записи](../../../overview/main_concepts/write_operation/write_operation.md), запущенная запросом
-`INSERT SELECT`, зависла, горячую [дельту](../../../overview/main_concepts/delta/delta.md) невозможно 
-[закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или [откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md). В этом случае нужно 
-повторить запрос. Действие перезапустит обработку операции, и после ее завершения можно будет закрыть или откатить дельту.
-Список незавершенных (в том числе — зависших) операций можно посмотреть можно с помощью запроса
-[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+Незавершенную [операцию](../../../overview/main_concepts/write_operation/write_operation.md) по вставке данных можно 
+перезапустить или отменить. Чтобы перезапустить операцию, повторите исходный запрос с ключевым словом [RETRY](#retry), 
+чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
 
-Месторасположение данных логической таблицы можно задавать запросами
-[CREATE TABLE](../CREATE_TABLE/CREATE_TABLE.md) и [DROP TABLE](../DROP_TABLE/DROP_TABLE.md) с ключевым словом
-`DATASOURCE_TYPE`.
-{: .note-wrapper}
+При вставке данных из standalone-таблицы в логическую таблицу нужно обеспечить неизменность данных в standalone-таблице 
+на время работы запроса. Иначе вставка может привести к расхождениям данных между СУБД хранилища.
+{: .warning-wrapper}
 
 ## Синтаксис {#syntax}
 
-Вставка данных во все столбцы логической таблицы:
+Вставка данных во все столбцы таблицы:
 ```sql
 INSERT INTO [db_name.]table_name SELECT query
 ```
 
-Вставка данных только в некоторые столбцы логической таблицы 
-(с заполнением остальных столбцов значениями, которые определены в СУБД хранилища как значения по умолчанию):
+Вставка данных в некоторые столбцы таблицы 
+(с заполнением остальных столбцов значениями по умолчанию):
 ```sql
 INSERT INTO [db_name.]table_name (column_list) SELECT query
 ```
 
-Параметры:
-* `db_name` — имя логической базы данных. Опционально, если выбрана логическая БД, 
-  [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-* `table_name` — имя логической таблицы, в которую вставляются данные;
-* `column_list` — список имен столбцов логической таблицы. Имена указываются в круглых скобках через запятую. 
+Перезапуск операции по вставке данных:
+```sql
+RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
+```
+
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных. Опционально, если выбрана логическая БД, 
+  [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`table_name`
+
+: Имя таблицы, в которую вставляются данные. Возможные значения:
+* имя логической таблицы,
+* имя [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table),
+  указывающей на нужную standalone-таблицу.
+
+`column_list`
+
+: Список имен столбцов указанной таблицы. Имена перечисляются в круглых скобках через запятую. 
   Список опционален, если количество и порядок столбцов в SELECT-подзапросе соответствуют количеству и порядку столбцов 
-  в логической таблице;
-* `query` — [SELECT](../SELECT/SELECT.md)-подзапрос для выбора данных. Если в подзапросе указано ключевое слово 
-  `DATASOURCE_TYPE` с псевдонимом СУБД хранилища, данные выбираются из указанной СУБД, иначе — из СУБД, 
-  [наиболее оптимальной](../../../working_with_system/data_reading/routing/routing.md) для исполнения запроса.
+  в таблице.
+
+`query`
+
+: [SELECT](../SELECT/SELECT.md)-подзапрос для выбора данных.
+
+### Ключевое слово RETRY {#retry}
+
+Ключевое слово перезапускает обработку незавершенной [операции записи](../../../overview/main_concepts/write_operation/write_operation.md),
+созданной запросом [INSERT SELECT](../INSERT_SELECT/INSERT_SELECT.md). Пример запроса см. [ниже](#retry_example). 
+Список незавершенных операций можно получить с помощью запроса 
+[GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+
+Если ключевое слово не указано, система создает новую операцию и обрабатывает ее.
+
+Ключевое слово `RETRY` недоступно в запросах на вставку записей в standalone-таблицу.
+
+Горячую дельту невозможно [закрыть](../COMMIT_DELTA/COMMIT_DELTA.md) или
+[откатить](../ROLLBACK_DELTA/ROLLBACK_DELTA.md), пока в ней есть незавершенные операции записи.
+{: .note-wrapper}
 
 ## Ограничения {#restrictions}
 
-* Выполнение запроса возможно только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
-* Столбцы в запросе не могут иметь имена, зарезервированные для служебного использования: `sys_op`, `sys_from`,
-  `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
-* Типы вставляемых данных должны соответствовать типам данных столбцов целевой логической таблицы.
-* Не допускается выполнение идентичных параллельных запросов.
+* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Типы вставляемых данных должны соответствовать типам данных столбцов в целевой логической таблице.
+* Не допускается параллельное выполнение идентичных запросов.
 
-## Пример {#examples}
+## Примеры {#examples}
 
-### Вставка данных во все столбцы таблицы {#all_columns_example}
+### Вставка данных во все столбцы логической таблицы {#all_columns_of_logical_table}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -131,7 +178,7 @@ SELECT * FROM sales WHERE CAST(EXTRACT(MONTH FROM transaction_date) AS INT) = 7 
 COMMIT DELTA;
 ```
 
-### Вставка данных в некоторые столбцы таблицы {#some_columns_example}
+### Вставка данных в некоторые столбцы логической таблицы {#some_columns_of_logical_table}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -160,7 +207,7 @@ SELECT id, category, region, address FROM stores FOR SYSTEM_TIME AS OF DELTA_NUM
 COMMIT DELTA;
 ```
 
-### Вставка данных из таблицы другой логической БД {#other_db_example}
+### Вставка данных в логическую таблицу из другой логической БД {#other_db_example}
 
 ```sql
 -- создание новой логической БД sales_new
@@ -191,7 +238,7 @@ INSERT INTO sales SELECT * FROM sales.sales WHERE store_id BETWEEN 1234 AND 4567
 COMMIT DELTA;
 ```
 
-### Вставка данных из логического представления {#view_example}
+### Вставка данных в логическую таблицу из логического представления {#view_example}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -221,7 +268,7 @@ INSERT INTO basic_stores_table SELECT * FROM basic_stores DATASOURCE_TYPE = 'adb
 COMMIT DELTA;
 ```
 
-### Вставка данных столбца из другой таблицы {#column_example}
+### Заполнение столбца логической таблицы данными другой таблицы {#column_example}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
@@ -265,3 +312,81 @@ DATASOURCE_TYPE = 'adb';
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
 ```
+
+### Вставка данных в логическую таблицу из standalone-таблицы {#standalone_to_logical_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- создание логической таблицы agreements_adp с размещением данных в ADP
+CREATE TABLE agreements_adp (
+  id INT NOT NULL,
+  client_id INT NOT NULL,
+  number VARCHAR NOT NULL,
+  signature_date DATE,
+  effective_date DATE,
+  closing_date DATE,
+  description VARCHAR,
+  PRIMARY KEY(id)
+)
+DISTRIBUTED BY (id)
+DATASOURCE_TYPE (adp);
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+
+-- вставка данных в логическую таблицу agreements_adp из standalone-таблицы, 
+--   на которую указывает внешняя readable-таблица agreements_ext_read_adp
+INSERT INTO agreements_adp SELECT * FROM agreements_ext_read_adp;
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```
+
+### Вставка данных в standalone-таблицу из логической таблицы {#logical_to_standalone_example}
+
+```sql
+-- создание внешней writable-таблицы, связанной со standalone-таблицей ADQM
+CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
+  id INT NOT NULL,
+  transaction_date TIMESTAMP NOT NULL,
+  product_code VARCHAR(256) NOT NULL,
+  product_units INT NOT NULL,
+  store_id INT NOT NULL,
+  description VARCHAR(256),
+  PRIMARY KEY (id)
+)
+DISTRIBUTED BY (id)
+LOCATION 'core:adqm://dtm__sales.sales'
+OPTIONS ('auto.create.table.enable=true');
+
+-- вставка данных в standalone-таблицу, на которую указывает внешняя writable-таблица sales_ext_write_adqm,
+--   из логической таблицы sales
+INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
+```
+
+### Перезапуск операции по вставке записей {#retry_example}
+
+```sql
+-- выбор логической базы данных sales в качестве базы данных по умолчанию
+USE sales;
+
+-- открытие новой (горячей) дельты
+BEGIN DELTA;
+   
+-- вставка записей в таблицу current_stores без указания значения столбца description
+INSERT INTO current_stores 
+       (id, category, region, address)
+SELECT id, category, region, address 
+FROM stores FOR SYSTEM_TIME AS OF DELTA_NUM 12 DATASOURCE_TYPE = 'adqm';
+
+-- перезапуск обработки операции по вставке записи
+RETRY INSERT INTO current_stores 
+       (id, category, region, address)
+SELECT id, category, region, address 
+FROM stores FOR SYSTEM_TIME AS OF DELTA_NUM 12 DATASOURCE_TYPE = 'adqm';
+
+-- закрытие дельты (фиксация изменений)
+COMMIT DELTA;
+```  
