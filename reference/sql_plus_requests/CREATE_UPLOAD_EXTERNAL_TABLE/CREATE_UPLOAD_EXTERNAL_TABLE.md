@@ -75,7 +75,7 @@ FORMAT 'AVRO'
 ## Пример {#examples}
 
 ```sql
-CREATE UPLOAD EXTERNAL TABLE sales.sales_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE marketing.sales_ext_upload (
   id INT,
   transaction_date TIMESTAMP,
   product_code VARCHAR(256),

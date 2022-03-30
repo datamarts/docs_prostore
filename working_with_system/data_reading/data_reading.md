@@ -37,8 +37,8 @@ has_toc: false
 ## Примеры {#examples}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- запрос данных из логической таблицы sales
 SELECT s.store_id, SUM(s.product_units) AS product_amount

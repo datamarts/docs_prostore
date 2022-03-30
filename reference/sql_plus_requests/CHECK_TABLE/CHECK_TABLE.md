@@ -57,9 +57,9 @@ CHECK_TABLE([db_name.]table_name)
 
 ## Примеры {#examples}
 
-Проверка логической таблицы `sales.sales`:
+Проверка логической таблицы `sales`:
 ```sql
-CHECK_TABLE(sales.sales)
+CHECK_TABLE(marketing.sales)
 ```
 
 ### Ответ при успешной проверке {#success_examples}

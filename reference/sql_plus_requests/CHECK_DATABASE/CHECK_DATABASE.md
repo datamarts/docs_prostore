@@ -62,9 +62,9 @@ CHECK_DATABASE(db_name)
 
 ## Примеры {#examples}
 
-Проверка логической базы данных `sales`:
+Проверка логической базы данных `marketing`:
 ```sql
-CHECK_DATABASE(sales)
+CHECK_DATABASE(marketing)
 ```
 
 На рисунках ниже показаны примеры ответов: на первом — ответ при отсутствии расхождений, на втором —

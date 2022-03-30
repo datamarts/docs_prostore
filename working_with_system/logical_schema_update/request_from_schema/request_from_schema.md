@@ -27,7 +27,7 @@ ORDER BY schema_name
 
 ```sql
 SELECT * FROM INFORMATION_SCHEMA.tables
-WHERE table_schema = 'SALES'
+WHERE table_schema = 'MARKETING'
 ```
 
 ### Запрос списка столбцов сущностей в логической БД {#column_list_example}
@@ -37,6 +37,6 @@ SELECT TC.table_schema, TC.table_name, TT.table_type, TC.column_name
 FROM information_schema.columns AS TC
 JOIN information_schema.tables AS TT
   ON TC.table_schema = TT.table_schema and TC.table_name = TT.table_name  
-WHERE TT.table_schema = 'SALES'   
+WHERE TT.table_schema = 'MARKETING'   
 ORDER BY TC.table_schema, TC.table_name
 ```

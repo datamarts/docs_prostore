@@ -91,7 +91,7 @@ CHECK_DATA([db_name.]table_name, delta_number[, normalization][, square-brackete
 
 Проверка целостности данных логической таблицы `stores75` в диапазоне \[дельта 0, последняя закрытая дельта\]:
 ```sql
-CHECK_DATA(sales.stores75, 0)
+CHECK_DATA(marketing.stores75, 0)
 ```
 
 На рисунке ниже показан пример ответа `CHECK_DATA` при успешной проверке логической таблицы `stores75`, 
@@ -107,7 +107,7 @@ CHECK_DATA(sales.stores75, 0)
 
 Проверка целостности данных столбцов `id`, `transaction_date` и `product_code` таблицы `sales`:
 ```sql
-CHECK_DATA(sales.sales, 10, [id, transaction_date, product_code])
+CHECK_DATA(marketing.sales, 10, [id, transaction_date, product_code])
 ```
 
 На рисунке ниже показан пример ответа на запрос `CHECK_DATA` по столбцам таблицы при наличии расхождений: 
@@ -122,7 +122,7 @@ CHECK_DATA(sales.sales, 10, [id, transaction_date, product_code])
 
 Проверка целостности данных некоторых столбцов таблицы `sales` с коэффициентом нормализации 100:
 ```sql
-CHECK_DATA(sales.sales, 12, 100, [id, transaction_date, product_code])
+CHECK_DATA(marketing.sales, 12, 100, [id, transaction_date, product_code])
 ```
 
 На рисунке ниже показан пример ответа на такой запрос.

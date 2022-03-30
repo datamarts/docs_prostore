@@ -48,7 +48,7 @@ ALLOW_CHANGES([db_name, ['code']])
 Снятие запрета для указанной логической базы данных:
 
 ```sql
-ALLOW_CHANGES(sales)
+ALLOW_CHANGES(marketing)
 ```
 
 Снятие запрета для логической БД, выбранной по умолчанию:
@@ -70,7 +70,7 @@ ALLOW_CHANGES()
 Снятие запрета для указанной логической базы данных:
 
 ```sql
-ALLOW_CHANGES(sales, 'my awesome code')
+ALLOW_CHANGES(marketing, 'my awesome code')
 ```
 
 Снятие запрета для логической базы данных, выбранной по умолчанию:

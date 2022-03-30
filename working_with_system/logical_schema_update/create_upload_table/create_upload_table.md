@@ -29,11 +29,11 @@ has_toc: false
 ## Пример {#examples}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- создание внешней таблицы загрузки
-CREATE UPLOAD EXTERNAL TABLE sales.sales_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE sales_ext_upload (
   id INT,
   transaction_date TIMESTAMP,
   product_code VARCHAR(256),

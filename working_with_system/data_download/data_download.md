@@ -42,8 +42,8 @@ has_children: false
 
 ## Пример {#example}
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание внешней таблицы для выгрузки из логической таблицы sales
 CREATE DOWNLOAD EXTERNAL TABLE sales_ext_download (
@@ -63,7 +63,7 @@ INSERT INTO sales_ext_download
 SELECT * FROM sales WHERE product_units > 2 FOR SYSTEM_TIME AS OF DELTA_NUM 10;
 
 -- создание внешней таблицы для выгрузки из материализованного представления sales_by_stores
-CREATE DOWNLOAD EXTERNAL TABLE testdb_doc.sales_by_stores_ext_download (
+CREATE DOWNLOAD EXTERNAL TABLE sales_by_stores_ext_download (
 store_id INT,
 product_code VARCHAR(256),
 product_units INT
@@ -73,6 +73,6 @@ FORMAT 'AVRO'
 CHUNK_SIZE 1000;
 
 -- запуск выгрузки данных из материализованного представления sales_by_stores
-INSERT INTO sales.sales_by_stores_ext_download
-SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm';
+INSERT INTO sales_by_stores_ext_download
+SELECT * FROM sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm';
 ```

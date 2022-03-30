@@ -27,17 +27,17 @@ has_children: false
 ### Создание логической базы данных {#creating_db_example}
 
 ``` sql
-CREATE DATABASE sales
+CREATE DATABASE marketing
 ```
 
 ### Создание логической базы данных только на логическом уровне {#logical_creating_db_example}
 
 ``` sql
-CREATE DATABASE sales1 LOGICAL_ONLY
+CREATE DATABASE marketing1 LOGICAL_ONLY
 ```
 
 ### Выбор логической БД по умолчанию {#using_db_example}
 
 ``` sql
-USE SALES
+USE marketing
 ```

@@ -53,7 +53,7 @@ DENY_CHANGES([db_name, ['code']])
 Установка запрета для указанной логической базы данных:
 
 ```sql
-DENY_CHANGES(sales)
+DENY_CHANGES(marketing)
 ```
 
 Установка запрета для логической базы данных, выбранной по умолчанию:
@@ -67,7 +67,7 @@ DENY_CHANGES()
 Установка запрета для указанной логической базы данных:
 
 ```sql
-DENY_CHANGES(sales, 'my awesome code')
+DENY_CHANGES(marketing, 'my awesome code')
 ```
 
 Установка запрета для логической базы данных, выбранной по умолчанию:

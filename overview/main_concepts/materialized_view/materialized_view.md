@@ -117,14 +117,14 @@ _Материализованное представление_ — структ
 ### Пример синхронизации материализованного представления {#synchronization_example}
 
 Рассмотрим пример со следующими условиями:
-* логическая БД `sales` содержит логическую таблицу `sales` и материализованное представление `sales_by_stores`;
+* логическая БД `marketing` содержит логическую таблицу `marketing` и материализованное представление `sales_by_stores`;
 * логическая БД содержит две дельты:
   * дельта 0: в таблицу `sales` загружено две записи (с идентификаторами 100 и 101);
   * дельта 1: в таблицу `sales` загружено еще две записи (с идентификаторами 102 и 103);
 * материализованное представление `sales_by_stores` содержит результат агрегации и группировки данных таблицы `sales` и 
 построено на основе следующего запроса:
 ```sql
-CREATE MATERIALIZED VIEW sales.sales_by_stores (
+CREATE MATERIALIZED VIEW marketing.sales_by_stores (
 store_id INT NOT NULL,
 product_code VARCHAR(256) NOT NULL,
 product_units INT NOT NULL,
@@ -132,7 +132,7 @@ PRIMARY KEY (store_id, product_code)
 )
 DISTRIBUTED BY (store_id)
 DATASOURCE_TYPE (adg)
-AS SELECT store_id, product_code, SUM(product_units) FROM sales.sales
+AS SELECT store_id, product_code, SUM(product_units) FROM marketing.sales
    WHERE product_code <> 'ABC0001'
    GROUP BY store_id, product_code
 DATASOURCE_TYPE = 'adb'

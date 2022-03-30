@@ -35,14 +35,14 @@ GET_ENTITY_DDL([db_name.]entity_name)
 ### Запрос по сущности указанной логической БД {#example_for_defined_db}
 
 ```sql
-GET_ENTITY_DDL(sales.stores)
+GET_ENTITY_DDL(marketing.stores)
 ```
 
 ### Запрос по сущности логической БД, выбранной по умолчанию {#example_for_default_db}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- запрос информации по представлению sales_and_stores
 GET_ENTITY_DDL(sales_and_stores);

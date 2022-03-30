@@ -67,7 +67,7 @@ CHECK_MATERIALIZED_VIEW(sales_and_stores)
 Запрос в указанной логической БД:
 
 ```sql
-CHECK_MATERIALIZED_VIEW(sales.sales_and_stores)
+CHECK_MATERIALIZED_VIEW(marketing.sales_and_stores)
 ```
 
 На рисунках ниже показаны примеры ответов на запрос `CHECK_MATERIALIZED_VIEW`. На первом рисунке представление полностью 

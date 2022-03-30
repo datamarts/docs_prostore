@@ -28,11 +28,11 @@ has_children: false
 ## Пример {#examples}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- создание внешней таблицы выгрузки
-CREATE DOWNLOAD EXTERNAL TABLE sales.sales_ext_download (
+CREATE DOWNLOAD EXTERNAL TABLE marketing.sales_ext_download (
   id INT,
   transaction_date TIMESTAMP,
   product_code VARCHAR(256),
