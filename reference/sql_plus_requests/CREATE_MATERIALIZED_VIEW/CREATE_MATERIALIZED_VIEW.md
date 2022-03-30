@@ -62,9 +62,9 @@ has_toc: false
 
 ```sql
 CREATE MATERIALIZED VIEW [db_name.]materialized_view_name (
-  column_name_1 datatype_1 NOT NULL,
-  column_name_2 datatype_2 DEFAULT default_value_2,
-  column_name_3 datatype_3,
+  column_name_1 datatype_1 [ NULL | NOT NULL ],
+  column_name_2 datatype_2 [ NULL | NOT NULL ],
+  column_name_3 datatype_3 [ NULL | NOT NULL ],
   PRIMARY KEY (column_list_1)
 ) DISTRIBUTED BY (column_list_2)
 DATASOURCE_TYPE (datasource_aliases)
@@ -81,7 +81,6 @@ DATASOURCE_TYPE = origin_datasource_alias
 * `column_name_N` — имя столбца представления;
 * `datatype_N` — тип данных столбца `column_name_N`. Возможные значения см. 
   в разделе [Логические типы данных](../../supported_data_types/logical_data_types/logical_data_types.md);
-* `default_value_N` — значение столбца `column_name_N` по умолчанию;
 * `column_list_1` — список столбцов, входящих в первичный ключ представления;
 * `column_list_2` — список столбцов, входящих в ключ шардирования представления. 
   Столбцы должны быть из числа столбцов `column_list_1`;

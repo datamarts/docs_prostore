@@ -295,6 +295,16 @@ adg:
       retryCount: ${TARANTOOL_DB_RETRY_COUNT:0}
 # движок ADG
       engine: ${TARANTOOL_DEFAULT_ENGINE:MEMTX}
+# количество вертиклов, обрабатывающих запросы к ADG
+      vertxWorkers: ${TARANTOOL_VERTX_WORKERS:10}
+# настройки синхронизации материализованных представлений в ADG
+      sync:
+# тайм-аут подключения к ADG (в миллисекундах)
+        timeout_connect: ${TARANTOOL_DB_SYNC_CONNECTION_TIMEOUT:5000}
+# тайм-аут чтения из ADG (в миллисекундах)
+        timeout_read: ${TARANTOOL_DB_SYNC_READ_TIMEOUT:5000}
+# тайм-аут запроса в ADG (в миллисекундах)
+        timeout_request: ${TARANTOOL_DB_SYNC_REQUEST_TIMEOUT:5000}      
 # настройки картриджа Tatantool
     cartridge:
 # сетевой путь и порт к картриджу Tarantool
