@@ -19,8 +19,9 @@ has_toc: false
 опция `auto.create.table.enable=true`, в СУБД хранилища создается связанная 
 [standalone-таблица](../../../overview/main_concepts/standalone_table/standalone_table.md).
 
-Чтобы можно было различать разные типы внешних таблиц между собой, рекомендуется давать им имена, указывающие на тип
-таблицы, например `payments_ext_read` или `payments_ext_read_adg`.
+Чтобы быстро различать разные типы внешних таблиц между собой, рекомендуется давать им имена, указывающие на тип
+таблицы, например `payments_ext_read` или `payments_ext_read_adg`. При необходимости типы writable- и readable-таблиц
+можно проверить в системном представлении [tables](../../../reference/system_views/system_views.md#tables).
 {: .tip-wrapper}
 
 Внешняя readable-таблица указывает на standalone-таблицу и не хранит сами данные.
