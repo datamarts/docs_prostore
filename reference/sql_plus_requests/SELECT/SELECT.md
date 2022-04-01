@@ -289,8 +289,6 @@ OFFSET <value_2> [ ROW | ROWS ]
   ],
   "query": "SELECT * FROM (SELECT id FROM sales.sales_actual WHERE sys_from <= 98 AND COALESCE(sys_to, 9223372036854775807) >= 98)"
 }
-
-
 ```
 
 ## Ограничения {#restrictions}
