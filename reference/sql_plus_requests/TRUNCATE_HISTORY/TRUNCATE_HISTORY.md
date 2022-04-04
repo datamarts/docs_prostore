@@ -80,7 +80,8 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 
 ## Ограничения {#restrictions}
 
-Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
+* Блок WHERE может содержать только plain-условие; подзапросы, соединения и другие операции не поддерживаются. 
+* Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
 ## Примеры {#examples}
 

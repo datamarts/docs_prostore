@@ -238,6 +238,7 @@ has_toc: false
 
 ## [TRUNCATE_HISTORY](../reference/sql_plus_requests/TRUNCATE_HISTORY/TRUNCATE_HISTORY.md#restrictions)
 
+* Блок WHERE может содержать только plain-условие; подзапросы, соединения и другие операции не поддерживаются.
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
 ## [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md#restrictions)
