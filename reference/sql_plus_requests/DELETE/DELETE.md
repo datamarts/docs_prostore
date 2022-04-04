@@ -50,8 +50,9 @@ has_toc: false
 *   исключение при неуспешном выполнении запроса.
 
 Незавершенную [операцию](../../../overview/main_concepts/write_operation/write_operation.md) по удалению данных 
-можно перезапустить или отменить. Чтобы перезапустить операцию, повторите исходный запрос с ключевым словом [RETRY](#retry),
-чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+можно перезапустить, повторив исходный запрос с ключевым словом [RETRY](#retry). Подробнее обо всех способах 
+обработки незавершенных операций см. в разделе 
+[Управление операциями записи](../../../working_with_system/operation_management/write_op_management/write_op_management.md).
 
 Запрос `DELETE` не удаляет историю изменений данных в логической таблице. 
 <br>Чтобы удалить часть данных с историей изменений или только историю изменений, выполните запрос [TRUNCATE HISTORY](../TRUNCATE_HISTORY/TRUNCATE_HISTORY.md), 

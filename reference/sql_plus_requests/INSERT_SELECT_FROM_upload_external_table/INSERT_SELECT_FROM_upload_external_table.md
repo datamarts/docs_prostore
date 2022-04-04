@@ -60,9 +60,9 @@ has_toc: false
 (см. пример [ниже](#ex_writable_adg)). В этом случае значение `bucket_id` рассчитается в ADG.
 {: .note-wrapper}
 
-Незавершенную операцию по загрузке данных можно перезапустить запросом 
-[RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) 
-или отменить запросом [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md). 
+Незавершенную [операцию](../../../overview/main_concepts/write_operation/write_operation.md) по загрузке данных можно 
+перезапустить или отменить. Подробнее о способах обработки незавершенных операций см. в разделе
+[Управление операциями записи](../../../working_with_system/operation_management/write_op_management/write_op_management.md).
 {: .tip-wrapper}
 
 ## Синтаксис {#syntax}

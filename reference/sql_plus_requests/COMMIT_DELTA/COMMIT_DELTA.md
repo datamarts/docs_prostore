@@ -37,16 +37,11 @@ has_toc: false
 Подробнее о версионировании записей см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 {: .note-wrapper}
 
-Горячую дельту невозможно закрыть или откатить, пока в ней есть незавершенные операции записи. Незавершенную операцию
-можно перезапустить или отменить:
-* чтобы отменить операцию, выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md);
-* чтобы перезапустить операцию:
-  * выполните запрос [RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) — если операция была 
-    запущена запросом [загрузки данных](../../../working_with_system/data_upload/data_upload.md); 
-  * повторите исходный запрос, добавив в начало запроса ключевое слово `RETRY`, — если операция была запущена запросом 
-    [обновления данных](../../../working_with_system/data_update/data_update.md).
-
-Наличие незавершенных операций можно проверить с помощью запроса 
+Горячую дельту невозможно закрыть или откатить, пока в ней есть незавершенные 
+[операции записи](../../../overview/main_concepts/write_operation/write_operation.md). Способы обработки 
+таких операций см. в разделе 
+[Управление операциями записи](../../../working_with_system/operation_management/write_op_management/write_op_management.md).
+<br>Наличие незавершенных операций записи можно проверить с помощью запроса
 [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 {: .note-wrapper}
 

@@ -75,9 +75,8 @@ has_toc: false
 {: .note-wrapper}
 
 Незавершенную [операцию](../../overview/main_concepts/write_operation/write_operation.md) по загрузке данных можно 
-перезапустить или отменить. Чтобы перезапустить операцию, выполните запрос 
-[RESUME_WRITE_OPERATION](../../reference/sql_plus_requests/RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md),
-чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+перезапустить или отменить. Подробнее о способах обработки незавершенных операций см. в разделе
+[Управление операциями записи](../../working_with_system/operation_management/write_op_management/write_op_management.md).
 {: .note-wrapper}
 
 Созданные внешние таблицы загрузки можно использовать повторно или удалить.

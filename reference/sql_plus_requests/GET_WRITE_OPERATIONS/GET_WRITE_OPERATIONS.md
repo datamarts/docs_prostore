@@ -35,13 +35,9 @@ has_toc: false
   (например, операция была запущена запросом [обновления данных](../../../working_with_system/data_update/data_update.md));
 * `query` — исходный запрос операции записи.
 
-Незавершенную операцию записи можно перезапустить или отменить:
-* чтобы отменить операцию, выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md);
-* чтобы перезапустить операцию:
-  * выполните запрос [RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) — если операция была
-    запущена запросом [загрузки данных](../../../working_with_system/data_upload/data_upload.md);
-  * повторите исходный запрос, добавив в начало запроса ключевое слово `RETRY`, — если операция была запущена запросом
-    [обновления данных](../../../working_with_system/data_update/data_update.md).
+Незавершенную операцию записи можно перезапустить или отменить. Подробнее о способах обработки незавершенных операций 
+см. в разделе [Управление операциями записи](../../../working_with_system/operation_management/write_op_management/write_op_management.md).
+{: .tip-wrapper}
   
 ## Синтаксис {#syntax}
 

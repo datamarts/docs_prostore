@@ -63,9 +63,10 @@ has_toc: false
 Подробнее о версионировании
 см. в разделе [Версионирование данных](../../../working_with_system/data_upload/data_versioning/data_versioning.md).
 
-Незавершенную [операцию](../../../overview/main_concepts/write_operation/write_operation.md) по вставке данных можно 
-перезапустить или отменить. Чтобы перезапустить операцию, повторите исходный запрос с ключевым словом [RETRY](#retry),
-чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+Незавершенную [операцию](../../../overview/main_concepts/write_operation/write_operation.md) по вставке данных
+можно перезапустить, повторив исходный запрос с ключевым словом [RETRY](#retry). Подробнее обо всех способах
+обработки незавершенных операций см. в разделе
+[Управление операциями записи](../../../working_with_system/operation_management/write_op_management/write_op_management.md).
 
 ## Синтаксис {#syntax}
 

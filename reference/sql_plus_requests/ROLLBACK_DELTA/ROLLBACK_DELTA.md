@@ -22,9 +22,7 @@ has_toc: false
 После выполнения запроса невозможно закрыть дельту, даже если попытка была неуспешной и запрос вернул исключение.
 {: .warning-wrapper}
 
-Запрос `ROLLBACK DELTA` не отменяет незавершенные операции записи, запущенные запросами [обновления данных](../../../working_with_system/data_update/data_update.md). 
-Чтобы отменить такие операции, выполните для каждой из них запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md) 
-или дождитесь завершения всех операций и выполните запрос `ROLLBACK DELTA`.
+Запрос `ROLLBACK DELTA` не отменяет незавершенные операции записи, запущенные запросами [обновления данных](../../../working_with_system/data_update/data_update.md).
 <br>Операции закрытой дельты отменить невозможно.
 {: .note-wrapper}
 
@@ -50,16 +48,10 @@ has_toc: false
 `Can't rollback delta by datamart <db_name>`, это означает, что некоторые операции не были отменены и нужно повторить запрос.
 {: .note-wrapper}
 
-Горячую дельту невозможно откатить или закрыть, пока в ней есть незавершенные операции записи. Незавершенную операцию 
-можно перезапустить или отменить:
-* чтобы отменить операцию, выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md);
-* чтобы перезапустить операцию:
-   * выполните запрос [RESUME_WRITE_OPERATION](../RESUME_WRITE_OPERATION/RESUME_WRITE_OPERATION.md) — если операция была
-     запущена запросом [загрузки данных](../../../working_with_system/data_upload/data_upload.md);
-   * повторите исходный запрос, добавив в начало запроса ключевое слово `RETRY`, — если операция была запущена запросом
-     [обновления данных](../../../working_with_system/data_update/data_update.md).
-
-Наличие незавершенных операций можно проверить с помощью запроса
+Горячую дельту невозможно откатить или закрыть, пока в ней есть незавершенные операции записи. Способы обработки
+таких операций см. в разделе
+[Управление операциями записи](../../../working_with_system/operation_management/write_op_management/write_op_management.md).
+<br>Наличие незавершенных операций записи можно проверить с помощью запроса
 [GET_WRITE_OPERATIONS](../GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
 {: .note-wrapper}
 

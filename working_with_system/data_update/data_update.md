@@ -61,9 +61,9 @@ has_toc: false
 {: .note-wrapper}
 
 Незавершенную [операцию](../../overview/main_concepts/write_operation/write_operation.md) по обновлению 
-данных можно перезапустить или отменить. 
-Чтобы перезапустить операцию, повторите исходный запрос с ключевым словом `RETRY` (см. примеры [ниже](#retry_example)),
-чтобы отменить — выполните запрос [ERASE_WRITE_OPERATION](../ERASE_WRITE_OPERATION/ERASE_WRITE_OPERATION.md).
+данных можно перезапустить, повторив исходный запрос с ключевым словом `RETRY` (см. примеры [ниже](#retry_example)).
+Подробнее обо всех способах обработки незавершенных операций см. в разделе
+[Управление операциями записи](../../working_with_system/operation_management/write_op_management/write_op_management.md).
 {: .note-wrapper}
 
 ## Обновление данных standalone-таблицы {#update_in_standalone_table}

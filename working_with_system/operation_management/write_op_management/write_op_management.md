@@ -10,9 +10,13 @@ has_toc: false
 
 # Управление операциями записи {#write_op_management}
 
-Перезапускать и отменять [операции записи](../../../overview/main_concepts/write_operation/write_operation.md) 
+Перезапускать и отменять незавершенные [операции записи](../../../overview/main_concepts/write_operation/write_operation.md) 
 можно с помощью запросов, перечисленных в таблице ниже. Подробное описание 
 запросов см. [в справочнике запросов](../../../reference/sql_plus_requests/sql_plus_requests.md).
+
+Наличие незавершенных операций записи можно проверить с помощью запроса
+[GET_WRITE_OPERATIONS](../../../reference/sql_plus_requests/GET_WRITE_OPERATIONS/GET_WRITE_OPERATIONS.md).
+{: .note-wrapper}
 
 | Запрос | Операции <br>со статусом 0 <br>(«Выполняется») | Операции <br>со статусом 2 («Отменяется»)
 |:-|:-|:-
