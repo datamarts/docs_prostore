@@ -22,14 +22,8 @@ has_toc: false
 
 Запрос позволяет создать [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
-Материализованное представление может содержать результаты запроса к данным 
-[логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md), 
-[standalone-таблиц](../../../overview/main_concepts/standalone_table/standalone_table.md)
-или их соединений.
-
-Синтаксис создания представления на основе standalone-таблицы подразумевает использование
-[внешней readable-таблицы](../../../overview/main_concepts/external_table/external_table.md#readable_table), которая
-указывает на нужную standalone-таблицу.
+Материализованное представление может содержать результаты запроса к данным одной или нескольких 
+[логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md).
 
 Данные представлений можно размещать в ADG и (или) ADQM. Источником данных для представлений служит ADB.
 {: .note-wrapper}
