@@ -46,7 +46,13 @@ has_children: false
   в standalone-таблицы; синтаксис запроса не изменился, изменилось только обозначение запроса в документе;
 * в [конфигурацию системы](../maintenance/configuration/system/system.md) добавлены параметры `TARANTOOL_DB_SYNC_BUFFER_SIZE` и 
 `ADQM_BUFFER_SIZE`;
-* описан [формат служебного топика Kafka](../reference/system_topic_format/system_topic_format.md).
+* описан [формат служебного топика Kafka](../reference/system_topic_format/system_topic_format.md);
+* в главу [Работа с системой](../working_with_system/working_with_system.md) добавлен раздел 
+  [Управление операциями](../working_with_system/operation_management/operation_management.md);
+* раздел «Разбор ошибок загрузки и обновления данных» переименован в 
+  [Причины ошибок загрузки и обновления данных](../reference/troubleshooting/troubleshooting.md) и перенесен в главу 
+  [Справочная информация](../reference/reference.md); информация об обработке операций записи вынесена в новый раздел
+  [Управление операциями](../working_with_system/operation_management/operation_management.md).
   
 ## Архивные версии документации {#archive}
 
