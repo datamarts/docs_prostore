@@ -61,7 +61,7 @@ SELECT column_list FROM [INFORMATION_SCHEMA.]system_view_name [AS alias_name]
 *   `LIMIT` — для ограничения количества возвращаемых строк.
 
 Строковые значения столбцов для ключевого слова `WHERE` необходимо указывать в верхнем регистре 
-(например, `WHERE table_schema = 'SALES'`).
+(например, `WHERE table_schema = 'MARKETING'`).
 {: .warning-wrapper}
 
 Поддерживаются следующие типы соединений системных представлений:
@@ -88,9 +88,9 @@ SELECT schema_name FROM INFORMATION_SCHEMA.schemata ORDER BY schema_name
 
 ### Запрос информации о сущностях логической БД {#entity_list_example}
 
-Запрос информации о логических сущностях логической БД `SALES`:
+Запрос информации о логических сущностях логической БД `MARKETING`:
 ```sql
-SELECT * FROM INFORMATION_SCHEMA.tables WHERE table_schema = 'SALES'
+SELECT * FROM INFORMATION_SCHEMA.tables WHERE table_schema = 'MARKETING'
 ```
 
 ### Запрос имен, типов и столбцов логических сущностей {#entity_info_example}

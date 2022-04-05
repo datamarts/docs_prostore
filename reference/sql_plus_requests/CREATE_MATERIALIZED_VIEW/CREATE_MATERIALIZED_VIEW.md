@@ -148,7 +148,7 @@ DATASOURCE_TYPE = origin_datasource_alias
 * Имена столбцов должны быть уникальны в рамках представления.
 * Имена, порядок и типы данных столбцов должны совпадать в SELECT-подзапросе и представлении.
 * Первичный ключ должен включать все столбцы ключа шардирования.
-* Логические и readable-таблицы, указанные в SELECT-подзапросе, должны принадлежать той же логической базе данных, 
+* Логические таблицы, указанные в SELECT-подзапросе, должны принадлежать той же логической базе данных, 
   что и материализованное представление.
 * Подзапрос не может содержать: 
   * ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
@@ -162,7 +162,7 @@ DATASOURCE_TYPE = origin_datasource_alias
 Создание представления с размещением в ADG и ADQM:
 
 ```sql
-CREATE MATERIALIZED VIEW sales.sales_december_2020 (
+CREATE MATERIALIZED VIEW marketing.sales_december_2020 (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
@@ -173,7 +173,7 @@ CREATE MATERIALIZED VIEW sales.sales_december_2020 (
 )
 DISTRIBUTED BY (id)
 DATASOURCE_TYPE (adg, adqm)
-AS SELECT * FROM sales.sales
+AS SELECT * FROM marketing.sales
    WHERE cast(transaction_date as date) BETWEEN '2020-12-01' AND '2020-12-31'
 DATASOURCE_TYPE = 'adb'
 ```

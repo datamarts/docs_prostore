@@ -61,11 +61,11 @@ CREATE DATABASE db_name LOGICAL_ONLY
 ### Создание логической БД {#non-logical_example}
 
 ```sql
-CREATE DATABASE sales
+CREATE DATABASE marketing
 ```
 
 ### Создание логической БД только на логическом уровне {#logical_example}
 
 ```sql
-CREATE DATABASE sales1 LOGICAL_ONLY
+CREATE DATABASE marketing1 LOGICAL_ONLY
 ```

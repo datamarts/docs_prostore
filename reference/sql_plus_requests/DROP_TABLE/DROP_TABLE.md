@@ -103,27 +103,27 @@ DROP TABLE [IF EXISTS] [db_name.]table_name
 ### Удаление таблицы с удалением данных из всех СУБД {#all_db_example}
 
 ```sql
-DROP TABLE sales.sales
+DROP TABLE marketing.sales
 ```
 
 ### Удаление таблицы и ее данных с проверкой наличия таблицы {#example_with_check}
 
 ```sql
-DROP TABLE IF EXISTS sales.sales_unknown_existence
+DROP TABLE IF EXISTS marketing.sales_unknown_existence
 ```
 
 ### Удаление таблицы с удалением данных из ADB и ADG {#adb_adg_example}
 
 ```sql
 -- удаление таблицы из ADB
-DROP TABLE sales.stores DATASOURCE_TYPE = adb;
+DROP TABLE marketing.stores DATASOURCE_TYPE = adb;
 
 -- удаление таблицы из ADG
-DROP TABLE sales.stores DATASOURCE_TYPE = adg;
+DROP TABLE marketing.stores DATASOURCE_TYPE = adg;
 ```
 
 ### Удаление таблицы только на логическом уровне {#logical_example}
 
 ```sql
-DROP TABLE sales.sales1 LOGICAL_ONLY
+DROP TABLE marketing.sales1 LOGICAL_ONLY
 ```

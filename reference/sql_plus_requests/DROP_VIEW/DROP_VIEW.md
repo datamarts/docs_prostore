@@ -53,5 +53,5 @@ DROP VIEW [db_name.]view_name
 ## Пример {#examples}
 
 ```sql
-DROP VIEW sales.stores_by_sold_products
+DROP VIEW marketing.stores_by_sold_products
 ```

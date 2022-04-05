@@ -41,5 +41,5 @@ DROP UPLOAD EXTERNAL TABLE [db_name.]ext_table_name
 ## Пример {#examples}
 
 ```sql
-DROP UPLOAD EXTERNAL TABLE sales.sales_ext_upload
+DROP UPLOAD EXTERNAL TABLE marketing.sales_ext_upload
 ```

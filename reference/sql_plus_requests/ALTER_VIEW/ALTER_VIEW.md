@@ -65,9 +65,9 @@ ALTER VIEW [db_name.]view_name AS SELECT query
 ## Пример {#examples}
 
 ```sql
-ALTER VIEW sales.stores_by_sold_products AS
+ALTER VIEW marketing.stores_by_sold_products AS
   SELECT store_id, SUM(product_units) AS product_amount
-  FROM sales.sales
+  FROM marketing.sales
   GROUP BY store_id
   ORDER BY product_amount ASC
 LIMIT 20

@@ -37,8 +37,8 @@ has_children: false
 
 ### Удаление материализованного представления из одной СУБД {#adg_example}
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- удаление представления sales_and_stores
 DROP MATERIALIZED VIEW sales_and_stores DATASOURCE_TYPE = 'adg';
@@ -47,11 +47,11 @@ DROP MATERIALIZED VIEW sales_and_stores DATASOURCE_TYPE = 'adg';
 ### Удаление материализованного представления из всех СУБД {#all_db_example}
 
 ```sql
-DROP MATERIALIZED VIEW sales.sales_and_stores
+DROP MATERIALIZED VIEW marketing.sales_and_stores
 ```
 
 ### Удаление материализованного представления только на логическом уровне {#logical_example}
 
 ```sql
-DROP MATERIALIZED VIEW sales.stores_by_sold_products_matview LOGICAL_ONLY
+DROP MATERIALIZED VIEW marketing.stores_by_sold_products_matview LOGICAL_ONLY
 ```

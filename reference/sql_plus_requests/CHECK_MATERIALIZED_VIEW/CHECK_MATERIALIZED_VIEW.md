@@ -73,19 +73,20 @@ CHECK_MATERIALIZED_VIEW(sales_and_stores)
 Запрос в указанной логической БД:
 
 ```sql
-CHECK_MATERIALIZED_VIEW(sales.sales_and_stores)
+CHECK_MATERIALIZED_VIEW(marketing.sales_and_stores)
 ```
 
-На рисунках ниже показаны примеры ответов на запрос `CHECK_MATERIALIZED_VIEW`. На первом рисунке представление полностью 
-синхронизовано с источником: в столбце `is_sync_now` нет флажка, и значения в столбцах `last_sync_delta` и 
-`datamart_delta_ok` совпадают. На втором рисунке представление синхронизируется в текущий момент.
-
-![](check_materialized_view_synced.png)
-{: .figure-center}
-*Пример ответа: представление синхронизировано с источником*
-{: .figure-caption-center}
+На рисунках ниже показаны примеры ответов на запрос `CHECK_MATERIALIZED_VIEW`. На первом рисунке представление 
+синхронизируется: в столбце `is_sync_now` стоит флажок, и столбец `last_sync_delta` пуст. На втором рисунке 
+представление синхронизовано с источником: в столбце `is_sync_now` нет флажка, и значения в столбцах `last_sync_delta` и
+`datamart_delta_ok` совпадают.
 
 ![](check_materialized_view_syncing.png)
 {: .figure-center}
 *Пример ответа: представление еще синхронизируется с источником*
+{: .figure-caption-center}
+
+![](check_materialized_view_synced.png)
+{: .figure-center}
+*Пример ответа: представление синхронизировано с источником*
 {: .figure-caption-center}

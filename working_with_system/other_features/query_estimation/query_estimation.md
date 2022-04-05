@@ -29,7 +29,7 @@ has_toc: false
 
 ```sql
 SELECT s.store_id, SUM(s.product_units) AS product_amount
-FROM sales.sales AS s
+FROM marketing.sales AS s
 GROUP BY (s.store_id)
 ORDER BY product_amount DESC
 ESTIMATE_ONLY

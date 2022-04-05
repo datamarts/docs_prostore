@@ -152,8 +152,8 @@ RETRY INSERT INTO [db_name.]table_name [(column_list)] SELECT query
 ### Вставка данных во все столбцы логической таблицы {#all_columns_of_logical_table}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание логической таблицы sales_july_2021 с данными о продажах за июль 2021 (с размещением данных в ADB)
 CREATE TABLE sales_july_2021 (

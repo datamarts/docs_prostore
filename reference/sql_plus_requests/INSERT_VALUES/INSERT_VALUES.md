@@ -135,8 +135,8 @@ RETRY INSERT INTO [db_name.]table_name [(column_list)] VALUES (value_list_1), (v
 ### Вставка данных во все столбцы логической таблицы {#all_columns_of_logical_table}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
@@ -154,11 +154,14 @@ COMMIT DELTA;
 ### Вставка данных в указанные столбцы логической таблицы {#some_columns_of_logical_table}
 
 ```sql
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
+
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
 -- вставка двух записей в логическую таблицу sales (без опционального значения description)
-INSERT INTO sales.sales 
+INSERT INTO sales 
        (id, transaction_date, product_code, product_units, store_id)
 VALUES (300014, '2021-08-23 09:34:10', 'ABC0003', 3, 123), 
        (300012, '2021-08-23 20:05:56', 'ABC0001', 6, 234);

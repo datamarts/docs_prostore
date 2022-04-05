@@ -61,11 +61,11 @@ DROP DATABASE db_name LOGICAL_ONLY
 ### Удаление логической БД {#non-logical_example}
 
 ```sql
-DROP DATABASE sales
+DROP DATABASE marketing
 ```
 
 ### Удаление логической БД только на логическом уровне {#logical_example}
 
 ```sql
-DROP DATABASE sales1 LOGICAL_ONLY
+DROP DATABASE marketing1 LOGICAL_ONLY
 ```

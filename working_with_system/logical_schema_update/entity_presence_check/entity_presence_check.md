@@ -61,7 +61,7 @@ has_children: false
 На рисунке ниже показана логическая БД в дереве объектов SQL-клиента.
 
 <a id="img_table_in_tree"></a>
-![](db_in_tree.png){:height="50%" width="50%"}
+![](db_in_tree.png){:height="56%" width="56%"}
 {: .figure-center}
 *Логическая БД в дереве объектов*
 {: .figure-caption-center}
@@ -103,11 +103,11 @@ SELECT * FROM <db_name>.<table_name> LIMIT 5
 Если логическая таблица существует, она присутствует среди объектов логической БД в SQL-клиенте,
 иначе — отсутствует среди таких объектов.
 
-<a id="img_table_in_object_tree"></a>
-![](table_in_tree.png){:height="40%" width="40%"}
-{: .figure-center}
-*Логические таблицы в дереве объектов*
-{: .figure-caption-center}
+    <a id="img_table_in_object_tree"></a>
+    ![](table_in_tree.png){:height="52%" width="52%"}
+    {: .figure-center}
+    *Логическая таблица в дереве объектов*
+    {: .figure-caption-center}
 
 ## Проверка наличия логического представления {#view_check}
 
@@ -146,11 +146,11 @@ SELECT * FROM <db_name>.<view_name> LIMIT 5
 Если логическое представление, оно присутствует среди объектов логической БД в SQL-клиенте,
 иначе — отсутствует среди объектов логической БД.
 
-<a id="img_view_in_object_tree"></a>
-![](view_in_tree.png){:height="50%" width="50%"}
-{: .figure-center}
-*Логическое представление в дереве объектов*
-{: .figure-caption-center}
+    <a id="img_view_in_object_tree"></a>
+    ![](view_in_tree.png){:height="62%" width="62%"}
+    {: .figure-center}
+    *Логическое представление в дереве объектов*
+    {: .figure-caption-center}
 
 ## Проверка наличия материализованного представления {#mat_view_check}
 
@@ -190,11 +190,11 @@ SELECT * FROM <db_name>.<materialized_view_name> LIMIT 5
 Если материализованное представление существует, оно присутствует среди объектов логической БД в SQL-клиенте,
 иначе — отсутствует среди объектов логической БД.
 
-<a id="img_mat_view_in_object_tree"></a>
-![](materialized_view_in_tree.png){:height="70%" width="70%"}
-{: .figure-center}
-*Материализованное представление в дереве объектов*
-{: .figure-caption-center}
+    <a id="img_mat_view_in_object_tree"></a>
+    ![](materialized_view_in_tree.png){:height="60%" width="60%"}
+    {: .figure-center}
+    *Материализованное представление в дереве объектов*
+    {: .figure-caption-center}
 
 ## Проверка наличия внешней таблицы загрузки или выгрузки {#ext_table_check}
 
@@ -208,13 +208,13 @@ SQL-клиента. Внешние таблицы не отображаются 
 и внешней таблицей выгрузки `sales_ext_download` соответственно.
 
 <a id="img_upload_table_in_tree"></a>
-![](upload_table_in_tree.png){:height="50%" width="50%"}
+![](upload_table_in_tree.png){:height="66%" width="66%"}
 {: .figure-center}
 *Внешняя таблица загрузки в дереве объектов*
 {: .figure-caption-center}
 
 <a id="img_download_table_in_tree"></a>
-![](download_table_in_tree.png){:height="46%" width="46%"}
+![](download_table_in_tree.png){:height="60%" width="60%"}
 {: .figure-center}
 *Внешняя таблица выгрузки в дереве объектов*
 {: .figure-caption-center}

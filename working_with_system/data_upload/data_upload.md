@@ -96,8 +96,8 @@ has_toc: false
 ### Загрузка в логическую таблицу {#logical_table_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание логической таблицы
 CREATE TABLE sales (
@@ -128,7 +128,7 @@ MESSAGE_LIMIT 1000;
 BEGIN DELTA;
 
 -- запуск загрузки данных в логическую таблицу
-INSERT INTO sales SELECT * FROM sales.sales_ext_upload;
+INSERT INTO sales SELECT * FROM sales_ext_upload;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;

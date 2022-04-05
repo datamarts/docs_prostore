@@ -39,8 +39,8 @@ has_children: false
 ### Создание логической таблицы {#non-logical_example}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- создание таблицы sales
 CREATE TABLE sales (
@@ -58,7 +58,7 @@ DISTRIBUTED BY (id);
 ### Создание логической таблицы только на логическом уровне {#logical_example}
 
 ```sql
-CREATE TABLE sales.sales1 (
+CREATE TABLE marketing.sales1 (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
@@ -74,7 +74,7 @@ LOGICAL_ONLY
 ### Создание логической таблицы с размещением данных в ADP и ADG {#adp_adg_example}
 
 ```sql
-CREATE TABLE sales.clients (
+CREATE TABLE marketing.clients (
   id INT NOT NULL,
   first_name VARCHAR(256) NOT NULL,
   last_name VARCHAR(256) NOT NULL,

@@ -90,7 +90,7 @@ TRUNCATE HISTORY [db_name.]table_name FOR SYSTEM_TIME AS OF date_time_expression
 Удаление истории изменений тех записей, чье значение `product_units` меньше `10`, из таблицы `sales` 
 по момент времени `'2019-12-23 15:15:14'`:
 ```sql
-TRUNCATE HISTORY sales.sales FOR SYSTEM_TIME AS OF '2019-12-23 15:15:14'
+TRUNCATE HISTORY marketing.sales FOR SYSTEM_TIME AS OF '2019-12-23 15:15:14'
 WHERE product_units < 10
 ```
 
@@ -98,6 +98,6 @@ WHERE product_units < 10
 
 Удаление записей, чье значение `id` равно `123456`, с историей изменений из таблицы `stores`:
 ```sql
-TRUNCATE HISTORY sales.stores FOR SYSTEM_TIME AS OF 'infinite'
+TRUNCATE HISTORY marketing.stores FOR SYSTEM_TIME AS OF 'infinite'
 WHERE id = 123456
 ```

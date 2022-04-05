@@ -109,7 +109,7 @@ FORMAT 'AVRO'
 ### Таблица для загрузки в логическую таблицу {#to_logical_table}
 
 ```sql
-CREATE UPLOAD EXTERNAL TABLE sales.sales_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE marketing.sales_ext_upload (
   id INT,
   transaction_date TIMESTAMP,
   product_code VARCHAR(256),

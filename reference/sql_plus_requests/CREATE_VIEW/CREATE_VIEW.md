@@ -79,9 +79,9 @@ CREATE OR REPLACE VIEW [db_name.]view_name AS SELECT query
 ### Представление на основе логической таблицы {#on_logical_table}
 
 ```sql
-CREATE VIEW sales.stores_by_sold_products AS
+CREATE VIEW marketing.stores_by_sold_products AS
   SELECT store_id, SUM(product_units) AS product_amount
-  FROM sales.sales
+  FROM marketing.sales
   GROUP BY store_id
   ORDER BY product_amount DESC
   LIMIT 20

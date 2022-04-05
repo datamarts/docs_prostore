@@ -48,5 +48,5 @@ USE db_name
 ## Пример {#examples}
 
 ```sql
-USE sales
+USE marketing
 ```

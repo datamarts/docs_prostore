@@ -104,16 +104,16 @@ CHECK_DATA([db_name.]table_name, delta_number[, normalization][, square_brackete
 
 ### Запрос без перечисления столбцов {#example_without_columns}
 
-Проверка целостности данных логической таблицы `stores75` в диапазоне \[дельта 0, последняя закрытая дельта\]:
+Проверка целостности данных логической таблицы `sales_july_2021` в диапазоне \[дельта 0, последняя закрытая дельта\]:
 ```sql
-CHECK_DATA(sales.stores75, 0)
+CHECK_DATA(marketing.sales_july_2021, 0)
 ```
 
-На рисунке ниже показан пример ответа `CHECK_DATA` при успешной проверке логической таблицы `stores75`, 
+На рисунке ниже показан пример ответа `CHECK_DATA` при успешной проверке логической таблицы `sales_july_2021`, 
 данные которой размещены только в ADB.
 
 <a id="img_check_for_one_db"></a>
-![](check_data_without_inconsistency.png){:height="50%" width="50%"}
+![](check_data_without_inconsistency.png){:height="70%" width="70%"}
 {: .figure-center}
 *Ответ CHECK_DATA с проверкой только в ADB*
 {: .figure-caption-center}
@@ -122,22 +122,22 @@ CHECK_DATA(sales.stores75, 0)
 
 Проверка целостности данных столбцов `id`, `transaction_date` и `product_code` таблицы `sales`:
 ```sql
-CHECK_DATA(sales.sales, 10, [id, transaction_date, product_code])
+CHECK_DATA(marketing.sales, 0, [id, transaction_date, product_code])
 ```
 
 На рисунке ниже показан пример ответа на запрос `CHECK_DATA` по столбцам таблицы при наличии расхождений: 
-контрольная сумма дельты 10 в ADB отличается от контрольной суммы в ADG и ADQM.
+контрольная сумма нулевой дельты в ADB отличается от контрольной суммы в других СУБД.
 
-![](check_data_with_inconsistency.png){:height="80%" width="80%"}
+![](check_data_with_inconsistency.png){:height="72%" width="72%"}
 {: .figure-center}
-*Ответ CHECK_DATA с найденными расхождениями*
+*Ответ CHECK_DATA с расхождениями*
 {: .figure-caption-center}
 
 ### Запрос с коэффициентом нормализации {#example_with_normalization}
 
 Проверка целостности данных некоторых столбцов таблицы `sales` с коэффициентом нормализации 100:
 ```sql
-CHECK_DATA(sales.sales, 12, 100, [id, transaction_date, product_code])
+CHECK_DATA(marketing.sales, 5, 100, [id, transaction_date, product_code])
 ```
 
 На рисунке ниже показан пример ответа на такой запрос.

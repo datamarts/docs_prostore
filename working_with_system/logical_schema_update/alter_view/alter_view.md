@@ -28,8 +28,8 @@ has_children: false
 ### Создание логического представления {#creating_example}
 
 ```sql
--- выбор sales как логической базы данных по умолчанию
-USE sales;
+-- выбор marketing как логической базы данных по умолчанию
+USE marketing;
 
 -- создание логического представления
 CREATE VIEW stores_by_sold_products AS
@@ -43,9 +43,9 @@ CREATE VIEW stores_by_sold_products AS
 ### Изменение логического представления {#altering_example}
 
 ```sql
-ALTER VIEW stores_by_sold_products AS
+ALTER VIEW marketing.stores_by_sold_products AS
   SELECT store_id, SUM(product_units) AS product_amount
-  FROM sales
+  FROM marketing.sales
   GROUP BY store_id
   ORDER BY product_amount ASC
   LIMIT 20
@@ -54,9 +54,9 @@ ALTER VIEW stores_by_sold_products AS
 ### Пересоздание логического представления {#recreation_example}
 
 ```sql
-CREATE OR REPLACE VIEW stores_by_sold_products AS
+CREATE OR REPLACE VIEW marketing.stores_by_sold_products AS
   SELECT store_id, SUM(product_units) AS product_amount
-  FROM sales
+  FROM marketing.sales
   GROUP BY store_id
   ORDER BY product_amount DESC
   LIMIT 30

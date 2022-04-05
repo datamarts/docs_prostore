@@ -108,7 +108,7 @@ CHECK_SUM_SNAPSHOT(delta_num[, normalization][, [db_name.]entity_name[, square_b
 
 Расчет контрольной суммы по трем столбцам таблицы `basic_stores_table` в седьмой дельте:
 ```sql
-CHECK_SUM_SNAPSHOT(7,sales.basic_stores_table,[id, category, region])
+CHECK_SUM_SNAPSHOT(7,marketing.basic_stores_table,[id, category, region])
 ```
 
 На рисунке ниже показан пример ответа на запрос `CHECK_SUM_SNAPSHOT` с перечислением столбцов таблицы.
@@ -122,12 +122,12 @@ CHECK_SUM_SNAPSHOT(7,sales.basic_stores_table,[id, category, region])
 
 Расчет контрольной суммы по всей таблице `basic_stores_table` в седьмой дельте:
 ```sql
-CHECK_SUM_SNAPSHOT(7,sales.basic_stores_table)
+CHECK_SUM_SNAPSHOT(7,marketing.basic_stores_table)
 ```
 
 На рисунке ниже показан пример ответа на запрос `CHECK_SUM_SNAPSHOT` по логической таблице при наличии расхождений.
 
-![](check_sum_snapshot_with_inconsistency.png){:height="90%" width="90%"}
+![](check_sum_snapshot_with_inconsistency.png)
 {: .figure-center}
 *Ответ CHECK_SUM_SNAPSHOT по логической таблице при наличии расхождений*
 {: .figure-caption-center}
@@ -136,15 +136,15 @@ CHECK_SUM_SNAPSHOT(7,sales.basic_stores_table)
 
 Расчет контрольной суммы по всему материализованному представлению `sales_by_stores` в седьмой дельте:
 ```sql
-CHECK_SUM_SNAPSHOT(7,sales.sales_by_stores)
+CHECK_SUM_SNAPSHOT(7,marketing.sales_by_stores)
 ```
 
 ### Запрос по логической базе данных {#db_example}
 
-Расчет контрольной суммы по всем таблицам логической базы данных `sales_new` в нулевой дельте:
+Расчет контрольной суммы по всем таблицам логической базы данных `marketing_new` в нулевой дельте:
 ```sql
--- выбор логической базы данных sales_new в качестве базы данных по умолчанию
-USE sales_new;
+-- выбор логической базы данных marketing_new в качестве базы данных по умолчанию
+USE marketing_new;
 
 -- расчет контрольной суммы логической БД
 CHECK_SUM_SNAPSHOT(0);
@@ -152,17 +152,17 @@ CHECK_SUM_SNAPSHOT(0);
 
 На рисунке ниже показан пример ответа на запрос `CHECK_SUM_SNAPSHOT` по логической базе данных.
 
-![](check_sum_snapshot_for_db.png){:height="26%" width="26%"}
+![](check_sum_snapshot_for_db.png){:height="30%" width="30%"}
 {: .figure-center}
 *Ответ CHECK_SUM_SNAPSHOT по логической базе данных*
 {: .figure-caption-center}
 
 ### Запрос по логической базе данных с коэффициентом нормализации {#example_with_normalization}
 
-Расчет контрольной суммы по всем таблицам логической базы данных `sales_new` с коэффициентом нормализации, равным 100:
+Расчет контрольной суммы по всем таблицам логической базы данных `marketing_new` с коэффициентом нормализации, равным 100:
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales_new;
+-- выбор логической базы данных marketing_new в качестве базы данных по умолчанию
+USE marketing_new;
 
 -- расчет контрольной суммы логической БД с указанным коэффициентом нормализации
 CHECK_SUM_SNAPSHOT(7, 100);
@@ -170,7 +170,7 @@ CHECK_SUM_SNAPSHOT(7, 100);
 
 На рисунке ниже показан пример ответа на такой запрос.
 
-![](check_sum_snapshot_for_db_with_normalization.png){:height="26%" width="26%"}
+![](check_sum_snapshot_for_db_with_normalization.png){:height="36%" width="36%"}
 {: .figure-center}
 *Запрос CHECK_SUM_SNAPSHOT с коэффициентом нормализации*
 {: .figure-caption-center}

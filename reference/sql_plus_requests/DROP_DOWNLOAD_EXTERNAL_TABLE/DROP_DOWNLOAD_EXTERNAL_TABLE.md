@@ -41,5 +41,5 @@ DROP DOWNLOAD EXTERNAL TABLE [db_name.]ext_table_name
 ## Пример {#examples}
 
 ```sql
-DROP DOWNLOAD EXTERNAL TABLE sales.sales_ext_download
+DROP DOWNLOAD EXTERNAL TABLE marketing.sales_ext_download
 ```
