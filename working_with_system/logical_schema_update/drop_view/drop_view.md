@@ -31,8 +31,8 @@ has_children: false
 ## Пример {#examples}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- удаление представления stores_by_sold_products
 DROP VIEW stores_by_sold_products;

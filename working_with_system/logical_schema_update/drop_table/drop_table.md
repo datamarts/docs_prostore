@@ -39,8 +39,8 @@ has_children: false
 ### Удаление логической таблицы из одной СУБД {#adqm_example}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- удаление таблицы sales из СУБД ADQM
 DROP TABLE sales DATASOURCE_TYPE = 'adqm';
@@ -49,11 +49,11 @@ DROP TABLE sales DATASOURCE_TYPE = 'adqm';
 ### Удаление логической таблицы из всех СУБД {#all_db_example}
 
 ```sql
-DROP TABLE sales.sales
+DROP TABLE marketing.sales
 ```
 
 ### Удаление логической таблицы только на логическом уровне {#logical_deleting_table_example}
 
 ```sql
-DROP TABLE sales.sales1 LOGICAL_ONLY
+DROP TABLE marketing.sales1 LOGICAL_ONLY
 ```

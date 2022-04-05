@@ -80,8 +80,8 @@ DELETE FROM [db_name.]table_name [WHERE filter_expression]
 ## Пример {#examples}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;

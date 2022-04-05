@@ -86,11 +86,14 @@ INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]ext_table_name
 
 Пример загрузки данных с открытием и закрытием дельты:
 ```sql
+-- выбор логической базы данных marketing в качестве БД по умолчанию
+USE marketing;
+
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
 -- запуск загрузки данных в логическую таблицу sales
-INSERT INTO sales.sales SELECT * FROM sales.sales_ext_upload;
+INSERT INTO sales SELECT * FROM sales_ext_upload;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;

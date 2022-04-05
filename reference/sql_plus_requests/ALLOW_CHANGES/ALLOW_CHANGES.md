@@ -48,7 +48,7 @@ ALLOW_CHANGES([db_name, ['code']])
 Снятие запрета для указанной логической базы данных:
 
 ```sql
-ALLOW_CHANGES(sales)
+ALLOW_CHANGES(marketing)
 ```
 
 Снятие запрета для логической БД, выбранной по умолчанию:
@@ -60,7 +60,7 @@ ALLOW_CHANGES()
 На рисунке ниже показан пример ответа на запрос `ALLOW_CHANGES` в случае некорректного код-пароля. При установке запрета
 изменений был указан код `my awesome code`, который не был указан при снятии запрета.
 
-![](allow_changes_with_wrong_code.png){:height="80%" width="80%"}
+![](allow_changes_with_wrong_code.png){:height="86%" width="86%"}
 {: .figure-center}
 *Ответ ALLOW_CHANGES в случае некорректного кода*
 {: .figure-caption-center}
@@ -70,7 +70,7 @@ ALLOW_CHANGES()
 Снятие запрета для указанной логической базы данных:
 
 ```sql
-ALLOW_CHANGES(sales, 'my awesome code')
+ALLOW_CHANGES(marketing, 'my awesome code')
 ```
 
 Снятие запрета для логической базы данных, выбранной по умолчанию:

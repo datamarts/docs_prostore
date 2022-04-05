@@ -73,7 +73,7 @@ FORMAT 'AVRO'
 ## Пример {#examples}
 
 ```sql
-CREATE DOWNLOAD EXTERNAL TABLE sales.sales_ext_download (
+CREATE DOWNLOAD EXTERNAL TABLE marketing.sales_ext_download (
   id INT,
   transaction_date TIMESTAMP,
   product_code VARCHAR(256),

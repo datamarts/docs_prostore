@@ -25,11 +25,11 @@ has_children: false
 ### Удаление логической базы данных {#deleting_db_example}
 
 ``` sql
-DROP DATABASE sales
+DROP DATABASE marketing
 ```
 
 ### Удаление логической базы данных только на логическом уровне {#logical_deleting_db_example}
 
 ``` sql
-DROP DATABASE sales1 LOGICAL_ONLY
+DROP DATABASE marketing1 LOGICAL_ONLY
 ```

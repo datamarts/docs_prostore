@@ -94,15 +94,15 @@ has_toc: false
 
 Реляционный запрос:
 ```sql
-SELECT * FROM sales.sales AS s
-JOIN sales.stores AS st ON s.store_id = st.id
+SELECT * FROM marketing.sales AS s
+JOIN marketing.stores AS st ON s.store_id = st.id
 ```
 
 Реляционный запрос, который включает агрегацию, группировку и чтение по ключу (`st.id`):
 ```sql
 SELECT st.id, st.category, SUM(s.product_units) AS product_amount
-FROM sales.stores AS st
-JOIN sales.sales AS s ON st.id = s.store_id
+FROM marketing.stores AS st
+JOIN marketing.sales AS s ON st.id = s.store_id
 WHERE st.id <> 10004
 GROUP BY st.id, st.category
 ORDER BY product_amount DESC
@@ -113,7 +113,7 @@ ORDER BY product_amount DESC
 Запрос агрегации и группировки:
 ```sql
 SELECT s.product_code, SUM(s.product_units) AS product_amount
-FROM sales.sales AS s
+FROM marketing.sales AS s
 GROUP BY s.product_code
 ORDER BY product_amount ASC
 ```
@@ -121,7 +121,7 @@ ORDER BY product_amount ASC
 Запрос агрегации и группировки, который включает чтение по ключу (`s.id`):
 ```sql
 SELECT s.product_code, SUM(s.product_units) AS product_amount
-FROM sales.sales AS s
+FROM marketing.sales AS s
 WHERE s.id > 20000
 GROUP BY s.product_code
 ```
@@ -129,14 +129,14 @@ GROUP BY s.product_code
 ### Запрос чтения по ключу {#read_by_key}
 
 ```sql
-SELECT * FROM sales.sales as s
+SELECT * FROM marketing.sales as s
 WHERE s.id BETWEEN 1001 AND 2000
 ```
 
 ### Запрос неопределенной категории {#undefined}
 
 ```sql
-SELECT * FROM sales.sales AS s
+SELECT * FROM marketing.sales AS s
 WHERE s.product_units > 2  
 ```
 

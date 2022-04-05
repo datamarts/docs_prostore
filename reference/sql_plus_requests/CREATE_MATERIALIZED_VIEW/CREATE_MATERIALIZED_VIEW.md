@@ -136,7 +136,7 @@ DATASOURCE_TYPE = origin_datasource_alias
 Создание представления с размещением в ADG и ADQM:
 
 ```sql
-CREATE MATERIALIZED VIEW sales.sales_december_2020 (
+CREATE MATERIALIZED VIEW marketing.sales_december_2020 (
 id INT NOT NULL,
 transaction_date TIMESTAMP NOT NULL,
 product_code VARCHAR(256) NOT NULL,
@@ -147,7 +147,7 @@ PRIMARY KEY (id)
 )
 DISTRIBUTED BY (id)
 DATASOURCE_TYPE (adg, adqm)
-AS SELECT * FROM sales.sales
+AS SELECT * FROM marketing.sales
    WHERE cast(transaction_date as date) BETWEEN '2020-12-01' AND '2020-12-31'
 DATASOURCE_TYPE = 'adb'
 ```

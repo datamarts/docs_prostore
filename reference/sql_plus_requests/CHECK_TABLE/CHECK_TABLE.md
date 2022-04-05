@@ -29,11 +29,11 @@ has_toc: false
 она пропускается при проверке.
 
 Проверяется соответствие следующих элементов:
-*   имен и порядка следования столбцов,
+*   имен столбцов,
 *   типов данных столбцов,
 *   первичного ключа.
 
-Имена и порядок следования проверяются для всех столбцов логической и физических таблиц, включая служебные 
+Имена проверяются для всех столбцов логической и физических таблиц, включая служебные 
 столбцы, имеющиеся только у физических таблиц. Например, если служебный столбец `sys_to` удален из 
 физической таблицы, в ответе вернется сообщение о расхождении.
 
@@ -57,9 +57,9 @@ CHECK_TABLE([db_name.]table_name)
 
 ## Примеры {#examples}
 
-Проверка логической таблицы `sales.sales`:
+Проверка логической таблицы `sales`:
 ```sql
-CHECK_TABLE(sales.sales)
+CHECK_TABLE(marketing.sales)
 ```
 
 ### Ответ при успешной проверке {#success_examples}
@@ -72,7 +72,7 @@ CHECK_TABLE(sales.sales)
 *Ответ CHECK_TABLE при успешной проверке*
 {: .figure-caption-center}
 
-![](check_table_without_inconsistency_and_1_db.png){:height="50%" width="50%"}
+![](check_table_without_inconsistency_and_1_db.png){:height="44%" width="44%"}
 {: .figure-center}
 *Ответ CHECK_TABLE с проверкой только в ADB*
 {: .figure-caption-center}
@@ -82,18 +82,17 @@ CHECK_TABLE(sales.sales)
 На рисунке ниже показан пример ответа при наличии расхождений, которые вызваны тем, что в физической таблице 
 ADB отсутствует столбец `description`.
 
-![](check_table_with_inconsistency.png)
+![](check_table_with_inconsistency.png){:height="50%" width="50%"}
 {: .figure-center}
 *Ответ CHECK_TABLE с найденными расхождениями*
 {: .figure-caption-center}
 
 На рисунке ниже показан пример ответа при наличии расхождений, которые вызваны тем, что 
-логическая таблица, размещаемая в ADB, была логически пересоздана для ADB, ADP и ADQM. Подробнее 
-о пересоздании логической таблицы только на логическом уровне см. в секции 
-[LOGICAL_ONLY](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only) раздела
-[CREATE TABLE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md).
+логическая таблица была создана только на логическом уровне. Подробнее 
+о создании и пересоздании логической таблицы на логическом уровне см. в разделе 
+[CREATE TABLE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md#logical_only).
 
-![](check_table_with_inconsistency_logical_only.png){:height="40%" width="40%"}
+![](check_table_with_inconsistency_logical_only.png){:height="60%" width="60%"}
 {: .figure-center}
 *Ответ CHECK_TABLE с найденными расхождениями*
 {: .figure-caption-center}

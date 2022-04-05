@@ -19,8 +19,8 @@ has_children: false
 ## Пример {#examples}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- удаление внешней таблицы выгрузки
 DROP DOWNLOAD EXTERNAL TABLE sales_ext_download;

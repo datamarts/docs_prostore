@@ -31,13 +31,13 @@ has_children: false
 ## Пример {#examples}
 
 ```sql
--- выбор базы данных sales по умолчанию
-USE sales;
+-- выбор базы данных marketing по умолчанию
+USE marketing;
 
 -- создание представления stores_by_sold_products
 CREATE VIEW stores_by_sold_products AS
   SELECT store_id, SUM(product_units) AS product_amount
-  FROM sales.sales
+  FROM sales
   GROUP BY store_id
   ORDER BY product_amount DESC
   LIMIT 30;

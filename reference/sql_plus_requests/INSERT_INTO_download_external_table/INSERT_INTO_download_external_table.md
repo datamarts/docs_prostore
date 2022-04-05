@@ -70,23 +70,23 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 
 ## Пример {#examples}
 
-### Выгрузка из СУБД, заданной в конфигурации {#default_db_example}
+### Выгрузка из наиболее оптимальной СУБД {#default_db_example}
 
 ```sql
-INSERT INTO sales.sales_ext_download
-SELECT * FROM sales.sales WHERE sales.product_units > 2
+INSERT INTO marketing.sales_ext_download
+SELECT * FROM marketing.sales WHERE sales.product_units > 2
 ```
 
 ### Выгрузка из указанной СУБД {#defined_db_example}
 
 ```sql
-INSERT INTO sales.sales_ext_download 
-SELECT * FROM sales.sales WHERE description = 'Покупка по акции 1+1' DATASOURCE_TYPE = 'adqm'
+INSERT INTO marketing.sales_ext_download 
+SELECT * FROM marketing.sales WHERE description = 'Покупка по акции 1+1' DATASOURCE_TYPE = 'adqm'
 ```
 
 ### Выгрузка из материализованного представления {#matview_example}
 
 ```sql
-INSERT INTO sales.sales_by_stores_ext_download
-SELECT * FROM sales.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm'
+INSERT INTO marketing.sales_by_stores_ext_download
+SELECT * FROM marketing.sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0004') DATASOURCE_TYPE = 'adqm'
 ```

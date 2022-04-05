@@ -90,23 +90,23 @@ ADQM. Само материализованное представление у�
 ### Удаление представления с удалением данных из всех СУБД {#all_db_example}
 
 ```sql
-DROP MATERIALIZED VIEW sales.sales_and_stores
+DROP MATERIALIZED VIEW marketing.sales_and_stores
 ```
 
 ### Удаление представления с проверкой его наличия {#example_with_check}
 
 ```sql
-DROP MATERIALIZED VIEW IF EXISTS sales.mat_view_with_unknown_existence
+DROP MATERIALIZED VIEW IF EXISTS marketing.mat_view_with_unknown_existence
 ```
 
 ### Удаление представления с удалением данных из ADG {#adg_example}
 
 ```sql
-DROP MATERIALIZED VIEW sales.sales_and_stores DATASOURCE_TYPE = 'adg'
+DROP MATERIALIZED VIEW marketing.sales_and_stores DATASOURCE_TYPE = 'adg'
 ```
 
 ### Удаление представления только на логическом уровне {#logical_example}
 
 ```sql
-DROP MATERIALIZED VIEW sales.stores_by_sold_products_matview LOGICAL_ONLY
+DROP MATERIALIZED VIEW marketing.stores_by_sold_products_matview LOGICAL_ONLY
 ```

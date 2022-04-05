@@ -111,7 +111,7 @@ CREATE TABLE [db_name.]table_name (
 ### Создание таблицы с размещением данных во всех СУБД хранилища {#example_with_all_dbms}
 
 ```sql
-CREATE TABLE sales.sales (
+CREATE TABLE marketing.sales (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
@@ -126,7 +126,7 @@ DISTRIBUTED BY (id)
 ### Создание таблицы с составным первичным ключом {#example_with_compound_pk}
 
 ```sql
-CREATE TABLE sales.stores (
+CREATE TABLE marketing.stores (
   id INT NOT NULL,
   category VARCHAR(256) NOT NULL,
   region VARCHAR(256) NOT NULL,
@@ -140,7 +140,7 @@ DISTRIBUTED BY (id)
 ### Создание таблицы с размещением данных в ADQM и ADG {#example_with_adqm_adg}
 
 ```sql
-CREATE TABLE sales.clients (
+CREATE TABLE marketing.clients (
   id INT NOT NULL,
   first_name VARCHAR(256) NOT NULL,
   last_name VARCHAR(256) NOT NULL,
@@ -154,7 +154,7 @@ DATASOURCE_TYPE (adqm,adg)
 ### Создание таблицы только на логическом уровне {#logical_example}
 
 ```sql
-CREATE TABLE sales.sales1 (
+CREATE TABLE marketing.sales1 (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
