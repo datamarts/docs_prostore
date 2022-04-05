@@ -211,13 +211,13 @@ COMMIT DELTA;
 ### Вставка данных в логическую таблицу из другой логической БД {#other_db_example}
 
 ```sql
--- создание новой логической БД sales_new
-CREATE DATABASE sales_new;
+-- создание новой логической БД marketing_new
+CREATE DATABASE marketing_new;
 
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales_new;
+USE marketing_new;
 
--- создание логической таблицы sales в логической БД sales_new (с размещением данных в ADP)
+-- создание логической таблицы sales в логической БД marketing_new (с размещением данных в ADP)
 CREATE TABLE sales (
 id INT NOT NULL,
 transaction_date TIMESTAMP NOT NULL,
@@ -233,7 +233,7 @@ DATASOURCE_TYPE (adp);
 BEGIN DELTA;
 
 -- вставка данных в таблицу sales из аналогичной таблицы другой логической БД
-INSERT INTO sales SELECT * FROM sales.sales WHERE store_id BETWEEN 1234 AND 4567 DATASOURCE_TYPE = 'adp';
+INSERT INTO sales SELECT * FROM marketing.sales WHERE store_id BETWEEN 1234 AND 4567 DATASOURCE_TYPE = 'adp';
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;

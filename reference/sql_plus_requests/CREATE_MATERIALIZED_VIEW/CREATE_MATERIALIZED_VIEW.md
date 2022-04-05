@@ -183,7 +183,7 @@ DATASOURCE_TYPE = 'adb'
 Создание представления с размещением в ADQM:
 
 ```sql
-CREATE MATERIALIZED VIEW sales.sales_by_stores (
+CREATE MATERIALIZED VIEW marketing.sales_by_stores (
   store_id INT NOT NULL,
   product_code VARCHAR(256) NOT NULL,
   product_units INT NOT NULL,
@@ -191,7 +191,7 @@ CREATE MATERIALIZED VIEW sales.sales_by_stores (
 )
 DISTRIBUTED BY (store_id)
 DATASOURCE_TYPE (adqm)
-AS SELECT store_id, product_code, SUM(product_units) as product_units FROM sales.sales
+AS SELECT store_id, product_code, SUM(product_units) as product_units FROM marketing.sales
    WHERE product_code <> 'ABC0001'
    GROUP BY store_id, product_code
 DATASOURCE_TYPE = 'adb'
@@ -200,7 +200,7 @@ DATASOURCE_TYPE = 'adb'
 ### Представление на основе двух таблиц {#example_with_join}
 
 ```sql
-CREATE MATERIALIZED VIEW sales.sales_and_stores (
+CREATE MATERIALIZED VIEW marketing.sales_and_stores (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
@@ -214,18 +214,18 @@ CREATE MATERIALIZED VIEW sales.sales_and_stores (
 DISTRIBUTED BY (id)
 DATASOURCE_TYPE (adg)
 AS SELECT
-  s.id, s.transaction_date, s.product_code, s.product_units, s.description,
-  st.id AS store_id, st.category as store_category, st.region
-  FROM sales.sales AS s
-  JOIN sales.stores AS st
-  ON s.store_id = st.id
+ s.id, s.transaction_date, s.product_code, s.product_units, s.description,
+ st.id AS store_id, st.category as store_category, st.region
+ FROM marketing.sales AS s
+ JOIN marketing.stores AS st
+ ON s.store_id = st.id
 DATASOURCE_TYPE = 'adb'
 ```
 
 ### Представление только на логическом уровне {#logical_example}
 
 ```sql
-CREATE MATERIALIZED VIEW sales.stores_by_sold_products_matview (
+CREATE MATERIALIZED VIEW marketing.stores_by_sold_products_matview (
   store_id INT NOT NULL,
   product_amount INT NOT NULL,
   PRIMARY KEY (store_id)
@@ -233,7 +233,7 @@ CREATE MATERIALIZED VIEW sales.stores_by_sold_products_matview (
 DISTRIBUTED BY (store_id)
 DATASOURCE_TYPE (adg)
 AS SELECT store_id, SUM(product_units) AS product_amount
-  FROM sales.sales
+  FROM marketing.sales
   GROUP BY store_id
 DATASOURCE_TYPE = 'adb'
 LOGICAL_ONLY
