@@ -74,7 +74,7 @@ INSERT INTO [db_name.]ext_table_name SELECT query
 
 ```sql
 INSERT INTO marketing.sales_ext_download
-SELECT * FROM marketing.sales WHERE sales.product_units > 2
+SELECT * FROM marketing.sales WHERE product_units > 2
 ```
 
 ### Выгрузка из указанной СУБД {#defined_db_example}
