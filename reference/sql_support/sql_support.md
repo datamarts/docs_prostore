@@ -48,6 +48,29 @@ has_toc: false
 |:---
 | `SELECT CAST(boolean_col as int32) FROM table1;` |
 
+## Запросы с подзапросами {#Querieswithsubqueries}
+
+### TRUNCATE HISTORY {#TruncatehistorySQL}
+
+| TRUNCATE HISTORY : Не поддерживается
+
+|:---
+| `TRUNCATE HISTORY table1 FOR SYSTEM_TIME AS OF`<br>`'2021-01-011 11:59:59'`<br>`WHERE int_col IN (SELECT int_col FROM table2);` |
+
+| TRUNCATE HISTORY : ADB, ADQM, ADG, ADP
+|:---
+| `TRUNCATE HISTORY table1 FOR SYSTEM_TIME AS OF`<br>`'2021-01-011 11:59:59'`<br>`WHERE int_col < 100;` | 
+
+### DELETE {#DeleteSQL}
+
+| DELETE : Не поддерживается
+|:---
+| `DELETE FROM table1 WHERE id IN (SELECT id FROM table2);` |
+
+| DELETE : ADB, ADQM, ADG, ADP
+|:---
+| `DELETE FROM table1 WHERE id IN (1, 2, 3, 4);` | 
+
 ## Функции и операторы соединения {#Joinfunctions}
 
 ### UNION {#UnionSQL}
