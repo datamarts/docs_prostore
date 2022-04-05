@@ -265,7 +265,7 @@ OFFSET <value_2> [ ROW | ROWS ]
       }
     }
   ],
-  "query": "SELECT * FROM (SELECT id FROM sales.sales_actual WHERE sys_from <= 98 AND COALESCE(sys_to, 9223372036854775807) >= 98)"
+  "query": "SELECT * FROM (SELECT id FROM marketing.sales_actual WHERE sys_from <= 98 AND COALESCE(sys_to, 9223372036854775807) >= 98)"
 }
 
 
@@ -286,7 +286,7 @@ OFFSET <value_2> [ ROW | ROWS ]
 
 Запрос с неявным указанием столбцов и ключевым словом `WHERE`:
 ```sql
-SELECT * FROM sales.sales
+SELECT * FROM marketing.sales
 WHERE store_id = 1234
 ```
 
@@ -295,7 +295,7 @@ WHERE store_id = 1234
 Запрос с перечислением столбцов и выбором данных из определенной СУБД хранилища (ADQM):
 ```sql
 SELECT sold.store_id, sold.product_amount
-FROM sales.stores_by_sold_products AS sold
+FROM marketing.stores_by_sold_products AS sold
 DATASOURCE_TYPE = 'adqm'
 ```
 
@@ -304,7 +304,7 @@ DATASOURCE_TYPE = 'adqm'
 Запрос с агрегацией, группировкой и сортировкой данных, а также выбором первых 20 строк:
 ```sql
 SELECT s.store_id, SUM(s.product_units) AS product_amount
-FROM sales.sales AS s
+FROM marketing.sales AS s
 GROUP BY (s.store_id)
 ORDER BY product_amount DESC
 LIMIT 20
@@ -315,7 +315,7 @@ LIMIT 20
 Запрос на получение информации о запросе:
 ```sql
 SELECT s.store_id, SUM(s.product_units) AS product_amount
-FROM sales.sales AS s
+FROM marketing.sales AS s
 GROUP BY (s.store_id)
 ORDER BY product_amount DESC
 ESTIMATE_ONLY
@@ -327,7 +327,7 @@ ESTIMATE_ONLY
 
 Запрос строк с указанными значениями без учета регистра:
 ```sql
-SELECT * from sales.sales 
+SELECT * from marketing.sales 
 WHERE product_code = 'ABC1234' AND product_code <> 'abc4567' COLLATE 'unicode_ci'
 DATASOURCE_TYPE = 'adg'
 ```
@@ -338,7 +338,7 @@ DATASOURCE_TYPE = 'adg'
 
 Запрос 20 строк, начиная с десятой:
 ```sql
-SELECT * from sales.sales FETCH NEXT 20 ROWS ONLY OFFSET 9
+SELECT * from marketing.sales FETCH NEXT 20 ROWS ONLY OFFSET 9
 ```
 
 Описание ключевого слова см. в секции [Ключевое слово OFFSET](#offset).
@@ -348,7 +348,7 @@ SELECT * from sales.sales FETCH NEXT 20 ROWS ONLY OFFSET 9
 Запрос 20 строк, упорядоченных по значению `id` и выбираемых начиная с десятой строки 
 результата:
 ```sql
-SELECT * from sales.sales ORDER BY id LIMIT 20 OFFSET 9
+SELECT * from marketing.sales ORDER BY id LIMIT 20 OFFSET 9
 ```
 
 Такое сочетание ключевых слов позволяет выбирать данные порциями с сохранением их порядка.
@@ -357,7 +357,7 @@ SELECT * from sales.sales ORDER BY id LIMIT 20 OFFSET 9
 
 Запрос записей, актуальных на момент закрытия дельты с номером 9, из материализованного представления:
 ```sql
-SELECT * FROM sales.sales_and_stores FOR SYSTEM_TIME AS OF DELTA_NUM 9
+SELECT * FROM marketing.sales_and_stores FOR SYSTEM_TIME AS OF DELTA_NUM 9
 ```
 
 Описание ключевого слова см. в секции [Ключевое слово FOR SYSTEM_TIME](#for_system_time).
@@ -370,8 +370,8 @@ SELECT
   st.id,
   st.category,
   s.product_code
-FROM sales.stores AS st
-INNER JOIN sales_new.sales AS s
+FROM marketing.stores AS st
+INNER JOIN marketing_new.sales AS s
   ON st.id = s.store_id
 ```
 
@@ -383,8 +383,8 @@ INNER JOIN sales_new.sales AS s
 дельт:
 ```sql
   SELECT st.id, st.category, s.product_code 
-  FROM sales.stores FOR SYSTEM_TIME STARTED IN(0,7) AS st 
-  INNER JOIN sales.sales FOR SYSTEM_TIME STARTED IN(0,1) AS s 
+  FROM marketing.stores FOR SYSTEM_TIME STARTED IN(0,7) AS st 
+  INNER JOIN marketing.sales FOR SYSTEM_TIME STARTED IN(0,1) AS s 
   ON st.id = s.store_id
 ```
 

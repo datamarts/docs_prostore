@@ -547,7 +547,7 @@ edenhill/kcat:1.7.0 -b localhost:9092 -t salesTopic -P /data/kafka_upload_sales.
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 -- запуск загрузки данных в логическую таблицу sales
-INSERT INTO sales SELECT * FROM sales.sales_ext_upload;
+INSERT INTO sales SELECT * FROM sales_ext_upload;
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
 ```
@@ -557,8 +557,9 @@ COMMIT DELTA;
 ```sql
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
+
 -- запуск вставки данных в логическую таблицу sales
-INSERT INTO sales.sales
+INSERT INTO sales
 (id, transaction_date, product_code, product_units, store_id, description)
 VALUES
 (2000111, '2020-05-01 13:14:16', 'ABC202010', 7, 1000000123, 'Покупка без акций'),
@@ -567,6 +568,7 @@ VALUES
 (2000114, '2020-05-04 23:03:13', 'ABC202013', 7, 1000000123, 'Покупка без акций'),
 (2000115, '2020-05-05 14:10:21', 'ABC202014', 21, 1000000623, 'Покупка без акций'),
 (2000116, '2020-06-12 08:43:56', 'ABC202015', 32, 1000000987, 'Покупка без акций');
+
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
 ```
@@ -575,16 +577,18 @@ COMMIT DELTA;
 
 ```sql
 -- запрос с неявным указанием столбцов и ключевым словом WHERE
-SELECT * FROM sales.sales
+SELECT * FROM sales
 WHERE store_id = 1000000123;
+
 -- запрос с агрегацией, группировкой и сортировкой данных, а также выбором первых 5 строк
 SELECT s.store_id, SUM(s.product_units) AS product_amount
-FROM sales.sales AS s
+FROM sales AS s
 GROUP BY (s.store_id)
 ORDER BY product_amount DESC
 LIMIT 5;
+
 -- запрос к логическому представлению stores_by_sold_products
-SELECT * from stores_by_sold_products;
+SELECT * FROM stores_by_sold_products;
 ```
 
 ### Выгрузка в топик Kafka {#kafka_topic_download}
@@ -600,6 +604,7 @@ SELECT * FROM sales WHERE product_units > 2;
 ```sql
 -- удаление внешней таблицы загрузки
 DROP UPLOAD EXTERNAL TABLE sales_ext_upload;
+
 -- удаление внешней таблицы выгрузки
 DROP DOWNLOAD EXTERNAL TABLE sales_ext_download;
 ```
