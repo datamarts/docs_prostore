@@ -54,11 +54,11 @@ has_toc: false
 
 | TRUNCATE HISTORY : Не поддерживается
 |:---
-| `TRUNCATE HISTORY table1 FOR SYSTEM_TIME AS OF`<br>`'2021-01-011 11:59:59'`<br>`WHERE int_col IN (SELECT int_col FROM table2);` |
+| `TRUNCATE HISTORY table1 FOR SYSTEM_TIME AS OF`<br>`'2021-01-01 23:59:59'`<br>`WHERE int_col IN (SELECT int_col FROM table2);` |
 
 | TRUNCATE HISTORY : ADB, ADQM, ADG, ADP
 |:---
-| `TRUNCATE HISTORY table1 FOR SYSTEM_TIME AS OF`<br>`'2021-01-011 11:59:59'`<br>`WHERE int_col < 100;` | 
+| `TRUNCATE HISTORY table1 FOR SYSTEM_TIME AS OF`<br>`'2021-01-01 23:59:59'`<br>`WHERE int_col < 100;` | 
 
 ### DELETE {#DeleteSQL}
 
