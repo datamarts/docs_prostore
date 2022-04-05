@@ -113,7 +113,7 @@ CHECK_SUM_SNAPSHOT(7,marketing.basic_stores_table)
 
 На рисунке ниже показан пример ответа на запрос `CHECK_SUM_SNAPSHOT` по логической таблице при наличии расхождений.
 
-![](check_sum_snapshot_with_inconsistency.png){:height="90%" width="90%"}
+![](check_sum_snapshot_with_inconsistency.png)
 {: .figure-center}
 *Ответ CHECK_SUM_SNAPSHOT по логической таблице при наличии расхождений*
 {: .figure-caption-center}
@@ -138,7 +138,7 @@ CHECK_SUM_SNAPSHOT(0);
 
 На рисунке ниже показан пример ответа на запрос `CHECK_SUM_SNAPSHOT` по логической базе данных.
 
-![](check_sum_snapshot_for_db.png){:height="26%" width="26%"}
+![](check_sum_snapshot_for_db.png){:height="30%" width="30%"}
 {: .figure-center}
 *Ответ CHECK_SUM_SNAPSHOT по логической базе данных*
 {: .figure-caption-center}
@@ -156,7 +156,7 @@ CHECK_SUM_SNAPSHOT(7, 100);
 
 На рисунке ниже показан пример ответа на такой запрос.
 
-![](check_sum_snapshot_for_db_with_normalization.png){:height="26%" width="26%"}
+![](check_sum_snapshot_for_db_with_normalization.png){:height="36%" width="36%"}
 {: .figure-center}
 *Запрос CHECK_SUM_SNAPSHOT с коэффициентом нормализации*
 {: .figure-caption-center}
