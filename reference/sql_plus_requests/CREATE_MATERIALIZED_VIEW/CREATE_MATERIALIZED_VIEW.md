@@ -22,9 +22,10 @@ has_toc: false
 
 Запрос позволяет создать [материализованное представление](../../../overview/main_concepts/materialized_view/materialized_view.md) 
 в [логической базе данных](../../../overview/main_concepts/logical_db/logical_db.md).
+Материализованное представление может содержать результаты запроса к данным одной или нескольких 
+[логических таблиц](../../../overview/main_concepts/logical_table/logical_table.md).
 
-Материализованные представления можно создавать на основе данных ADB. Данные представлений могут размещаться 
-в ADG и (или) ADQM.
+Данные представлений можно размещать в ADG и (или) ADQM. Источником данных для представлений служит ADB.
 {: .note-wrapper}
 
 В ответе возвращается:
@@ -42,8 +43,8 @@ has_toc: false
 что данные представлений (в отличие от данных логических таблиц) могут размещаться только в ADG и ADQM, а не во всех СУБД 
 хранилища.
 
-Синхронизация нового представления запускается в первом цикле синхронизации, доступном после создания представления, 
-в порядке очереди (если такая есть). Статус синхронизации представления можно узнать с помощью запроса 
+Созданное представление начинает синхронизироваться в первом цикле синхронизации, доступном после создания представления, 
+в порядке очереди. Статус синхронизации можно узнать с помощью запроса 
 [CHECK_MATERIALIZED_VIEW](../CHECK_MATERIALIZED_VIEW/CHECK_MATERIALIZED_VIEW.md). Подробнее о синхронизации см. в разделе 
 [Синхронизация материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md#synchronization).
 
@@ -51,12 +52,11 @@ has_toc: false
 представления необходимо удалить его и создать новое.
 {: .note-wrapper}
 
-Если при обработке запроса происходит ошибка, последующее изменение сущностей логической базы данных невозможно. В этом 
-случае нужно повторить запрос. Действие перезапустит обработку запроса, и после ее завершения можно будет продолжить 
-работу с логической БД.
+Если при обработке запроса произошла ошибка, изменение сущностей логической базы данных становится недоступно. В этом
+случае нужно выполнить запрос [ERASE_CHANGE_OPERATION](../ERASE_CHANGE_OPERATION/ERASE_CHANGE_OPERATION.md).
 
 Каждое создание представления записывается в [журнал](../../../overview/main_concepts/changelog/changelog.md). Журнал
-можно посмотреть с помощью запроса [GET_CHANGES](../GET_CHANGES/GET_CHANGES.md).
+можно посмотреть с помощью запроса [GET_CHANGES](../GET_CHANGES/GET_CHANGES.md). 
 
 ## Синтаксис {#syntax}
 
@@ -73,22 +73,48 @@ DATASOURCE_TYPE = origin_datasource_alias
 [LOGICAL_ONLY]
 ```
 
-Параметры:
-* `db_name` — имя логической базы данных, в которой создается материализованное представление. 
-  Опционально, если выбрана логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-* `materialized_view_name` — имя создаваемого материализованного представления, уникальное среди логических 
-  сущностей логической БД;
-* `column_name_N` — имя столбца представления;
-* `datatype_N` — тип данных столбца `column_name_N`. Возможные значения см. 
-  в разделе [Логические типы данных](../../supported_data_types/logical_data_types/logical_data_types.md);
-* `column_list_1` — список столбцов, входящих в первичный ключ представления;
-* `column_list_2` — список столбцов, входящих в ключ шардирования представления. 
-  Столбцы должны быть из числа столбцов `column_list_1`;
-* `datasource_aliases` — список псевдонимов СУБД хранилища, в которых нужно разместить данные представления. 
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных, в которой создается материализованное представление. 
+  Опционально, если выбрана логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`materialized_view_name`
+
+: Имя создаваемого материализованного представления, уникальное среди логических 
+  сущностей логической БД.
+
+`column_name_N`
+
+: Имя столбца представления.
+
+`datatype_N`
+
+: Тип данных столбца `column_name_N`. Возможные значения см. 
+  в разделе [Логические типы данных](../../supported_data_types/logical_data_types/logical_data_types.md).
+
+`column_list_1`
+
+: Список столбцов, входящих в первичный ключ представления.
+
+`column_list_2`
+
+: Список столбцов, входящих в ключ шардирования представления. Столбцы должны быть из числа столбцов `column_list_1`.
+
+`datasource_aliases`
+
+: Список псевдонимов СУБД хранилища, в которых нужно разместить данные представления. 
   Элементы списка перечисляются через запятую. Возможные значения: `adqm`, `adg`. 
-  Значения можно указывать без кавычек (например, `adg`) или двойных кавычках (например, `"adg"`);
-* `query` — [SELECT](../SELECT/SELECT.md)-подзапрос, на основе которого строится представление;
-* `origin_datasource_alias` — псевдоним СУБД, которая служит источником данных. 
+  Значения можно указывать без кавычек (например, `adg`) или двойных кавычках (например, `"adg"`).
+
+`query`
+
+: [SELECT](../SELECT/SELECT.md)-подзапрос, на основе которого строится представление.
+
+`origin_datasource_alias`
+
+: Псевдоним СУБД, которая служит источником данных. 
   Возможные значения: `'adb'`. Значение указывается в одинарных кавычках.
 
 ### Ключевое слово DATASOURCE_TYPE {#datasource_type}
@@ -114,16 +140,16 @@ DATASOURCE_TYPE = origin_datasource_alias
   * незавершенного запроса на создание, удаление или изменение таблицы или представления,
   * запрета на изменение сущностей (см. раздел [DENY_CHANGES](../DENY_CHANGES/DENY_CHANGES.md)).
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
-* Имена представления и его столбцов должны начинаться с латинской буквы, после первого символа могут следовать 
-  латинские буквы, цифры и символы подчеркивания в любом порядке.
-* Представление и его столбцы не могут иметь имена, перечисленные в разделе [Зарезервированные слова](../../reserved_words/reserved_words.md). 
-  Столбцы также не могут иметь имена, зарезервированные системой для служебного использования: `sys_op`, `sys_from`, 
+* Имена представления и его столбцов не могут быть из числа [зарезервированных слов](../../reserved_words/reserved_words.md) 
+  и должны начинаться с латинской буквы. После первого символа могут следовать латинские буквы, цифры и символы 
+  подчеркивания в любом порядке.
+* Столбцы также не могут иметь имена, зарезервированные системой для служебного использования: `sys_op`, `sys_from`, 
   `sys_to`, `sys_close_date`, `bucket_id`, `sign`.
 * Имена столбцов должны быть уникальны в рамках представления.
 * Имена, порядок и типы данных столбцов должны совпадать в SELECT-подзапросе и представлении.
 * Первичный ключ должен включать все столбцы ключа шардирования.
-* Подзапрос может обращаться только к [логическим таблицам](../../../overview/main_concepts/logical_table/logical_table.md) 
-  и только той логической базы данных, в которой находится материализованное представление.
+* Логические таблицы, указанные в SELECT-подзапросе, должны принадлежать той же логической базе данных, 
+  что и материализованное представление.
 * Подзапрос не может содержать: 
   * ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
   * ключевое слово `ORDER BY`,
@@ -131,19 +157,19 @@ DATASOURCE_TYPE = origin_datasource_alias
 
 ## Примеры {#examples}
 
-### Создание представления на основе одной таблицы с условием {#example_with_condition}
+### Представление на основе одной таблицы с условием {#example_with_condition}
 
 Создание представления с размещением в ADG и ADQM:
 
 ```sql
 CREATE MATERIALIZED VIEW marketing.sales_december_2020 (
-id INT NOT NULL,
-transaction_date TIMESTAMP NOT NULL,
-product_code VARCHAR(256) NOT NULL,
-product_units INT NOT NULL,
-store_id INT NOT NULL,
-description VARCHAR(256),
-PRIMARY KEY (id)
+  id INT NOT NULL,
+  transaction_date TIMESTAMP NOT NULL,
+  product_code VARCHAR(256) NOT NULL,
+  product_units INT NOT NULL,
+  store_id INT NOT NULL,
+  description VARCHAR(256),
+  PRIMARY KEY (id)
 )
 DISTRIBUTED BY (id)
 DATASOURCE_TYPE (adg, adqm)
@@ -152,16 +178,16 @@ AS SELECT * FROM marketing.sales
 DATASOURCE_TYPE = 'adb'
 ```
 
-### Создание представления на основе одной таблицы с условием, агрегацией и группировкой {#example_with_group_by}
+### Представление на основе одной таблицы с условием, агрегацией и группировкой {#example_with_group_by}
 
 Создание представления с размещением в ADQM:
 
 ```sql
 CREATE MATERIALIZED VIEW marketing.sales_by_stores (
-store_id INT NOT NULL,
-product_code VARCHAR(256) NOT NULL,
-product_units INT NOT NULL,
-PRIMARY KEY (store_id, product_code)
+  store_id INT NOT NULL,
+  product_code VARCHAR(256) NOT NULL,
+  product_units INT NOT NULL,
+  PRIMARY KEY (store_id, product_code)
 )
 DISTRIBUTED BY (store_id)
 DATASOURCE_TYPE (adqm)
@@ -171,7 +197,7 @@ AS SELECT store_id, product_code, SUM(product_units) as product_units FROM marke
 DATASOURCE_TYPE = 'adb'
 ```
 
-### Создание представления на основе двух таблиц {#example_with_join}
+### Представление на основе двух таблиц {#example_with_join}
 
 ```sql
 CREATE MATERIALIZED VIEW marketing.sales_and_stores (
@@ -196,7 +222,7 @@ AS SELECT
 DATASOURCE_TYPE = 'adb'
 ```
 
-### Создание представления только на логическом уровне {#logical_example}
+### Представление только на логическом уровне {#logical_example}
 
 ```sql
 CREATE MATERIALIZED VIEW marketing.stores_by_sold_products_matview (

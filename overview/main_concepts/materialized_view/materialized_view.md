@@ -20,8 +20,8 @@ has_toc: false
 {:toc}
 </details>
 
-_Материализованное представление_ — структурированная совокупность записей, содержащих результаты запроса к данным 
-одной или нескольких [логических таблиц](../logical_table/logical_table.md). Материализованное 
+_Материализованное представление_ — набор записей, содержащих результаты запроса к данным 
+[логических таблиц](../logical_table/logical_table.md). Материализованное 
 представление позволяет предварительно вычислить результат запроса и сохранить его для будущего использования.
 
 Материализованное представление строится на основе данных одной [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
@@ -59,13 +59,12 @@ _Материализованное представление_ — структ
 Материализованные представления можно [создавать](../../../working_with_system/logical_schema_update/create_materialized_view/create_materialized_view.md) 
 и [удалять](../../../working_with_system/logical_schema_update/drop_materialized_view/drop_materialized_view.md).
 Из материализованного представления можно [запрашивать](../../../working_with_system/data_reading/data_reading.md) 
-и [выгружать](../../../working_with_system/data_download/data_download.md) данные — так же, как из логических таблиц и 
-[логических представлений](../logical_view/logical_view.md). 
+и [выгружать данные](../../../working_with_system/data_download/data_download.md). 
 [Загрузка](../../../working_with_system/data_upload/data_upload.md) и 
-[обновление](../../../working_with_system/data_update/data_update.md) данных недоступны для 
+[обновление данных](../../../working_with_system/data_update/data_update.md) недоступны для 
 материализованных представлений.
 
-При необходимости можно получить информацию о запросе, с помощью которого было создано представление
+При необходимости можно получить информацию о запросе, который создал представление 
 (см. [GET_ENTITY_DDL](../../../reference/sql_plus_requests/GET_ENTITY_DDL/GET_ENTITY_DDL.md)).
 {: .note-wrapper}
 

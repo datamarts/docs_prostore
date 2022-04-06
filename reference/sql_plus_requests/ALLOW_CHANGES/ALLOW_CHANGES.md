@@ -30,10 +30,16 @@ has_toc: false
 ALLOW_CHANGES([db_name, ['code']])
 ```
 
-Параметры:
-* `db_name` — имя логической базы данных, для которой снимается запрет изменений. Опционально, если выбрана 
-  логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md);
-* `code` — код-пароль, заданный ранее в запросе [DENY_CHANGES](../DENY_CHANGES/DENY_CHANGES.md) при установке запрета 
+**Параметры:**
+
+`db_name`
+
+: Имя логической базы данных, для которой снимается запрет изменений. Опционально, если выбрана 
+  логическая БД, [используемая по умолчанию](../../../working_with_system/other_features/default_db_set-up/default_db_set-up.md).
+
+`code`
+
+: Код-пароль, заданный ранее в запросе [DENY_CHANGES](../DENY_CHANGES/DENY_CHANGES.md) при установке запрета 
   изменений.
 
 ## Ограничения {#restrictions}

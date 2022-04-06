@@ -13,8 +13,8 @@ has_toc: false
 При перезапуске системы выполняются следующие действия:
 1. Возобновляются незавершенные [операции записи](../../main_concepts/write_operation/write_operation.md): 
    * по всем операциям в статусе «Отменяется» запускается отмена,
-   * по операциям 
-   [загрузки данных](../../../working_with_system/data_upload/data_upload.md) в статусе «Выполняется» возобновляется 
+   * по операциям в статусе «Выполняется», запущенным запросами 
+   [загрузки данных](../../../working_with_system/data_upload/data_upload.md), возобновляется 
    отслеживание загрузки данных в [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md)
    [хранилища](../../main_concepts/data_storage/data_storage.md).
 2. Запускается синхронизация [материализованных представлений](../../main_concepts/materialized_view/materialized_view.md) 

@@ -10,9 +10,11 @@ has_toc: false
 
 # Логическая база данных {#logical_db}
 
-_Логическая база данных (логическая БД)_ — совокупность логических сущностей 
-([логических таблиц](../logical_table/logical_table.md), 
-[логических представлений](../logical_view/logical_view.md),
-[материализованных представлений](../materialized_view/materialized_view.md) и 
-[внешних таблиц](../external_table/external_table.md)), сгруппированных по какому-либо принципу, 
-например по направлению анализа.
+_Логическая база данных (логическая БД)_ — набор [логических сущностей](../logical_schema/logical_schema.md), 
+сгруппированных по какому-либо принципу, например по направлению анализа.
+
+Логическая база данных может содержать:
+* [логические таблицы](../logical_table/logical_table.md),
+* [логические представления](../logical_view/logical_view.md),
+* [материализованные таблицы](../materialized_view/materialized_view.md),
+* [внешние таблицы](../external_table/external_table.md).

@@ -71,7 +71,7 @@ DISTRIBUTED BY (id)
 LOGICAL_ONLY
 ```
 
-### Создание логической таблицы с размещением данных в ADQM и ADG {#adqm_adg_example}
+### Создание логической таблицы с размещением данных в ADP и ADG {#adp_adg_example}
 
 ```sql
 CREATE TABLE marketing.clients (
@@ -82,5 +82,5 @@ CREATE TABLE marketing.clients (
   birth_date DATE,
   PRIMARY KEY (id)
 ) DISTRIBUTED BY (id)
-DATASOURCE_TYPE (adqm,adg)
+DATASOURCE_TYPE (adp,adg)
 ```

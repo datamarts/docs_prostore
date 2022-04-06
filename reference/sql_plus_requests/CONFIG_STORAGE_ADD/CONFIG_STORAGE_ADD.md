@@ -13,7 +13,7 @@ has_toc: false
 Запрос позволяет подключить к системе источник данных — [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) 
 указанного типа. После успешного выполнения запроса можно 
 [создавать](../CREATE_TABLE/CREATE_TABLE.md) [логические таблицы](../../../overview/main_concepts/logical_table/logical_table.md) 
-с размещением данных в этой СУБД и [загружать](../INSERT_INTO_logical_table/INSERT_INTO_logical_table.md) 
+с размещением данных в этой СУБД и [загружать](../INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md) 
 данные в нее.
 
 Перед выполнением запроса необходимо добавить параметры СУБД 
@@ -36,8 +36,11 @@ has_toc: false
 CONFIG_STORAGE_ADD('datasource_alias')
 ```
 
-Параметры:
-*   `datasource_alias` — псевдоним СУБД хранилища. Возможные значения: `adb`, `adqm`, `adg`, `adp`.
+**Параметры:**
+
+`datasource_alias`
+
+: Псевдоним СУБД хранилища. Возможные значения: `adb`, `adqm`, `adg`, `adp`.
 
 ## Пример {#examples}
 

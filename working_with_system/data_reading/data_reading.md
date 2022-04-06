@@ -8,24 +8,31 @@ has_toc: false
 ---
 
 # Запрос данных {#data_reading}
+{: .no_toc }
 
-Система позволяет запрашивать небольшие объемы данных. Возможные способы выбора данных см. в секции 
-[FOR SYSTEM_TIME](../../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time) раздела [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md).
+<details markdown="block">
+  <summary>
+    Содержание раздела
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+Система позволяет запрашивать небольшие объемы данных. Данные можно запрашивать из следующих сущностей и их соединений:
+* [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md),
+* [логических представлений](../../overview/main_concepts/logical_view/logical_view.md),
+* [материализованных представлений](../../overview/main_concepts/materialized_view/materialized_view.md), 
+* [standalone-таблиц](../../overview/main_concepts/standalone_table/standalone_table.md).
 
 Под небольшим объемом данных подразумевается результат, содержащий десятки строк.
 Для получения большого объема данных следует использовать [выгрузку данных](../data_download/data_download.md).
 {: .note-wrapper}
 
-Чтобы запросить данные из [логических таблиц](../../overview/main_concepts/logical_table/logical_table.md), 
-[логических представлений](../../overview/main_concepts/logical_view/logical_view.md) 
-или [материализованного представления](../../overview/main_concepts/materialized_view/materialized_view.md), 
-выполните запрос [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md). В запросе можно указать СУБД хранилища 
-для исполнения запроса, иначе, если СУБД не указана, система определяет 
-[наиболее оптимальную СУБД для запроса](../data_reading/routing/routing.md).
-
-Запрос обрабатывается в порядке, описанном в разделе 
-[Порядок обработки запросов на чтение данных](../../overview/interactions/llr_processing/llr_processing.md). 
-Успешный ответ содержит запрошенные данные, неуспешный — исключение.
+Чтобы запросить данные, выполните запрос [SELECT](../../reference/sql_plus_requests/SELECT/SELECT.md). 
+В запросах к логическим таблицам, логическим и материализованным представлениям можно указать СУБД хранилища 
+для исполнения запроса, иначе, если СУБД не указана, система выбирает данные из 
+[наиболее оптимальной СУБД](../data_reading/routing/routing.md).
 
 На рисунке ниже показан пример запроса из логической таблицы `sales` с двумя строками в ответе.
 
@@ -35,6 +42,8 @@ has_toc: false
 {: .figure-caption-center}
 
 ## Примеры {#examples}
+
+### Запрос из логической таблицы {#from_logical_table}
 
 ```sql
 -- выбор логической базы данных marketing в качестве базы данных по умолчанию
@@ -46,12 +55,40 @@ FROM sales AS s
 GROUP BY (s.store_id)
 ORDER BY product_amount DESC
 LIMIT 20;
+```
 
+### Запрос из логического представления {#from_logical_view}
+
+```sql
 -- запрос данных из логического представления stores_by_sold_products
 SELECT sold.store_id, sold.product_amount
-FROM stores_by_sold_products AS sold;
+FROM marketing.stores_by_sold_products AS sold;
+```
 
+### Запрос из материализованного представления {#from_matview}
+
+```sql
 -- запрос данных из материализованного представления sales_by_stores
-SELECT * FROM sales_by_stores
+SELECT * FROM marketing.sales_by_stores
 WHERE store_id IN (1234, 1235, 1236);
+```
+
+### Запрос из standalone-таблицы {#from_standalone_table}
+
+```sql
+-- запрос данных из standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
+SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
+FROM marketing.payments_ext_read_adg AS p 
+GROUP BY p.agreement_id, p.code, p.currency_code
+```
+
+### Запрос из соединения standalone-таблицы и логической таблицы {#from_two_type_tables}
+
+```sql
+-- запрос данных из логической таблицы clients и standalone-таблицы, на которую указывает 
+--   внешняя readable-таблица agreements_ext_read_adp
+SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
+FROM marketing.agreements_ext_read_adp AS a
+LEFT JOIN marketing.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
+  ON a.client_id = c.id
 ```

@@ -19,8 +19,7 @@ _Физическая схема данных_ — структура хране
 в некоторых или всех [СУБД](../../../introduction/supported_DBMS/supported_DBMS.md) хранилища. 
 
 Состав СУБД, в которых создаются физические таблицы и, соответственно, хранятся данные логических сущностей, 
-можно регулировать с помощью ключевого слова `DATASOURCE_TYPE` в запросах на создание и удаление логических таблиц и 
-материализованных представлений. Подробнее см. в разделах 
+можно регулировать с помощью ключевого слова `DATASOURCE_TYPE` в запросах 
 [CREATE TABLE](../../../reference/sql_plus_requests/CREATE_TABLE/CREATE_TABLE.md),
 [DROP TABLE](../../../reference/sql_plus_requests/DROP_TABLE/DROP_TABLE.md),
 [CREATE MATERIALIZED VIEW](../../../reference/sql_plus_requests/CREATE_MATERIALIZED_VIEW/CREATE_MATERIALIZED_VIEW.md) и 

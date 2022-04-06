@@ -31,9 +31,12 @@ has_toc: false
 GET_DELTA_BY_DATETIME(date_time_expression)
 ```
 
-Параметры:
-*   `date_time_expression` — момент даты-времени вида `'YYYY-MM-DD hh:mm:ss'`. Возможные форматы см. в разделе
-    [Форматы даты и времени](../../timestamp_formats/timestamp_formats.md). 
+**Параметры:**
+
+`date_time_expression`
+
+: Момент даты-времени вида `'YYYY-MM-DD hh:mm:ss'`. Возможные форматы см. в разделе
+  [Форматы даты и времени](../../timestamp_formats/timestamp_formats.md). 
 
 ## Пример {#examples}
 
