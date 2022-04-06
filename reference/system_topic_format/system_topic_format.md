@@ -56,7 +56,7 @@ has_toc: false
 
 ```json
 {
-  "datamart": "sales", 
+  "datamart": "marketing", 
   "datetime": "2022-02-28 08:02:40",
   "event": "DELTA_CLOSE",
   "eventLogId": "6b80c392-3198-492f-a631-6a684e521b79"
@@ -85,7 +85,7 @@ has_toc: false
 ```json
 {
   "changeDateTime": "2022-02-24 15:25:47",
-  "datamart": "sales"
+  "datamart": "marketing"
 }
 ```
 

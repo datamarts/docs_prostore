@@ -25,12 +25,12 @@ has_children: false
 ### Удаление внешней таблицы с удалением standalone-таблицы {#example_with_options}
 
 ```sql
-DROP WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp
+DROP WRITABLE EXTERNAL TABLE marketing.agreements_ext_write_adp
 OPTIONS ('auto.drop.table.enable=true')
 ```
 
 ### Удаление внешней таблицы без удаления standalone-таблицы {#example_without_options}
 
 ```sql
-DROP WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg
+DROP WRITABLE EXTERNAL TABLE marketing.payments_ext_write_adg
 ```

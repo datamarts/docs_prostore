@@ -415,7 +415,7 @@ INNER JOIN marketing_new.sales AS s
 ```sql
 -- запрос данных из standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
 SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
-FROM sales.payments_ext_read_adg AS p 
+FROM marketing.payments_ext_read_adg AS p 
 GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
@@ -425,7 +425,7 @@ GROUP BY p.agreement_id, p.code, p.currency_code
 -- запрос данных из логической таблицы clients и standalone-таблицы, на которую указывает 
 --   внешняя readable-таблица agreements_ext_read_adp
 SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
-FROM sales.agreements_ext_read_adp AS a
-LEFT JOIN sales.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
+FROM marketing.agreements_ext_read_adp AS a
+LEFT JOIN marketing.clients FOR SYSTEM_TIME AS OF delta_num 9 AS c
   ON a.client_id = c.id
 ```

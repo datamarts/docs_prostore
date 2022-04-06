@@ -1,7 +1,7 @@
 ﻿---
 layout: default
 title: ERASE_CHANGE_OPERATION
-nav_order: 27.5
+nav_order: 27.7
 parent: Запросы SQL+
 grand_parent: Справочная информация
 has_children: false
@@ -57,10 +57,10 @@ ERASE_CHANGE_OPERATION(28, sales)
 Отмена операции в логической базы данных, выбранной по умолчанию:
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
--- запрос журнала для sales
+-- запрос журнала для marketing
 ERASE_CHANGE_OPERATION(28);
 ```
 

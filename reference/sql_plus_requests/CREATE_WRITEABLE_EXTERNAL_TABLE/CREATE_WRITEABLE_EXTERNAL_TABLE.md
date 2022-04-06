@@ -100,7 +100,7 @@ LOCATION 'core:datasource_alias://path_to_table'
 `path_to_table`
 
 : Путь к связанной standalone-таблице. Состоит из имени схемы (если применимо для СУБД) и имени таблицы,
-  указанных через точку. Примеры: `dtm__sales.agreements` (adqm), `sales.agreements` (adp, adb), `dtm__sales__agreements` (adg).
+  указанных через точку. Примеры: `dtm__marketing.agreements` (adqm), `marketing.agreements` (adp, adb), `dtm__marketing__agreements` (adg).
 
 `option_list`
 
@@ -122,7 +122,7 @@ LOCATION 'core:datasource_alias://path_to_table'
 ### Создание таблицы с ключами и параметрами (ADP) {#adp_with_options}
 
 ```sql
-CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
+CREATE WRITABLE EXTERNAL TABLE marketing.agreements_ext_write_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -133,14 +133,14 @@ CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
   PRIMARY KEY(id)
 )
 DISTRIBUTED BY (id)
-LOCATION 'core:adp://sales.agreements'
+LOCATION 'core:adp://marketing.agreements'
 OPTIONS ('auto.create.table.enable=true')
 ```
 
 ### Создание таблицы без ключей и параметров (ADG) {#adg_without_options}
 
 ```sql
-CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
+CREATE WRITABLE EXTERNAL TABLE marketing.payments_ext_write_adg (
   id INT NOT NULL,
   agreement_id INT,
   code VARCHAR(16),
@@ -149,5 +149,5 @@ CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
   description VARCHAR,
   bucket_id INT NOT NULL
 )
-LOCATION 'core:adg://dtm__sales__payments'
+LOCATION 'core:adg://dtm__marketing__payments'
 ```

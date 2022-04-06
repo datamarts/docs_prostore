@@ -35,7 +35,7 @@ has_toc: false
 ### Создание таблицы с ключами и параметрами (ADP) {#adp_with_options}
 
 ```sql
-CREATE READABLE EXTERNAL TABLE sales.agreements_ext_read_adp (
+CREATE READABLE EXTERNAL TABLE marketing.agreements_ext_read_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -46,14 +46,14 @@ CREATE READABLE EXTERNAL TABLE sales.agreements_ext_read_adp (
   PRIMARY KEY(id)
 )
 DISTRIBUTED BY (id)
-LOCATION 'core:adp://sales.agreements'
+LOCATION 'core:adp://marketing.agreements'
 OPTIONS ('auto.create.table.enable=true')
 ```
 
 ### Создание таблицы без ключей и параметров (ADG) {#adg_without_options}
 
 ```sql
-CREATE READABLE EXTERNAL TABLE sales.payments_ext_read_adg (
+CREATE READABLE EXTERNAL TABLE marketing.payments_ext_read_adg (
   id INT NOT NULL,
   agreement_id INT,
   code VARCHAR(16),
@@ -62,5 +62,5 @@ CREATE READABLE EXTERNAL TABLE sales.payments_ext_read_adg (
   description VARCHAR,
   bucket_id INT NOT NULL
 )
-LOCATION 'core:adg://dtm__sales__payments'
+LOCATION 'core:adg://dtm__marketing__payments'
 ```

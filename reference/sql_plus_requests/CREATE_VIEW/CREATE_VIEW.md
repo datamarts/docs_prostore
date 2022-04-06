@@ -91,9 +91,9 @@ CREATE VIEW marketing.stores_by_sold_products AS
 
 ```sql
 -- представление на основе standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
-CREATE VIEW sales.payments_by_agreement AS
+CREATE VIEW marketing.payments_by_agreement AS
   SELECT p.agreement_id, p.code, SUM(p.amount) AS amount, p.currency_code 
-  FROM sales.payments_ext_read_adg AS p 
+  FROM marketing.payments_ext_read_adg AS p 
   GROUP BY p.agreement_id, p.code, p.currency_code
 ```
 
@@ -102,9 +102,9 @@ CREATE VIEW sales.payments_by_agreement AS
 ```sql
 -- представление на основе логической таблицы clients и standalone-таблицы, на которую указывает 
 --   внешняя readable-таблица agreements_ext_read_adp
-CREATE VIEW sales.agreements_with_client_info AS
+CREATE VIEW marketing.agreements_with_client_info AS
   SELECT a.id, a.client_id, c.last_name, c.first_name, c.patronymic_name 
-  FROM sales.agreements_ext_read_adp AS a
-  LEFT JOIN sales.clients AS c
+  FROM marketing.agreements_ext_read_adp AS a
+  LEFT JOIN marketing.clients AS c
     ON a.client_id = c.id
 ```

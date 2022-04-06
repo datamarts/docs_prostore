@@ -41,15 +41,15 @@ ERASE_WRITE_OPERATION(sys_cn[, db_name])
 Отмена операции в указанной логической базе данных:
 
 ```sql
-ERASE_WRITE_OPERATION(10, sales)
+ERASE_WRITE_OPERATION(10, marketing)
 ```
 
 Отмена операции в логической базы данных, выбранной по умолчанию:
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
--- запрос журнала для sales
+-- запрос журнала для marketing
 ERASE_WRITE_OPERATION(10);
 ```

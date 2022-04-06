@@ -173,7 +173,7 @@ COMMIT DELTA;
 
 ```sql
 -- вставка записей в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp
-UPSERT INTO sales.agreements_ext_write_adp 
+UPSERT INTO marketing.agreements_ext_write_adp 
 VALUES (200, 444444, 'AB22222', '2022-02-08', '2022-02-09', '2024-02-09', ''), 
        (201, 555555, 'AB33333', '2022-02-10', '2022-02-11', '2025-02-11', 'Договор с ООО "Овал"');
 ```
@@ -183,15 +183,15 @@ VALUES (200, 444444, 'AB22222', '2022-02-08', '2022-02-09', '2024-02-09', ''),
 ```sql
 -- вставка записей в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp,
 --  без некоторых опциональных значений
-UPSERT INTO sales.agreements_ext_write_adp (id, client_id, number, signature_date)
+UPSERT INTO marketing.agreements_ext_write_adp (id, client_id, number, signature_date)
 VALUES (202, 999999, 'AB44444', '2022-01-01');
 ```
 
 ### Перезапуск операции по вставке записей {#retry_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;

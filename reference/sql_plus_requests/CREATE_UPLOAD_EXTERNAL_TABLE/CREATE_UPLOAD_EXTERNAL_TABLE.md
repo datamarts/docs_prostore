@@ -125,7 +125,7 @@ MESSAGE_LIMIT 1000
 ### Таблица для загрузки в standalone-таблицу {#to_standalone_table}
 
 ```sql
-CREATE UPLOAD EXTERNAL TABLE sales.payments_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE marketing.payments_ext_upload (
   id INT NOT NULL,
   agreement_id INT,
   code VARCHAR(16),

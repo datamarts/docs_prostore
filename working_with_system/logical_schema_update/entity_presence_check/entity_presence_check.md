@@ -40,15 +40,15 @@ has_children: false
 
 Выполните запрос к системному представлению `schemata`, подставив вместо `DB_NAME` имя логической БД в верхнем регистре:
 
-    ``` sql
-    SELECT
-      CASE
-        WHEN count(*) > 0 THEN 'БД существует'
-        ELSE 'БД не существует'
-      END
-    FROM INFORMATION_SCHEMA.schemata
-    WHERE schema_name = '<DB_NAME>'
-    ```
+```sql
+SELECT
+  CASE
+    WHEN count(*) > 0 THEN 'БД существует'
+    ELSE 'БД не существует'
+  END
+FROM INFORMATION_SCHEMA.schemata
+WHERE schema_name = '<DB_NAME>'
+```
 
 Если логическая база данных существует, в ответе возвращается строка «БД существует», иначе — строка «БД не существует».
 
@@ -77,7 +77,7 @@ has_children: false
 SELECT
   CASE
     WHEN count(*) > 0 THEN 'таблица существует'
-      ELSE 'таблица не существует'
+    ELSE 'таблица не существует'
   END
 FROM INFORMATION_SCHEMA.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<TABLE_NAME>' AND table_type = 'BASE TABLE')
@@ -103,11 +103,11 @@ SELECT * FROM <db_name>.<table_name> LIMIT 5
 Если логическая таблица существует, она присутствует среди объектов логической БД в SQL-клиенте,
 иначе — отсутствует среди таких объектов.
 
-    <a id="img_table_in_object_tree"></a>
-    ![](table_in_tree.png){:height="52%" width="52%"}
-    {: .figure-center}
-    *Логическая таблица в дереве объектов*
-    {: .figure-caption-center}
+<a id="img_table_in_object_tree"></a>
+![](table_in_tree.png){:height="52%" width="52%"}
+{: .figure-center}
+*Логическая таблица в дереве объектов*
+{: .figure-caption-center}
 
 ## Проверка наличия логического представления {#view_check}
 
@@ -120,7 +120,7 @@ SELECT * FROM <db_name>.<table_name> LIMIT 5
 SELECT
   CASE
     WHEN count(*) > 0 THEN 'представление существует'
-      ELSE 'представление не существует'
+    ELSE 'представление не существует'
   END
 FROM INFORMATION_SCHEMA.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<VIEW_NAME>' AND table_type = 'VIEW')
@@ -146,11 +146,11 @@ SELECT * FROM <db_name>.<view_name> LIMIT 5
 Если логическое представление, оно присутствует среди объектов логической БД в SQL-клиенте,
 иначе — отсутствует среди объектов логической БД.
 
-    <a id="img_view_in_object_tree"></a>
-    ![](view_in_tree.png){:height="62%" width="62%"}
-    {: .figure-center}
-    *Логическое представление в дереве объектов*
-    {: .figure-caption-center}
+<a id="img_view_in_object_tree"></a>
+![](view_in_tree.png){:height="62%" width="62%"}
+{: .figure-center}
+*Логическое представление в дереве объектов*
+{: .figure-caption-center}
 
 ## Проверка наличия материализованного представления {#mat_view_check}
 
@@ -163,7 +163,7 @@ SELECT * FROM <db_name>.<view_name> LIMIT 5
 SELECT
   CASE
     WHEN count(*) > 1 THEN 'представление существует'
-      ELSE 'представление не существует'
+    ELSE 'представление не существует'
   END
 FROM INFORMATION_SCHEMA.tables
 WHERE table_schema = '<DB_NAME>' AND
@@ -190,11 +190,11 @@ SELECT * FROM <db_name>.<materialized_view_name> LIMIT 5
 Если материализованное представление существует, оно присутствует среди объектов логической БД в SQL-клиенте,
 иначе — отсутствует среди объектов логической БД.
 
-    <a id="img_mat_view_in_object_tree"></a>
-    ![](materialized_view_in_tree.png){:height="60%" width="60%"}
-    {: .figure-center}
-    *Материализованное представление в дереве объектов*
-    {: .figure-caption-center}
+<a id="img_mat_view_in_object_tree"></a>
+![](materialized_view_in_tree.png){:height="60%" width="60%"}
+{: .figure-center}
+*Материализованное представление в дереве объектов*
+{: .figure-caption-center}
 
 ## Проверка наличия внешней таблицы загрузки или выгрузки {#ext_table_check}
 
@@ -230,7 +230,7 @@ SQL-клиента. Внешние таблицы не отображаются 
 SELECT
   CASE
     WHEN count(*) > 0 THEN 'таблица существует'
-      ELSE 'таблица не существует'
+    ELSE 'таблица не существует'
   END
 FROM INFORMATION_SCHEMA.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<TABLE_NAME>' AND table_type = 'READABLE EXTERNAL TABLE')
@@ -257,7 +257,7 @@ SELECT * FROM <db_name>.<table_name> LIMIT 5
 иначе — отсутствует среди таких объектов.
 
 <a id="img_readable_table_in_object_tree"></a>
-![](readable_table_in_tree.png){:height="70%" width="70%"}
+![](readable_table_in_tree.png){:height="60%" width="60%"}
 {: .figure-center}
 *Внешняя readable-таблица в дереве объектов*
 {: .figure-caption-center}
@@ -273,7 +273,7 @@ SELECT * FROM <db_name>.<table_name> LIMIT 5
 SELECT
   CASE
     WHEN count(*) > 0 THEN 'таблица существует'
-      ELSE 'таблица не существует'
+    ELSE 'таблица не существует'
   END
 FROM INFORMATION_SCHEMA.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<TABLE_NAME>' AND table_type = 'WRITABLE EXTERNAL TABLE')
@@ -289,7 +289,7 @@ WHERE table_schema = '<DB_NAME>' AND (table_name = '<TABLE_NAME>' AND table_type
 иначе — отсутствует среди таких объектов.
 
 <a id="img_writable_table_in_object_tree"></a>
-![](writable_table_in_tree.png){:height="70%" width="70%"}
+![](writable_table_in_tree.png){:height="60%" width="60%"}
 {: .figure-center}
 *Внешняя writable-таблица в дереве объектов*
 {: .figure-caption-center}

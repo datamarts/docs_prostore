@@ -182,8 +182,8 @@ COMMIT DELTA;
 ### Вставка данных в некоторые столбцы логической таблицы {#some_columns_of_logical_table}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание логической таблицы current_stores с выборкой из таблицы stores (с размещением данных в ADQM)
 CREATE TABLE current_stores (
@@ -214,7 +214,7 @@ COMMIT DELTA;
 -- создание новой логической БД marketing_new
 CREATE DATABASE marketing_new;
 
--- выбор логической базы данных sales в качестве базы данных по умолчанию
+-- выбор логической базы данных marketing_new в качестве базы данных по умолчанию
 USE marketing_new;
 
 -- создание логической таблицы sales в логической БД marketing_new (с размещением данных в ADP)
@@ -232,7 +232,7 @@ DATASOURCE_TYPE (adp);
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
--- вставка данных в таблицу sales из аналогичной таблицы другой логической БД
+-- вставка данных в таблицу sales из аналогичной таблицы логической БД marketing
 INSERT INTO sales SELECT * FROM marketing.sales WHERE store_id BETWEEN 1234 AND 4567 DATASOURCE_TYPE = 'adp';
 
 -- закрытие дельты (фиксация изменений)
@@ -242,8 +242,8 @@ COMMIT DELTA;
 ### Вставка данных в логическую таблицу из логического представления {#view_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание логического представления basic_stores с данными о магазинах категории basic
 CREATE VIEW basic_stores AS SELECT * FROM stores WHERE category = 'basic';
@@ -272,8 +272,8 @@ COMMIT DELTA;
 ### Заполнение столбца логической таблицы данными другой таблицы {#column_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание логической таблицы с данными покупок и адресов магазинов, где были совершены покупки 
 CREATE TABLE sales_with_address (
@@ -317,8 +317,8 @@ COMMIT DELTA;
 ### Вставка данных в логическую таблицу из standalone-таблицы {#standalone_to_logical_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- создание логической таблицы agreements_adp с размещением данных в ADP
 CREATE TABLE agreements_adp (
@@ -349,7 +349,7 @@ COMMIT DELTA;
 
 ```sql
 -- создание внешней writable-таблицы, связанной со standalone-таблицей ADQM
-CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
+CREATE WRITABLE EXTERNAL TABLE marketing.sales_ext_write_adqm (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
@@ -359,19 +359,19 @@ CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
   PRIMARY KEY (id)
 )
 DISTRIBUTED BY (id)
-LOCATION 'core:adqm://dtm__sales.sales'
+LOCATION 'core:adqm://dtm__marketing.sales'
 OPTIONS ('auto.create.table.enable=true');
 
 -- вставка данных в standalone-таблицу, на которую указывает внешняя writable-таблица sales_ext_write_adqm,
 --   из логической таблицы sales
-INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
+INSERT INTO marketing.sales_ext_write_adqm SELECT * FROM marketing.sales DATASOURCE_TYPE = 'adqm';
 ```
 
 ### Перезапуск операции по вставке записей {#retry_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;

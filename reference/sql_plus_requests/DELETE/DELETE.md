@@ -134,14 +134,14 @@ COMMIT DELTA;
 
 ```sql
 -- удаление записей standalone-таблицы, на которую указывает внешняя writable-таблица agreements_ext_write_adp
-DELETE FROM sales.agreements_ext_write_adp WHERE client_id < 100;
+DELETE FROM marketing.agreements_ext_write_adp WHERE client_id < 100;
 ```
 
 ### Перезапуск операции по удалению записей {#retry_example}
 
 ```sql
--- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+-- выбор логической базы данных marketing в качестве базы данных по умолчанию
+USE marketing;
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;

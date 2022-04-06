@@ -103,7 +103,7 @@ SELECT * FROM sales_by_stores WHERE product_code IN ('ABC0002', 'ABC0003', 'ABC0
 
 ```sql
 -- создание внешней таблицы выгрузки
-CREATE DOWNLOAD EXTERNAL TABLE sales.payments_ext_download (
+CREATE DOWNLOAD EXTERNAL TABLE marketing.payments_ext_download (
 id INT NOT NULL,
 agreement_id INT,
 code VARCHAR(16),
@@ -116,8 +116,8 @@ FORMAT 'AVRO'
 CHUNK_SIZE 1000;
 
 -- запуск выгрузки данных из standalone-таблицы, на которую указывает внешняя readable-таблица payments_ext_read_adg
-INSERT INTO sales.payments_ext_download
+INSERT INTO marketing.payments_ext_download
 SELECT s.id, s.agreement_id, s.code, s.amount, s.currency_code, s.description
-FROM sales.payments_ext_read_adg AS s
+FROM marketing.payments_ext_read_adg AS s
 WHERE code = 'MONTH_FEE' AND agreement_id BETWEEN 100 AND 150;
 ```

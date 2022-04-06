@@ -126,15 +126,15 @@ COMMIT DELTA;
 
 ```sql
 -- вставка записей в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp
-INSERT INTO sales.agreements_ext_write_adp 
+INSERT INTO marketing.agreements_ext_write_adp 
 VALUES (100, 111111, 'AB12345', '2022-02-01', '2022-02-02', '2024-02-02', 'Договор с ООО "Квадрат"'), 
        (101, 222222, 'AB67890', '2022-02-11', '2022-02-12', '2025-02-12', 'Договор с ООО "Круг"');
        
 -- удаление записей по одному клиенту
-DELETE FROM sales.agreements_ext_write_adp WHERE client_id = 234;       
+DELETE FROM marketing.agreements_ext_write_adp WHERE client_id = 234;       
 
 -- создание внешней writable-таблицы с созданием связанной standalone-таблицы в ADQM
-CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
+CREATE WRITABLE EXTERNAL TABLE marketing.sales_ext_write_adqm (
   id INT NOT NULL,
   transaction_date TIMESTAMP NOT NULL,
   product_code VARCHAR(256) NOT NULL,
@@ -144,18 +144,18 @@ CREATE WRITABLE EXTERNAL TABLE sales.sales_ext_write_adqm (
   PRIMARY KEY (id)
 )
 DISTRIBUTED BY (id)
-LOCATION 'core:adqm://dtm__sales.sales'
+LOCATION 'core:adqm://dtm__marketing.sales'
 OPTIONS ('auto.create.table.enable=true');
 
 -- вставка данных из логической таблицы sales в standalone-таблицу, на которую указывает внешняя writable-таблица sales_ext_write_adqm
-INSERT INTO sales.sales_ext_write_adqm SELECT * FROM sales.sales DATASOURCE_TYPE = 'adqm';
+INSERT INTO marketing.sales_ext_write_adqm SELECT * FROM marketing.sales DATASOURCE_TYPE = 'adqm';
 ```
 
 ### Перезапуск операций по вставке и удалению записей {#retry_example}
 
 ```sql
 -- выбор логической базы данных sales в качестве базы данных по умолчанию
-USE sales;
+USE marketing;
 
 -- открытие новой (горячей) дельты
 BEGIN DELTA;

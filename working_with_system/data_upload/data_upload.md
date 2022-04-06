@@ -140,7 +140,7 @@ COMMIT DELTA;
 
 ```sql
 -- создание внешней writable-таблицы с созданием связанной standalone-таблицы в ADP
-CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
+CREATE WRITABLE EXTERNAL TABLE marketing.agreements_ext_write_adp (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -151,11 +151,11 @@ CREATE WRITABLE EXTERNAL TABLE sales.agreements_ext_write_adp (
   PRIMARY KEY(id)
 )
 DISTRIBUTED BY (id)
-LOCATION 'core:adp://sales.agreements'
+LOCATION 'core:adp://marketing.agreements'
 OPTIONS ('auto.create.table.enable=true');
 
 -- создание внешней таблицы загрузки
-CREATE UPLOAD EXTERNAL TABLE sales.agreements_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE marketing.agreements_ext_upload (
   id INT NOT NULL,
   client_id INT NOT NULL,
   number VARCHAR NOT NULL,
@@ -169,7 +169,7 @@ FORMAT 'AVRO'
 OPTIONS ('auto.create.sys_op.enable=false')
 
 -- запуск загрузки данных в standalone-таблицу, на которую указывает внешняя writable-таблица agreements_ext_write_adp
-INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
+INSERT INTO marketing.agreements_ext_write_adp SELECT * FROM marketing.agreements_ext_upload;
 ```
 
 Подробнее об опции `auto.create.table.enable` см. в разделах 
@@ -181,7 +181,7 @@ INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_up
 
 ```sql
 -- создание внешней writable-таблицы, указывающей на существующую standalone-таблицу ADG
-CREATE WRITABLE EXTERNAL TABLE sales.payments_ext_write_adg (
+CREATE WRITABLE EXTERNAL TABLE marketing.payments_ext_write_adg (
 id INT NOT NULL,
 agreement_id INT,
 code VARCHAR(16),
@@ -190,10 +190,10 @@ currency_code VARCHAR(3),
 description VARCHAR,
 bucket_id INT NOT NULL
 )
-LOCATION 'core:adg://dtm__sales__payments';
+LOCATION 'core:adg://dtm__marketing__payments';
 
 -- создание внешней таблицы загрузки
-CREATE UPLOAD EXTERNAL TABLE sales.payments_ext_upload (
+CREATE UPLOAD EXTERNAL TABLE marketing.payments_ext_upload (
 id INT NOT NULL,
 agreement_id INT,
 code VARCHAR(16),
@@ -206,5 +206,5 @@ FORMAT 'AVRO'
 OPTIONS ('auto.create.sys_op.enable=false');
 
 -- запуск загрузки данных в standalone-таблицу, на которую указывает внешняя writable-таблица payments_ext_write_adg
-INSERT INTO sales.payments_ext_write_adg SELECT *, 0 as bucket_id FROM sales.payments_ext_upload;
+INSERT INTO marketing.payments_ext_write_adg SELECT *, 0 as bucket_id FROM marketing.payments_ext_upload;
 ```

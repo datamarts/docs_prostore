@@ -117,11 +117,14 @@ INSERT INTO [db_name.]table_name SELECT * FROM [db_name.]upload_ext_table_name
 ### Загрузка данных в логическую таблицу {#logical_table_example}
 
 ```sql
+-- выбор логической базы данных по умолчанию
+USE marketing;
+
 -- открытие новой (горячей) дельты
 BEGIN DELTA;
 
 -- запуск загрузки данных в логическую таблицу sales
-INSERT INTO sales.sales SELECT * FROM sales.sales_ext_upload;
+INSERT INTO sales SELECT * FROM sales_ext_upload;
 
 -- закрытие дельты (фиксация изменений)
 COMMIT DELTA;
@@ -132,12 +135,12 @@ COMMIT DELTA;
 Загрузка в standalone-таблицу ADP, на которую указывает внешняя writable-таблица `agreements_ext_write_adp`:
 
 ```sql
-INSERT INTO sales.agreements_ext_write_adp SELECT * FROM sales.agreements_ext_upload;
+INSERT INTO marketing.agreements_ext_write_adp SELECT * FROM marketing.agreements_ext_upload;
 ```
 
 <a id="ex_writable_adg"></a>
 Загрузка в standalone-таблицу ADG, на которую указывает внешняя writable-таблица `payments_ext_write_adg`:
 
 ```sql
-INSERT INTO sales.payments_ext_write_adg SELECT *, 0 as bucket_id FROM sales.payments_ext_upload;
+INSERT INTO marketing.payments_ext_write_adg SELECT *, 0 as bucket_id FROM marketing.payments_ext_upload;
 ```
