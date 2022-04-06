@@ -30,7 +30,7 @@ WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_typ
 SELECT * FROM information_schema.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_type = 'READABLE EXTERNAL TABLE')
 ```
-* запрос для [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md##writable_table):
+* запрос для [внешней writable-таблицы](../../../overview/main_concepts/external_table/external_table.md#writable_table):
 ```sql
 SELECT * FROM information_schema.tables
 WHERE table_schema = '<DB_NAME>' AND (table_name = '<ENTITY_NAME>' AND table_type = 'WRITABLE EXTERNAL TABLE')

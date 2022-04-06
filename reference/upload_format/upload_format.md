@@ -60,7 +60,7 @@ has_toc: false
 {: .note-wrapper}
 
 В схеме данных можно использовать логические типы Avro, а также элементы unions 
-(см. пример [ниже](#avro_schema_example)). Типы данных Avro, доступные к загрузке в систему, описаны в разделе 
+(см. пример [ниже](#avro_schema_example_1)). Типы данных Avro, доступные к загрузке в систему, описаны в разделе 
 [Загружаемые типы данных](../supported_data_types/upload_data_types/upload_data_types.md).
 
 Подробнее о формате Avro см. в официальной документации на сайте [https://avro.apache.org](https://avro.apache.org/).

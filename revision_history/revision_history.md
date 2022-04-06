@@ -34,8 +34,8 @@ has_children: false
   ключевое слово `RETRY`, а повторение запроса без ключевого слова не возобновляет обработку операции;
 * добавлены новые запросы:
   * запросы по управлению внешними writable- и readable-таблицами:
-    * [CREATE WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md);
-    * [DROP WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_WRITEABLE_EXTERNAL_TABLE);
+    * [CREATE WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md);
+    * [DROP WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_WRITABLE_EXTERNAL_TABLE);
     * [CREATE READABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md);
     * [DROP READABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_READABLE_EXTERNAL_TABLE/DROP_READABLE_EXTERNAL_TABLE.md);
   * [ERASE_CHANGE_OPERATION](../reference/sql_plus_requests/ERASE_CHANGE_OPERATION/ERASE_CHANGE_OPERATION.md);

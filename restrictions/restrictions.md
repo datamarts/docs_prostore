@@ -87,7 +87,7 @@ has_toc: false
   * незавершенного запроса на создание, удаление или изменение таблицы или представления,
   * запрета на изменение сущностей (см. раздел [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
-* Имена представления и его столбцов не могут быть из числа [зарезервированных слов](../../reserved_words/reserved_words.md)
+* Имена представления и его столбцов не могут быть из числа [зарезервированных слов](../reference/reserved_words/reserved_words.md)
   и должны начинаться с латинской буквы. После первого символа могут следовать латинские буквы, цифры и символы
   подчеркивания в любом порядке.
 * Столбцы не могут иметь имена, зарезервированные системой для служебного использования: `sys_op`, `sys_from`, 
@@ -104,7 +104,7 @@ has_toc: false
 
 ## [CREATE READABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md#restrictions)
 
-* Имена таблицы и ее столбцов не могут быть из числа [зарезервированных слов](../../reserved_words/reserved_words.md) и
+* Имена таблицы и ее столбцов не могут быть из числа [зарезервированных слов](../reference/reserved_words/reserved_words.md) и
   должны начинаться с латинской буквы. После первого символа могут следовать
   латинские буквы, цифры и символы подчеркивания.
 * Имена и порядок столбцов должны совпадать во внешней таблице и связанной standalone-таблице.
@@ -139,9 +139,9 @@ has_toc: false
   * ключевого слова [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time).
 * Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе `query`, игнорируется.
 
-## [CREATE WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md#restrictions)
+## [CREATE WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md#restrictions)
 
-* Имена таблицы и ее столбцов не могут быть из числа [зарезервированных слов](../../reserved_words/reserved_words.md) и
+* Имена таблицы и ее столбцов не могут быть из числа [зарезервированных слов](../reference/reserved_words/reserved_words.md) и
   должны начинаться с латинской буквы. После первого символа могут следовать
   латинские буквы, цифры и символы подчеркивания.
 * Имена и порядок столбцов должны совпадать во внешней таблице и связанной standalone-таблице.
@@ -149,7 +149,7 @@ has_toc: false
 
 ## [DELETE](../reference/sql_plus_requests/DELETE/DELETE.md#restrictions)
 
-* Удаление записей из логических таблиц возможно только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Удаление записей из логических таблиц возможно только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * В блоке `WHERE` не допускается использование функций, которые приводят к разным результатам в разных СУБД хранилища.
   Примеры таких функций — это операции над числами с плавающей запятой: сравнение с ними, округление и т.д.
 * Не допускается параллельное выполнение идентичных запросов.
@@ -198,7 +198,7 @@ has_toc: false
   * запрета на изменение сущностей (см. раздел [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 
-## [DROP WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_WRITEABLE_EXTERNAL_TABLE/DROP_WRITEABLE_EXTERNAL_TABLE.md#restrictions)
+## [DROP WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/DROP_WRITABLE_EXTERNAL_TABLE/DROP_WRITABLE_EXTERNAL_TABLE.md#restrictions)
 
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 

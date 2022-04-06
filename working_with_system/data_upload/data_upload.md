@@ -173,7 +173,7 @@ INSERT INTO marketing.agreements_ext_write_adp SELECT * FROM marketing.agreement
 ```
 
 Подробнее об опции `auto.create.table.enable` см. в разделах 
-[CREATE WRITABLE EXTERNAL TABLE](../../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md) и 
+[CREATE WRITABLE EXTERNAL TABLE](../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md) и 
 [CREATE READABLE EXTERNAL TABLE](../../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md).
 {: .note-wrapper}
 

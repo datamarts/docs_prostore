@@ -29,7 +29,7 @@ _Standalone-таблица_ — таблица СУБД хранилища, не
 она может быть автоматически создана при создании внешней таблицы.
 
 Подробнее об создании внешних таблиц см. в разделах 
-[CREATE WRITABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_WRITEABLE_EXTERNAL_TABLE/CREATE_WRITEABLE_EXTERNAL_TABLE.md) и 
+[CREATE WRITABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md) и 
 [CREATE READABLE EXTERNAL TABLE](../../../reference/sql_plus_requests/CREATE_READABLE_EXTERNAL_TABLE/CREATE_READABLE_EXTERNAL_TABLE.md).
 {: .note-wrapper}
 

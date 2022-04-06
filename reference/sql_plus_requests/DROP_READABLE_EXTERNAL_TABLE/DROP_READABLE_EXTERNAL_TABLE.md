@@ -20,7 +20,7 @@ has_toc: false
 {:toc}
 </details>
 
-Запрос удаляет [внешнюю readable-таблицу](../../../overview/main_concepts/external_table#readable_table).
+Запрос удаляет [внешнюю readable-таблицу](../../../overview/main_concepts/external_table/external_table.md#readable_table).
 
 По умолчанию система удаляет внешнюю таблицу из [логической базы данных](../../../overview/main_concepts/logical_db/logical_db.md) 
 и не удаляет связанную с ней
