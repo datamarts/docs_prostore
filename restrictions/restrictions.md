@@ -210,17 +210,17 @@ has_toc: false
 
 ## [INSERT SELECT FROM upload_external_table](../reference/sql_plus_requests/INSERT_SELECT_FROM_upload_external_table/INSERT_SELECT_FROM_upload_external_table.md#restrictions)
 
-* Загрузка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Загрузка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 
 ## [INSERT SELECT](../reference/sql_plus_requests/INSERT_SELECT/INSERT_SELECT.md#restrictions)
 
-* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Типы вставляемых данных должны соответствовать типам данных столбцов в целевой логической таблице.
 * Не допускается параллельное выполнение идентичных запросов.
 
 ## [INSERT VALUES](../reference/sql_plus_requests/INSERT_VALUES/INSERT_VALUES.md#restrictions)
 
-* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Не допускается параллельное выполнение идентичных запросов.
 
 ## [SELECT](../reference/sql_plus_requests/SELECT/SELECT.md#restrictions)
@@ -243,5 +243,5 @@ has_toc: false
 
 ## [UPSERT VALUES](../reference/sql_plus_requests/UPSERT_VALUES/UPSERT_VALUES.md#restrictions)
 
-* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../BEGIN_DELTA/BEGIN_DELTA.md)).
+* Вставка данных в логическую таблицу возможна только при наличии открытой дельты (см. [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md)).
 * Не допускается параллельное выполнение идентичных запросов.
