@@ -62,7 +62,7 @@ has_toc: false
 
 ### DELETE {#DeleteSQL}
 
-| DELETE : ADB, ADQM, ADG, ADP
+| DELETE : ADB, ADQM, ADP
 |:---
 | `DELETE FROM table1 WHERE id IN (1, 2, 3, 4);` | 
 
