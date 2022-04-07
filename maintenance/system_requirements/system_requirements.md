@@ -29,6 +29,7 @@ has_toc: false
   * коннектор Kafka-Clickhouse writer версии 3.7.0,
 * ADG версии 2.7.3,
   * коннектор Kafka-Tarantool версии 0.8.5-1,
+* коннектор Greenplum-Tarantool (PXF) версии 1.2.1,
 * PostgreSQL версии 13.5,
   * коннектор Kafka-Postgres reader версии 0.2.0,
   * коннектор Kafka-Postgres writer версии 0.2.0,
