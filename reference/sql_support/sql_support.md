@@ -83,7 +83,7 @@ has_toc: false
 | `INSERT INTO table1 (varchar_col1) AS`<br>`SELECT COALESCE(varchar_col,10) FROM readable_external_table2;` |
 | `INSERT INTO table1 (uuid_col1) AS`<br>`SELECT COALESCE(uuid_col,10) FROM readable_external_table2;` |
 | `INSERT INTO table1 (link_col1) AS`<br>`SELECT COALESCE(link_col,10) FROM readable_external_table2;` |
-| Both a `location` of a `readable_external_table2` and a `datasource_type` of a `table1` denote the same DBMS. |
+| Значение параметра `location` внешней таблицы `readable_external_table2` и значение параметра `datasource_type` логической таблицы `table1` должны относиться к одной СУБД. |
 
 
 | INSERT INTO SELECT : ADB, ADP
@@ -92,7 +92,7 @@ has_toc: false
 | `INSERT INTO table1 (date_col1) AS`<br>`SELECT COALESCE(date_col,true) FROM readable_external_table2;` |
 | `INSERT INTO table1 (time_col1) AS`<br>`SELECT COALESCE(time_col,true) FROM readable_external_table2;` |
 | `INSERT INTO table1 (datetime_col1) AS`<br>`SELECT COALESCE(datetime_col,true) FROM readable_external_table2;` |
-| Both a `location` of a `readable_external_table2` and a `datasource_type` of a `table1` denote the same DBMS. |
+| Значение параметра `location` внешней таблицы `readable_external_table2` и значение параметра `datasource_type` логической таблицы `table1` должны относиться к одной СУБД. |
 
 | INSERT INTO SELECT : ADB, ADQM, ADP
 |:---
@@ -105,7 +105,7 @@ has_toc: false
 | `INSERT INTO writable_external_table1 (varchar_col1) AS`<br>`SELECT COALESCE(varchar_col,10) FROM table2;` |
 | `INSERT INTO writable_external_table1 (uuid_col1) AS`<br>`SELECT COALESCE(uuid_col,10) FROM table2;` |
 | `INSERT INTO writable_external_table1 (link_col1) AS`<br>`SELECT COALESCE(link_col,10) FROM table2;` |
-| Both a `location` of a `writable_external_table1` and a `datasource_type` of a `table2` denote the same DBMS. |
+| Значение параметра `location` внешней таблицы `writable_external_table1` и значение параметра `datasource_type` логической таблицы `table2` должны относиться к одной СУБД. |
 
 
 | INSERT INTO SELECT : ADB, ADP
@@ -114,7 +114,7 @@ has_toc: false
 | `INSERT INTO writable_external_table1 (date_col1) AS`<br>`SELECT COALESCE(date_col,true) FROM table2;` |
 | `INSERT INTO writable_external_table1 (time_col1) AS`<br>`SELECT COALESCE(time_col,true) FROM table2;` |
 | `INSERT INTO writable_external_table1 (datetime_col1) AS`<br>`SELECT COALESCE(datetime_col,true) FROM table2;` |
-| Both a `location` of a `writable_external_table1` and a `datasource_type` of a `table2` denote the same DBMS. |
+| Значение параметра `location` внешней таблицы `writable_external_table1` и значение параметра `datasource_type` логической таблицы `table2` должны относиться к одной СУБД. |
 
 ## Функции и операторы соединения {#Joinfunctions}
 
