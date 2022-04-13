@@ -35,7 +35,7 @@ has_toc: false
 ## Синтаксис {#syntax}
 
 ```sql
-DROP WRITABLE EXTERNAL TABLE [db_name.]ext_table_name_ext
+DROP WRITABLE EXTERNAL TABLE [db_name.]ext_table_name
 [OPTIONS ('option_list')]
 ```
 

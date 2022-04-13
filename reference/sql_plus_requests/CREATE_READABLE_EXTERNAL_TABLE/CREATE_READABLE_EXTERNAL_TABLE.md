@@ -46,7 +46,7 @@ ADG, должна содержать поле `bucket_id` с типом `INT` и
 ## Синтаксис {#syntax}
 
 ```sql
-CREATE READABLE EXTERNAL TABLE [db_name.]ext_table_name_ext (
+CREATE READABLE EXTERNAL TABLE [db_name.]ext_table_name (
   column_name_1 datatype_1 [NULL | NOT NULL],
   column_name_2 datatype_2 [NULL | NOT NULL],
   column_name_3 datatype_3 [NULL | NOT NULL],
