@@ -68,10 +68,10 @@ CREATE OR REPLACE VIEW [db_name.]view_name AS SELECT query
 * Имена представления и его столбцов не могут быть из числа [зарезервированных слов](../../reserved_words/reserved_words.md) 
   и должны начинаться с латинской буквы. После первого символа могут следовать латинские буквы, цифры и символы 
   подчеркивания в любом порядке.
-* В подзапросе `query` не допускается использование:
-  * логических или [материализованных представлений](../../../overview/main_concepts/materialized_view/materialized_view.md),
-  * [системных представлений](../../system_views/system_views.md) `INFORMATION_SCHEMA`,
-  * ключевого слова [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time).
+* Подзапрос `query` не может содержать:
+  * логические и [материализованные представления](../../../overview/main_concepts/materialized_view/materialized_view.md),
+  * [системные представления](../../system_views/system_views.md) `INFORMATION_SCHEMA`,
+  * ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time).
 * Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе `query`, игнорируется.
 
 ## Примеры {#examples}

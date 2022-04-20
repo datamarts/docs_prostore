@@ -57,10 +57,10 @@ ALTER VIEW [db_name.]view_name AS SELECT query
   * запрета на изменение сущностей (см. раздел [DENY_CHANGES](../DENY_CHANGES/DENY_CHANGES.md)).
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
 * Подзапрос `query` не может содержать:
-  * логические представления,
-  * [системные представления](../../system_views/system_views.md) INFORMATION_SCHEMA,
-  * ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time),
-  * ключевое слово [DATASOURCE_TYPE](../SELECT/SELECT.md#param_datasource_type).
+  * логические и [материализованные представления](../../../overview/main_concepts/materialized_view/materialized_view.md),
+  * [системные представления](../../system_views/system_views.md) `INFORMATION_SCHEMA`,
+  * ключевое слово [FOR SYSTEM_TIME](../SELECT/SELECT.md#for_system_time).
+* Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе `query`, игнорируется.
 
 ## Пример {#examples}
 
