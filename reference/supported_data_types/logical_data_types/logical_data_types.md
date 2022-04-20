@@ -25,8 +25,8 @@ has_toc: false
 | LINK | Строка неограниченной длины. Предназначена для ссылочных полей | varchar | string | String | varchar
 | CHAR (n) | Строка ограниченной длины (n символов); размерность строки обязательна | varchar (n) | string | String | varchar (n)
 | UUID | Строка ограниченной длины (36 символов) | varchar (36) | string | String | varchar (36)
-| BIGINT | Целое число фиксированной длины со знаком, находящееся в диапазоне от `-2^63`</sup> до `2^63-1` | bigint (int8) | integer | Int64 | bigint (int8)
-| INT | Целое число фиксированной длины со знаком, находящееся в диапазоне от `-2^63` до `2^63-1` | bigint (int8) | integer | Int64 | bigint (int8)
+| BIGINT | Целое число фиксированной длины со знаком, находящееся в диапазоне \[-2<sup>63</sup>, 2<sup>63</sup>-1\]* | bigint (int8) | integer | Int64 | bigint (int8)
+| INT | Целое число фиксированной длины со знаком, находящееся в диапазоне от \[-2<sup>63</sup>, 2<sup>63</sup>-1\]* | bigint (int8) | integer | Int64 | bigint (int8)
 | INT32 | Целое число фиксированной длины со знаком, находящееся в диапазоне от `-2147483648` до `2147483647` | integer (int4) | integer | Int32 | integer (int4)
 | DOUBLE | Число с плавающей запятой с двойной точностью | double precision (float8) | number | Float64 | double precision (float8)
 | FLOAT | Число с плавающей запятой | real (float4) | number | Float32 | real (float4)
@@ -36,5 +36,4 @@ has_toc: false
 
 ---
 
--2<sup>63</sup> = `-9223372036854775808`<br>
- 2<sup>63</sup>-1 = `9223372036854775807`
+\* -2<sup>63</sup> = -9 223 372 036 854 775 808, 2<sup>63</sup>-1 = 9 223 372 036 854 775 807
