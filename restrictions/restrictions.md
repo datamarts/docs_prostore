@@ -29,11 +29,11 @@ has_toc: false
   * незавершенного запроса на создание, удаление или изменение таблицы или представления,
   * запрета на изменение сущностей (см. раздел [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
-* Подзапрос `query` не может содержать:
-  * логические представления,
-  * [системные представления](../reference/system_views/system_views.md) INFORMATION_SCHEMA,
-  * ключевое слово [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time),
-  * ключевое слово [DATASOURCE_TYPE](../reference/sql_plus_requests/SELECT/SELECT.md#param_datasource_type).
+* Подзапрос не может содержать:
+  * логические и [материализованные представления](../overview/main_concepts/materialized_view/materialized_view.md),
+  * [системные представления](../reference/system_views/system_views.md) `INFORMATION_SCHEMA`,
+  * ключевое слово [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time).
+* Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе, игнорируется.
 
 ## [BEGIN DELTA](../reference/sql_plus_requests/BEGIN_DELTA/BEGIN_DELTA.md#restrictions)
 
@@ -133,11 +133,11 @@ has_toc: false
   * незавершенного запроса на создание, удаление или изменение таблицы или представления,
   * запрета на изменение сущностей (см. раздел [DENY_CHANGES](../reference/sql_plus_requests/DENY_CHANGES/DENY_CHANGES.md)).
 * Выполнение запроса недоступно в сервисной базе данных `INFORMATION_SCHEMA`.
-* В подзапросе `query` не допускается использование:
-  * логических представлений,
-  * [системных представлений](../reference/system_views/system_views.md) `INFORMATION_SCHEMA`,
-  * ключевого слова [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time).
-* Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе `query`, игнорируется.
+* Подзапрос не может содержать:
+  * логические и [материализованные представления](../overview/main_concepts/materialized_view/materialized_view.md),
+  * [системные представления](../reference/system_views/system_views.md) `INFORMATION_SCHEMA`,
+  * ключевое слово [FOR SYSTEM_TIME](../reference/sql_plus_requests/SELECT/SELECT.md#for_system_time).
+* Ключевое слово `DATASOURCE_TYPE`, указанное в подзапросе, игнорируется.
 
 ## [CREATE WRITABLE EXTERNAL TABLE](../reference/sql_plus_requests/CREATE_WRITABLE_EXTERNAL_TABLE/CREATE_WRITABLE_EXTERNAL_TABLE.md#restrictions)
 
